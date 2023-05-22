@@ -29,8 +29,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageProduct"
+            <ViewFlipper
+                android:id="@+id/itemAdvertisement_imageView_viewflipper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -38,7 +38,37 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/product_image" />
+                android:flipInterval="5000"
+                android:autoStart="true"
+                android:inAnimation="@android:anim/slide_in_left"
+                android:outAnimation="@android:anim/slide_out_right"
+                app:layout_constraintDimensionRatio="H,1:1"
+
+                android:scaleType="centerCrop">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageProduct1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="@dimen/_320sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/product_image" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageProduct2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="@dimen/_320sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/product_image" />
+
+           </ViewFlipper>
+
 
             <FrameLayout
                 android:id="@+id/layoutMessage"
@@ -46,7 +76,7 @@
                 android:layout_height="@dimen/_60sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:background="@drawable/background_circle"
-                app:layout_constraintBottom_toBottomOf="@id/imageProduct"
+                app:layout_constraintBottom_toBottomOf="@+id/itemAdvertisement_imageView_viewflipper"
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -71,7 +101,7 @@
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_18ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageProduct"
+                app:layout_constraintTop_toBottomOf="@+id/itemAdvertisement_imageView_viewflipper"
                 android:text="Astylish Women Open Front Long Sleeve Chunky Knit Cardigan" />
 
             <TextView

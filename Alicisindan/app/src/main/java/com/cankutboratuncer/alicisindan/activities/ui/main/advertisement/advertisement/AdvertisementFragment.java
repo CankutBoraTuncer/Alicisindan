@@ -93,7 +93,7 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
         productDetails.setText(advertisement.getDescription());
         TextView productLocation = view.findViewById(R.id.location);
         productLocation.setText(advertisement.getLocation());
-        ImageView productImage = view.findViewById(R.id.imageProduct);
+        ImageView productImage = view.findViewById(R.id.imageProduct1);
         productImage.setImageBitmap(decodeImage(advertisement.getImage()));
 
         LinearLayoutManager horizontalRecyclerViewLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false) {
