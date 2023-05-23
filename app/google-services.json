@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1067220573647",
+    "project_id": "alicisindan-e57c4",
+    "storage_bucket": "alicisindan-e57c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067220573647:android:1303b7a52af4162f2906ba",
+        "android_client_info": {
+          "package_name": "com.cankutboratuncer.alicisindan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067220573647-4avuf0um0dtc741ls5hto1o9iajm02ej.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAw2B_pmktIFz7e_PfcTmY-CAVIK1_KbRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067220573647-4avuf0um0dtc741ls5hto1o9iajm02ej.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
