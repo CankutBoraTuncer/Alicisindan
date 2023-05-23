@@ -2,6 +2,7 @@ package com.cankutboratuncer.alicisindan.activities.ui.main.profile;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cankutboratuncer.alicisindan.R;
+import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +27,7 @@ public class AccountFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private LocalSave localSave;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -61,6 +64,19 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
+        localSave =  new LocalSave(getContext());
+        CardView changePassword = view.findViewById(R.id.accountFragment_cardView_changePassword);
+        changePassword.setOnClickListener(v -> {
+            Fragment fragment = new ChangePasswordFragment();
+            loadFragment(fragment);
+        });
+        return view;
+
+    }
+
+    public void loadFragment(Fragment fragment) {
+        //to attach fragment
+        getParentFragmentManager().beginTransaction().replace(R.id.mainActivity_frameLayout_main, fragment).addToBackStack(null).commit();
     }
 }

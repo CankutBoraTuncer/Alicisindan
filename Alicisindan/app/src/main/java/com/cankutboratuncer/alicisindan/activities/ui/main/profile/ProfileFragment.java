@@ -10,6 +10,11 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.cankutboratuncer.alicisindan.R;
+import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
+import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
+import com.cankutboratuncer.alicisindan.activities.utilities.User;
+import com.cankutboratuncer.alicisindan.databinding.ActivityPostEditBinding;
+import com.cankutboratuncer.alicisindan.databinding.FragmentProfileBinding;
 
 
 /**
@@ -23,11 +28,14 @@ public class ProfileFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private LocalSave localSave;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    private User user;
+    private FragmentProfileBinding binding;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -53,6 +61,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = FragmentProfileBinding.inflate(getLayoutInflater());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -63,7 +72,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
+        localSave =  new LocalSave(getContext());
         CardView cardView_myPosts = view.findViewById(R.id.profileFragment_cardView_myPosts);
         CardView cardView_messages = view.findViewById(R.id.profileFragment_cardView_messages);
         CardView cardView_account = view.findViewById(R.id.profileFragment_cardView_account);
@@ -95,7 +104,10 @@ public class ProfileFragment extends Fragment {
             Fragment fragment = new LogOutFragment();
             loadFragment(fragment);
         });
-
+        TextView username = view.findViewById(R.id.profileFragment_textView_fullName);
+        username.setText(localSave.getString(Constants.KEY_USER_NAME));
+        TextView email = view.findViewById(R.id.profileFragment_textView_email);
+        email.setText(localSave.getString(Constants.KEY_USER_EMAIL));
         return view;
     }
 
