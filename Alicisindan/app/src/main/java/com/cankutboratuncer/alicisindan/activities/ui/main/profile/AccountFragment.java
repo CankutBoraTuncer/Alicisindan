@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cankutboratuncer.alicisindan.R;
+import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
+import com.cankutboratuncer.alicisindan.activities.utilities.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +63,34 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
+        localSave =  new LocalSave(getContext());
+        CardView changePassword = view.findViewById(R.id.accountFragment_cardView_changePassword);
+        CardView userInfo = view.findViewById(R.id.accountFragment_cardView_userInfo);
+        CardView location = view.findViewById(R.id.accountFragment_cardView_addressInfo);
+        CardView email = view.findViewById(R.id.accountFragment_cardView_changeMailOrPhone);
+        CardView delete = view.findViewById(R.id.accountFragment_cardView_deleteAccount);
+        changePassword.setOnClickListener(v -> {
+            Fragment fragment = new ChangePasswordFragment();
+            loadFragment(fragment);
+        });
+        userInfo.setOnClickListener(v3 -> {
+            Fragment fragment = new UserInfoFragment();
+            loadFragment(fragment);
+        });
+        location.setOnClickListener(v4 -> {
+            Fragment fragment = new AddressFragment();
+            loadFragment(fragment);
+        });
+        email.setOnClickListener(v5 -> {
+            Fragment fragment = new ChangeEmailFragment();
+            loadFragment(fragment);
+        });
+        delete.setOnClickListener(v6 -> {
+            Fragment fragment = new DeleteAccountFragment();
+            loadFragment(fragment);
+        });
+        return view;
+
     }
 }
