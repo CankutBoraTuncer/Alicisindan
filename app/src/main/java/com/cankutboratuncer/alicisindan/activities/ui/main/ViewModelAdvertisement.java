@@ -36,4 +36,5 @@ public class ViewModelAdvertisement extends ViewModel {
     public void setAdvertisements_sell(ArrayList<Advertisement> advertisements_sell) {
         this.advertisements_sell = advertisements_sell;
     }
+
 }

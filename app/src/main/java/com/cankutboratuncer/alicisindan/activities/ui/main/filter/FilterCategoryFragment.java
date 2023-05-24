@@ -12,10 +12,10 @@ import com.cankutboratuncer.alicisindan.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FilterResultsFragment#newInstance} factory method to
+ * Use the {@link FilterCategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FilterResultsFragment extends Fragment {
+public class FilterCategoryFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class FilterResultsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FilterResultsFragment() {
+    public FilterCategoryFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class FilterResultsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FilterResultsFragment.
+     * @return A new instance of fragment FilterCategoryFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FilterResultsFragment newInstance(String param1, String param2) {
-        FilterResultsFragment fragment = new FilterResultsFragment();
+    public static FilterCategoryFragment newInstance(String param1, String param2) {
+        FilterCategoryFragment fragment = new FilterCategoryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class FilterResultsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_filter_results, container, false);
+        return inflater.inflate(R.layout.fragment_filter_category, container, false);
     }
 }

@@ -1,43 +1,60 @@
 package com.cankutboratuncer.alicisindan.activities.ui.main.filter;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.cankutboratuncer.alicisindan.R;
-import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementFragment;
-import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementInterface;
-import com.cankutboratuncer.alicisindan.activities.utilities.Advertisement;
-import com.cankutboratuncer.alicisindan.activities.utilities.Category;
-import com.cankutboratuncer.alicisindan.activities.utilities.Filter;
-
-import java.util.ArrayList;
+import com.cankutboratuncer.alicisindan.activities.ui.main.buy.BuyFragment;
+import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FilterFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FilterFragment extends Fragment implements AdvertisementInterface {
+public class FilterFragment extends Fragment {
 
-    ArrayList<Advertisement> advertisements;
-    ArrayList<Category> categories;
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_CATEGORY = "category";
+    private static final String ARG_SUBCATEGORY = "subCategory";
+
+    // TODO: Rename and change types of parameters
+    private String category;
+    private String subCategory;
+    private String brand;
+    private String condition;
 
     public FilterFragment() {
         // Required empty public constructor
     }
 
-    public static FilterFragment newInstance(int advertisementID) {
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param category Parameter 1.
+     * @param subCategory Parameter 2.
+     * @return A new instance of fragment filterFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static FilterFragment newInstance(String category, String subCategory) {
         FilterFragment fragment = new FilterFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_CATEGORY, category);
+        args.putString(ARG_SUBCATEGORY, subCategory);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,53 +63,59 @@ public class FilterFragment extends Fragment implements AdvertisementInterface {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            category = getArguments().getString(ARG_CATEGORY);
+            subCategory = getArguments().getString(ARG_SUBCATEGORY);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_filter, container, false);
 
-        EditText editText_location = view.findViewById(R.id.filterFragment_editText_location);
-        EditText editText_type = view.findViewById(R.id.filterFragment_editText_type);
-        EditText editText_category = view.findViewById(R.id.filterFragment_editText_category);
-        EditText editText_brand = view.findViewById(R.id.filterFragment_editText_brand);
-        EditText editText_color = view.findViewById(R.id.filterFragment_editText_color);
-        Spinner spinner_sortingMethod = view.findViewById(R.id.filterFragment_spinner_sortingMethod);
-        Button button_filter = view.findViewById(R.id.filterFragment_button_filter);
+        Spinner brandSpinner = view.findViewById(R.id.filterFragment_brand);
+        Spinner conditionSpinner = view.findViewById(R.id.filterFragment_condition);
 
-        button_filter.setOnClickListener(new View.OnClickListener() {
+        ArrayAdapter conditionAdapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_spinner_item, Constants.CONDITION);
+        conditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        conditionSpinner.setAdapter(conditionAdapter);
+
+        ArrayAdapter brandAdapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_spinner_item, Constants.CAR_CAR_BRAND);
+        conditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        brandSpinner.setAdapter(brandAdapter);
+
+        TextView category_textView = view.findViewById(R.id.filterFragment_subTitle);
+        category_textView.setText(category + "/" + subCategory);
+
+        Button searchButton = (Button) view.findViewById(R.id.filterFragment_buttonPost);
+        TextView changeButton = view.findViewById(R.id.filterFragment_changeButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Filter filter = new Filter(editText_location.getText().toString(), editText_type.getText().toString(), editText_category.getText().toString(), editText_brand.getText().toString(), editText_color.getText().toString(), spinner_sortingMethod.getSelectedItem().toString());
+                brand = brandSpinner.getSelectedItem().toString();
+                if (brand.equals("None")) {
+                    brand = null;
+                }
+                condition = conditionSpinner.getSelectedItem().toString();
+                if (condition.equals("None")) {
+                    condition = null;
+                }
 
-                // TODO: AdvertisementHandler(filter);
-                Fragment fragment = new FilterResultsFragment();
+                Bundle args = new Bundle();
+                Fragment fragment = BuyFragment.newInstance(category, subCategory, brand, condition);
                 loadFragment(fragment);
             }
         });
-
-        LinearLayoutManager horizontalRecyclerViewLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false) {
-            @Override
-            public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
-                // force height of viewHolder here, this will override layout_height from xml
-                lp.width = (int) (getWidth() / 4);
-                return true;
-            }
-        };
 
         return view;
     }
 
     void loadFragment(Fragment fragment) {
-        //to attach fragment
-        getParentFragmentManager().beginTransaction().replace(R.id.mainActivity_frameLayout_main, fragment).addToBackStack(null).commit();
-    }
-
-    @Override
-    public void onAdvertisementClick(int position) {
-        Fragment fragment = AdvertisementFragment.newInstance(advertisements.get(position).getAdvertisementID());
-        loadFragment(fragment);
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.mainActivity_frameLayout_main, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

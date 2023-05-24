@@ -106,7 +106,6 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
             loading(true, view);
             handler = new Handler(Looper.getMainLooper());
             new BackgroundTask(getContext(), this, this).execute();
-
         }
     }
 

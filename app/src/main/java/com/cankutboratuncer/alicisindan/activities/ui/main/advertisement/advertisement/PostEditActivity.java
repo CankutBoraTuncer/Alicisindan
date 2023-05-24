@@ -53,7 +53,7 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
         Intent intent = getIntent();
         category = intent.getStringExtra("category");
         type = intent.getStringExtra("type");
-        if(type.equals("sell")){
+         if(type.equals("sell")){
             binding.topPanel.setText("I want to sell...");
         } else{
             binding.topPanel.setText("I want to buy...");
@@ -79,7 +79,6 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
         ArrayAdapter conditionAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Constants.CONDITION);
         conditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCondition.setAdapter(conditionAdapter);
-
     }
 
     private void initImageButton() {
