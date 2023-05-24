@@ -20,7 +20,6 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,11 +31,11 @@ import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.adverti
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementInterface;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.CategoryInterface;
-import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostAddSubCategoryActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostTypeActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.category.CategoryAdapter;
 import com.cankutboratuncer.alicisindan.activities.ui.main.category.CategoryFragment;
-import com.cankutboratuncer.alicisindan.activities.ui.main.ViewModelAdvertisement;
+import com.cankutboratuncer.alicisindan.activities.ui.main.filter.FilterCategoryFragment;
+import com.cankutboratuncer.alicisindan.activities.ui.main.filter.FilterFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.filter.FilterSubCategoryFragment;
 import com.cankutboratuncer.alicisindan.activities.utilities.Advertisement;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
@@ -49,11 +48,17 @@ import Alicisindan.Listing;
 import Alicisindan.User;
 
 public class BuyFragment extends Fragment implements AdvertisementInterface, CategoryInterface {
-
+    // Give TAGS to the variables used for filtering
     private static final String ARG_FILTER_CATEGORY = "filter_category";
     private static final String ARG_FILTER_SUBCATEGORY = "filter_subCategory";
     private static final String ARG_FILTER_BRAND = "filter_brand";
     private static final String ARG_FILTER_CONDITION = "filter_condition";
+
+    // Strings to be used in filtering
+    String categoryForFilter;
+    String subCategoryForFilter;
+    String brandForFilter;
+    String conditionForFilter;
     ArrayList<Advertisement> advertisements;
     View view;
     ArrayList<AllCategories> categories;
@@ -68,16 +73,13 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
     String brand;
     String type;
 
-    String categoryForFilter;
-    String subCategoryForFilter;
-    String brandForFilter;
-    String conditionForFilter;
     RecyclerView recyclerViewForAdvertisements;
     RecyclerView recyclerViewForCategories;
     LinearLayoutManager horizontalRecyclerViewLayoutManager;
     SwipeRefreshLayout swipeRefreshLayout;
     AdvertisementAdapter advertisementAdapter;
     BackgroundTask backgroundTask;
+    Handler handler;
 
     public BuyFragment() {
     }
@@ -124,7 +126,7 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_buy, container, false);
-        backgroundTask = new BackgroundTask(getContext(), this, this);
+        backgroundTask = new BackgroundTask(getContext());
         backgroundTask.execute();
         return view;
     }
@@ -141,7 +143,7 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
 
     public void initUI() {
         categories = CategoryTest.categories;
-        Log.d("Category", "size: "+ categories.size());
+        Log.d("Category", "size: " + categories.size());
         recyclerViewForCategories = view.findViewById(R.id.buyFragment_recyclerView_categories);
         CategoryAdapter categoryAdapter = new CategoryAdapter(categories, this);
         recyclerViewForCategories.setAdapter(categoryAdapter);
@@ -149,7 +151,7 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
             @Override
             public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
                 // force height of viewHolder here, this will override layout_height from xml
-                lp.width = (int) (getWidth() / 4);
+                lp.width = (int) (getWidth() / 6);
                 return true;
             }
         };
@@ -166,18 +168,31 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
 
     public void refreshList() {
         loading(true, view);
-        backgroundTask.fetchDataFromDatabase(categoryForFilter, subCategoryForFilter, brandForFilter, conditionForFilter);
-        advertisementAdapter.notifyDataSetChanged();
-        loading(false, view);
+        handler = new Handler(Looper.getMainLooper());
+        backgroundTask.cancel(false);
+        backgroundTask = new BackgroundTask(getContext());
+        backgroundTask.execute();
     }
 
     public void initListeners() {
-        view.findViewById(R.id.buttonCreatePost).setOnClickListener(v -> {
+        view.findViewById(R.id.buyFragment_buttonCreatePost).setOnClickListener(v -> {
             startActivity(new Intent(getContext(), PostTypeActivity.class));
         });
         TextView textView_seeAll = view.findViewById(R.id.buyFragment_textView_seeAll);
         textView_seeAll.setOnClickListener(view -> {
             Fragment fragment = new CategoryFragment();
+            loadFragment(fragment);
+        });
+        TextView textView_filter = view.findViewById(R.id.buyFragment_textView_filter);
+        textView_filter.setOnClickListener(view -> {
+            Fragment fragment;
+            if (categoryForFilter == null) {
+                fragment = FilterCategoryFragment.newInstance();
+                Log.d("Category", "null");
+            } else {
+                fragment = FilterFragment.newInstance(categoryForFilter, subCategoryForFilter);
+                Log.d("Category", "non-null");
+            }
             loadFragment(fragment);
         });
 
@@ -197,7 +212,6 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
 
     @Override
     public void onCategoryClick(int position) {
-        Bundle args = new Bundle();
         Category category = (Category) categories.get(position);
         Fragment fragment = FilterSubCategoryFragment.newInstance(category.getName());
         loadFragment(fragment);
@@ -235,14 +249,10 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
 
     private class BackgroundTask extends AsyncTask<Void, Void, String> {
         Context context;
-        AdvertisementInterface advertisementInterface;
-        CategoryInterface categoryInterface;
 
-        public BackgroundTask(Context context, AdvertisementInterface advertisementInterface, CategoryInterface categoryInterface) {
+        public BackgroundTask(Context context) {
             Log.d("BackgroundTask", "Initialized");
             this.context = context;
-            this.advertisementInterface = advertisementInterface;
-            this.categoryInterface = categoryInterface;
         }
 
         @Override
@@ -260,17 +270,12 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
             Log.d("onPostExecute", "begin");
             Activity activity = getActivity();
             if (activity != null) {
-                Handler handler = new Handler(Looper.getMainLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((Activity) context).runOnUiThread(() -> {
-                            advertisementAdapter.notifyDataSetChanged();
-                            loading(false, view);
-                            Log.d("onPostExecute", "end");
-                        });
-                    }
-                });
+                handler.post(() -> ((Activity) context).runOnUiThread(() -> {
+                    advertisementAdapter.notifyDataSetChanged();
+                    Log.d("Adverts", "update");
+                    loading(false, view);
+                    Log.d("onPostExecute", "end");
+                }));
             }
         }
 
@@ -325,10 +330,10 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
     private void loading(boolean isLoading, View view) {
         if (isLoading) {
             view.findViewById(R.id.buyFragment_recyclerView_advertisements).setVisibility(View.INVISIBLE);
-            view.findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.buyFragment_progressBar).setVisibility(View.VISIBLE);
         } else {
             view.findViewById(R.id.buyFragment_recyclerView_advertisements).setVisibility(View.VISIBLE);
-            view.findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.buyFragment_progressBar).setVisibility(View.INVISIBLE);
         }
     }
 }

@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:background="@drawable/background_main_gradient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.18"
+        app:layout_constraintHeight_percent="0.14"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -30,6 +30,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.4"
             app:layout_constraintWidth_percent="0.6" />
 
         <ImageView
@@ -52,6 +53,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:queryHint="@string/what_are_you_looking_for"
+        app:queryBackground="@android:color/transparent"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/buyFragment_layout_top"
@@ -69,7 +71,8 @@
         android:id="@+id/buyFragment_layout_categoryTop"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginVertical="@dimen/_8sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buyFragment_searchBar">
@@ -107,25 +110,49 @@
         android:id="@+id/buyFragment_recyclerView_categories"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:scrollbars="horizontal"
+        android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buyFragment_layout_categoryTop" />
 
-    <TextView
-        android:id="@+id/buyFragment_textView_featured"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buyFragment_layout_featuredTop"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
-        android:fontFamily="@font/lato"
-        android:text="@string/featured"
-        android:textColor="@color/primary_text"
-        android:textSize="@dimen/_16ssp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buyFragment_recyclerView_categories" />
+        app:layout_constraintTop_toBottomOf="@id/buyFragment_recyclerView_categories">
+
+        <TextView
+            android:id="@+id/buyFragment_textView_featured"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:text="@string/featured"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/buyFragment_textView_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:gravity="center"
+            android:text="Filter"
+            android:textColor="@color/gray"
+            app:drawableEndCompat="@drawable/ic_right_arrow"
+            app:drawableTint="@color/gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/buyFragment_recyclerView_container"
@@ -133,8 +160,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buyFragment_textView_featured"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/buyFragment_layout_featuredTop">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/buyFragment_recyclerView_advertisements"
@@ -142,13 +168,18 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/_8sdp"
             android:visibility="invisible"
+            android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/buttonCreatePost"
+        android:id="@+id/buyFragment_buttonCreatePost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -162,7 +193,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/buyFragment_progressBar"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
         android:layout_gravity="center"

@@ -25,13 +25,8 @@ import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
  * create an instance of this fragment.
  */
 public class FilterFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_CATEGORY = "category";
     private static final String ARG_SUBCATEGORY = "subCategory";
-
-    // TODO: Rename and change types of parameters
     private String category;
     private String subCategory;
     private String brand;
@@ -49,7 +44,6 @@ public class FilterFragment extends Fragment {
      * @param subCategory Parameter 2.
      * @return A new instance of fragment filterFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static FilterFragment newInstance(String category, String subCategory) {
         FilterFragment fragment = new FilterFragment();
         Bundle args = new Bundle();
@@ -90,24 +84,24 @@ public class FilterFragment extends Fragment {
 
         Button searchButton = (Button) view.findViewById(R.id.filterFragment_buttonPost);
         TextView changeButton = view.findViewById(R.id.filterFragment_changeButton);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                brand = brandSpinner.getSelectedItem().toString();
-                if (brand.equals("None")) {
-                    brand = null;
-                }
-                condition = conditionSpinner.getSelectedItem().toString();
-                if (condition.equals("None")) {
-                    condition = null;
-                }
-
-                Bundle args = new Bundle();
-                Fragment fragment = BuyFragment.newInstance(category, subCategory, brand, condition);
-                loadFragment(fragment);
+        searchButton.setOnClickListener(v -> {
+            brand = brandSpinner.getSelectedItem().toString();
+            if (brand.equals("None")) {
+                brand = null;
             }
-        });
+            condition = conditionSpinner.getSelectedItem().toString();
+            if (condition.equals("None")) {
+                condition = null;
+            }
 
+            Bundle args = new Bundle();
+            Fragment fragment = BuyFragment.newInstance(category, subCategory, brand, condition);
+            loadFragment(fragment);
+        });
+        changeButton.setOnClickListener(v -> {
+            Fragment fragment = FilterCategoryFragment.newInstance();
+            loadFragment(fragment);
+        });
         return view;
     }
 
