@@ -7,12 +7,15 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cankutboratuncer.alicisindan.activities.ui.main.MainActivity;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 import com.cankutboratuncer.alicisindan.databinding.ActivitySignInBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -51,7 +54,23 @@ public class SignInActivity extends AppCompatActivity {
         Log.d("PasswordCheck", "UserId: " + userID + "\nPassword: "+ userPassword);
         if (Password.isCorrectPassword(userID, userPassword)) {
             String token = FirebaseMessaging.getInstance().getToken().toString();
-            User.setUserToken(userID, userPassword, token);
+            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                @Override
+                public void onComplete(@NonNull Task<String> task) {
+                    if (!task.isSuccessful()) {
+                        Log.d("Tokenoo", "Failed");
+                        return;
+                    }
+                    String token = task.getResult();
+                    Log.d("Tokenoo", token);
+                    try {
+                        User.setUserToken(userID, userPassword, token);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+
             registerUser(userID, userPassword, token);
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

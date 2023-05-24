@@ -84,6 +84,7 @@ public class ChatActivity extends BaseActivity {
         message.put(Constants.KEY_ADVERTISEMENT_ID, chatMessage.getProductId());
         message.put(Constants.KEY_TIMESTAMP, new Date());
         database.collection(Constants.KEY_COLLECTION_ADVERTISEMENT_CHAT).add(message);
+
         if (conversionId != null) {
             updateConversion(binding.messageInputField.getText().toString());
         } else {
@@ -109,9 +110,8 @@ public class ChatActivity extends BaseActivity {
             conversion.put(Constants.KEY_LAST_MESSAGE, binding.messageInputField.getText().toString());
             conversion.put(Constants.KEY_TIMESTAMP, new Date());
             addConversion(conversion);
-
-            sendNotification();
         }
+        sendNotification();
 
 //        if (!isReceiverAvailable) {
 //            try {
@@ -146,12 +146,14 @@ public class ChatActivity extends BaseActivity {
 
         try {
             JSONArray tokens = new JSONArray();
-            tokens.put(User.getUserToken(chatMessage.getReceiverId()));
 
+            tokens.put(User.getUserToken(chatMessage.getReceiverId()));
+            Log.d("UserIDd", User.getUserToken(chatMessage.getReceiverId()));
             JSONObject data = new JSONObject();
             data.put(Constants.KEY_USER_ID, localSave.getString(Constants.KEY_USER_ID));
             data.put(Constants.KEY_USER_NAME, localSave.getString(Constants.KEY_USER_NAME));
             data.put(Constants.KEY_FCM_TOKEN, localSave.getString(Constants.KEY_FCM_TOKEN));
+            Log.d("UserIDd",localSave.getString(Constants.KEY_FCM_TOKEN));
             data.put(Constants.KEY_MESSAGE, binding.messageInputField.getText().toString());
 
             JSONObject body = new JSONObject();
