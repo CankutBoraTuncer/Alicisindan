@@ -46,23 +46,35 @@ public class Favorites_Adapter extends RecyclerView.Adapter<Favorites_Adapter.Fa
     }
 
     class Favorites_Holder extends RecyclerView.ViewHolder {
-        TextView order, name;
+        TextView title, description, order;
         ImageView image, star;
 
         public Favorites_Holder(@NonNull View itemView) {
             super(itemView);
 
-            order = (TextView) itemView.findViewById(R.id.itemAdvertisement_textView_intent);
-            name = (TextView) itemView.findViewById(R.id.itemAdvertisement_textView_title);
+            title = (TextView) itemView.findViewById(R.id.itemAdvertisement_textView_intent);
+            description = (TextView) itemView.findViewById(R.id.itemAdvertisement_textView_title);
+            order = (TextView) itemView.findViewById(R.id.itemAdvertisement_textView_tag);
             image = (ImageView) itemView.findViewById(R.id.itemAdvertisement_imageView_image);
             star = (ImageView) itemView.findViewById(R.id.itemAdvertisement_imageView_favorite);
         }
 
         public void setData(_Favorites _favorites) {
-            order.setText(_favorites.getOrder());
-            name.setText(_favorites.getFavorite());
-            image.setImageResource(_favorites.getImage());
+            title.setText(_favorites.getTitle());
+            description.setText(_favorites.getDescription());
+            image.setImageBitmap(_favorites.getBitmap());
             star.setImageResource(_favorites.getFavorite());
+
+            switch (_favorites.getOrder()) {
+                case ("sell") :
+                    order.setText("Sell");
+                    order.setBackgroundResource(R.drawable.background_sell_tag);
+                    break;
+                case ("buy") :
+                    order.setText("Buy");
+                    order.setBackgroundResource(R.drawable.background_buy_tag);
+                    break;
+            }
         }
     }
 }

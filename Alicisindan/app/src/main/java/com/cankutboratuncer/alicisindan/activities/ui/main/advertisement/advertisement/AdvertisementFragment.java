@@ -58,6 +58,8 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
             advertisementID = "" + getArguments().getInt(ADVERTISEMENT_ID);
         }
         localSave = new LocalSave(getContext());
+
+        AdvertisementAdapter.AdvertisementViewHolder.local_save = localSave;
     }
 
     @Override

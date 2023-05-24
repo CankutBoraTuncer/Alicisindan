@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.ui.main.profile.recycleview_necessities.favorites.Favorites_Adapter;
 import com.cankutboratuncer.alicisindan.activities.ui.main.profile.recycleview_necessities.favorites._Favorites;
+import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
 import org.w3c.dom.Text;
 
@@ -77,6 +78,9 @@ public class FavoritesFragment extends Fragment {
         // Inflate the layout for this fragment
         // return inflater.inflate(R.layout.fragment_favorites, container, false)
 
+        // get local save
+        _Favorites.local_save = new LocalSave(this.getActivity());
+
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.favoriteFragment_recycleView_favorites);
@@ -87,9 +91,8 @@ public class FavoritesFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(favorite_adapter);
 
-        // temporary
         item_count = (TextView) view.findViewById(R.id.item_count);
-        item_count.setText(Integer.toString(_Favorites.getItemCount()));
+        item_count.setText(Integer.toString(_Favorites.getItemCount()) + " Items");
 
         return view;
     }

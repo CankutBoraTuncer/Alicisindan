@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -32,6 +31,7 @@ public class MessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
         String productTitle  = remoteMessage.getData().get(Constants.KEY_ADVERTISEMENT_TITLE);
         String productDescription = remoteMessage.getData().get(Constants.KEY_ADVERTISEMENT_DESCRIPTION);
         String userId = remoteMessage.getData().get(Constants.KEY_ADVERTISEMENT_USERID);
@@ -46,9 +46,11 @@ public class MessagingService extends FirebaseMessagingService {
 
         int notificationId = new Random().nextInt();
         String channelId = "chat_message";
+
         Intent intent = new Intent(this, ChatActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        intent.putExtra(Constants.KEY_ADVERTISEMENT, (CharSequence) advertisement);
+        intent.putExtra(Constants.KEY_ADVERTISEMENT, (CharSequence) advertisement);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId);
@@ -63,7 +65,6 @@ public class MessagingService extends FirebaseMessagingService {
         builder.setAutoCancel(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
             CharSequence channelName = "Chat Message";
             String channelDescription = "This notification channel is used for chat message notifications";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
@@ -71,7 +72,6 @@ public class MessagingService extends FirebaseMessagingService {
             channel.setDescription(channelDescription);
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
             notificationManager.createNotificationChannel(channel);
-            Log.d("Meeessss", "1312312");
         }
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);

@@ -79,7 +79,7 @@
                 android:layout_margin="@dimen/_12sdp"
                 android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/lato_bold"
-                android:text="Address Info"
+                android:text="Adress Info"
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_16ssp"
                 app:drawableStartCompat="@drawable/ic_location"
@@ -103,7 +103,7 @@
                 android:layout_margin="@dimen/_12sdp"
                 android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/lato_bold"
-                android:text="Change E-Mail"
+                android:text="Change Email Or Phone Number"
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_16ssp"
                 app:drawableStartCompat="@drawable/ic_message"
@@ -133,8 +133,9 @@
                 app:drawableStartCompat="@drawable/ic_lock"
                 app:drawableTint="@color/primary" />
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
-            android:id="@+id/accountFragment_cardView_deleteAccount"
+            android:id="@+id/accountFragment_cardView_others"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
@@ -150,10 +151,10 @@
                 android:layout_margin="@dimen/_12sdp"
                 android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/lato_bold"
-                android:text="Delete Account"
+                android:text="Others"
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_16ssp"
-                app:drawableStartCompat="@drawable/ic_close"
+                app:drawableStartCompat="@drawable/ic_settings"
                 app:drawableTint="@color/primary" />
         </androidx.cardview.widget.CardView>
 

@@ -9,20 +9,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.cankutboratuncer.alicisindan.R;
-import com.cankutboratuncer.alicisindan.activities.ui.BaseActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.forum.forum.ForumFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.home.pages.BuyFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.home.pages.HomeFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.profile.ProfileFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.home.pages.SellFragment;
-import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
-import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.messaging.FirebaseMessaging;
 
-public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
 
     @Override
@@ -64,5 +58,4 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         //to attach fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_frameLayout_main, fragment).addToBackStack(null).commit();
     }
-
 }

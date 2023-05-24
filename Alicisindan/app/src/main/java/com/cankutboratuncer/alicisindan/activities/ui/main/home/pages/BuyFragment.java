@@ -27,7 +27,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.data.database.CategoryTest;
-import com.cankutboratuncer.alicisindan.activities.ui.BaseFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementAdapter;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementInterface;
@@ -43,7 +42,7 @@ import java.util.ArrayList;
 import Alicisindan.Listing;
 import Alicisindan.User;
 
-public class BuyFragment extends BaseFragment implements AdvertisementInterface {
+public class BuyFragment extends Fragment implements AdvertisementInterface {
 
     ArrayList<Advertisement> advertisements;
     View view;

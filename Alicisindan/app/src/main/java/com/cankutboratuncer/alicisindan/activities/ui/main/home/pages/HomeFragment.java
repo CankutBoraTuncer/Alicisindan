@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -65,7 +64,6 @@ public class HomeFragment extends Fragment implements AdvertisementInterface {
     LinearLayoutManager horizontalRecyclerViewLayoutManager;
     SwipeRefreshLayout swipeRefreshLayout;
     private ViewModelAdvertisement viewModel;
-
     public HomeFragment() {
     }
 
@@ -108,7 +106,7 @@ public class HomeFragment extends Fragment implements AdvertisementInterface {
         }
     }
 
-    public void refreshList() {
+    public void refreshList(){
         loading(true, view);
         handler = new Handler(Looper.getMainLooper());
         new BackgroundTask(getContext(), this).execute();
@@ -121,7 +119,7 @@ public class HomeFragment extends Fragment implements AdvertisementInterface {
         loading(false, view);
     }
 
-    public void initCategories() {
+    public void initCategories(){
         horizontalRecyclerViewLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false) {
             @Override
             public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
@@ -136,7 +134,7 @@ public class HomeFragment extends Fragment implements AdvertisementInterface {
         recyclerViewForCategories.setLayoutManager(horizontalRecyclerViewLayoutManager);
     }
 
-    public void initListeners() {
+    public void initListeners(){
         view.findViewById(R.id.buttonCreatePost).setOnClickListener(v -> {
             startActivity(new Intent(getContext(), PostTypeActivity.class));
         });
@@ -149,7 +147,7 @@ public class HomeFragment extends Fragment implements AdvertisementInterface {
             }
         });
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(false);
@@ -254,47 +252,45 @@ public class HomeFragment extends Fragment implements AdvertisementInterface {
             }
         }
 
-
         private void fetchDataFromDatabase() {
+            Listing[] listings;
             try {
-                Listing[] listings = Listing.findListings(null, null, null, null, null, null, null, null, null, null, null, "50");
-                for (Listing listing : listings) {
-                    title = listing.getTitle();
-                    location = listing.getLocation();
-                    description = listing.getDescription();
-                    userID = listing.getOwnerID();
-                    brand = listing.getBrand();
-                    type = listing.getType();
-
-                    try {
-                        User user = User.getUser(userID);
-                        username = user.getUsername();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    try {
-                        image = listing.getListingsFirstImage();
-                        if (image == null) {
-                            Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
-                            image = encodeImage(icon);
-                        }
-                    } catch (Exception ignored) {
-                    } finally {
-                        if (image == null) {
-                            Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
-                            image = encodeImage(icon);
-                        }
-                    }
-                    price = listing.getPrice();
-                    ID = listing.getID();
-                    advertisements.add(new Advertisement(title, description, image, price, ID, location, userID, username, brand, type));
-                }
+                listings = Listing.findListings(null, null, null, null, null, null, null, null, null, null, null, "50");
             } catch (Exception e) {
-
-                showToast("Server Error");
+                throw new RuntimeException(e);
             }
+            for (Listing listing : listings) {
+                title = listing.getTitle();
+                location = listing.getLocation();
+                description = listing.getDescription();
+                userID = listing.getOwnerID();
+                brand = listing.getBrand();
+                type = listing.getType();
 
+                try {
+                    User user = User.getUser(userID);
+                    username = user.getUsername();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+                try {
+                    image = listing.getListingsFirstImage();
+                    if (image == null) {
+                        Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
+                        image = encodeImage(icon);
+                    }
+                } catch (Exception ignored) {
+                } finally {
+                    if (image == null) {
+                        Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
+                        image = encodeImage(icon);
+                    }
+                }
+                price = listing.getPrice();
+                ID = listing.getID();
+                advertisements.add(new Advertisement(title, description, image, price, ID, location, userID, username, brand, type));
+            }
         }
     }
 
@@ -377,7 +373,4 @@ public class HomeFragment extends Fragment implements AdvertisementInterface {
 //
 //    }
 
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
 }

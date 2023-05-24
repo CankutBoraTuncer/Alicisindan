@@ -7,18 +7,12 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cankutboratuncer.alicisindan.activities.ui.main.MainActivity;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 import com.cankutboratuncer.alicisindan.databinding.ActivitySignInBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 // Password Hashing
 import java.security.MessageDigest;
@@ -53,25 +47,7 @@ public class SignInActivity extends AppCompatActivity {
         String userPassword = get_SHA_256_SecurePassword(binding.signInActivityEditTextPassword.getText().toString(), "salt");
         Log.d("PasswordCheck", "UserId: " + userID + "\nPassword: "+ userPassword);
         if (Password.isCorrectPassword(userID, userPassword)) {
-            String token = FirebaseMessaging.getInstance().getToken().toString();
-            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-                @Override
-                public void onComplete(@NonNull Task<String> task) {
-                    if (!task.isSuccessful()) {
-                        Log.d("Tokenoo", "Failed");
-                        return;
-                    }
-                    String token = task.getResult();
-                    Log.d("Tokenoo", token);
-                    try {
-                        User.setUserToken(userID, userPassword, token);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
-
-            registerUser(userID, userPassword, token);
+            registerUser(userID, userPassword);
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -81,10 +57,10 @@ public class SignInActivity extends AppCompatActivity {
         }
     }
 
-    private void registerUser(String userID, String password, String token) {
+    private void registerUser(String userID, String password) {
         try {
             User user = User.getUser(userID);
-            localSave.saveUser(user.getID(), user.getEmail(), user.getPhone(), user.getUsername(), password, user.getName(), user.getSurname(), user.getAddress(), token);
+            localSave.saveUser(user.getID(), user.getEmail(), user.getPhone(), user.getUsername(), password, user.getName(), "surname", user.getAddress());
         } catch (Exception e) {
             localSave.clear();
             showToast("The user couldn't saved to the local");
@@ -98,7 +74,7 @@ public class SignInActivity extends AppCompatActivity {
                 try {
                     signIn();
                 } catch (Exception e) {
-                    showToast("User not found");
+                    throw new RuntimeException(e);
                 }
             }
         });
@@ -155,5 +131,4 @@ public class SignInActivity extends AppCompatActivity {
         }
         return generatedPassword;
     }
-
 }

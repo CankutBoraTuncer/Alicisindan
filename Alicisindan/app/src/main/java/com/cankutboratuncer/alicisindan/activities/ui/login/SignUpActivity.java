@@ -4,22 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cankutboratuncer.alicisindan.activities.ui.main.MainActivity;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 import com.cankutboratuncer.alicisindan.databinding.ActivitySignUpBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -92,35 +87,19 @@ public class SignUpActivity extends AppCompatActivity {
                 String phone = binding.signUpActivityEditTextEmailOrPhoneNumber.getText().toString();
                 String address = binding.signUpActivityEditTextCountry.getText().toString() + "/" + binding.signUpActivityEditTextCity.getText().toString();
                 String birthday = "";
-                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Log.d("Tokenoo", "Failed");
-                            return;
-                        }
-                        String token = task.getResult();
-                        Log.d("Tokenoo", token);
-                        User user = new User(username, name, surname, birthday, address, email, phone);
-                        try {
-                            user.registerUser(password);
-                            User.setUserToken(user.getID(), password, token);
-                            if (User.emailExists(email)) {
-                                localSave.saveUser(user.getID(), email, phone, username, password, name, surname, address, token);
-                                loading(false);
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                            } else {
-                                loading(false);
-                                showToast("The user already exists");
-                            }
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
 
+                User user = new User(username, name, surname, birthday, address, email, phone);
+                user.registerUser(password);
+                if (User.emailExists(email)) {
+                    localSave.saveUser(user.getID(), email, phone, username, password, name, surname, address);
+                    loading(false);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else {
+                    loading(false);
+                    showToast("The user already exists");
+                }
             } else {
                 showToast("There is already a user with this email.");
             }
