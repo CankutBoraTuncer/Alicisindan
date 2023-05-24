@@ -36,7 +36,7 @@ public class LocalSave {
         editor.apply();
     }
 
-    public void saveUser(String id, String email, String phone, String username, String password, String name, String surname, String address){
+    public void saveUser(String id, String email, String phone, String username, String password, String name, String surname, String address, String token){
         this.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
         this.putString(Constants.KEY_USER_ID, id);
         this.putString(Constants.KEY_USER_NAME, name);
@@ -46,5 +46,6 @@ public class LocalSave {
         this.putString(Constants.KEY_USER_PHONE, phone);
         this.putString(Constants.KEY_USER_USERNAME, username);
         this.putString(Constants.KEY_PASSWORD, password);
+        this.putString(Constants.KEY_FCM_TOKEN, token);
     }
 }
