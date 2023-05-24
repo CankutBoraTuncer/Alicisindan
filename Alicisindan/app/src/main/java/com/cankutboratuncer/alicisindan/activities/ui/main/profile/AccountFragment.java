@@ -2,6 +2,7 @@ package com.cankutboratuncer.alicisindan.activities.ui.main.profile;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -64,7 +65,7 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
-        localSave =  new LocalSave(getContext());
+        LocalSave localSave =  new LocalSave(getContext());
         CardView changePassword = view.findViewById(R.id.accountFragment_cardView_changePassword);
         CardView userInfo = view.findViewById(R.id.accountFragment_cardView_userInfo);
         CardView location = view.findViewById(R.id.accountFragment_cardView_addressInfo);
@@ -92,5 +93,10 @@ public class AccountFragment extends Fragment {
         });
         return view;
 
+    }
+
+    public void loadFragment(Fragment fragment) {
+        //to attach fragment
+        getParentFragmentManager().beginTransaction().replace(R.id.mainActivity_frameLayout_main, fragment).addToBackStack(null).commit();
     }
 }

@@ -185,8 +185,9 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
         String details = binding.details.getText().toString();
         String price = binding.price.getText().toString();
         String location = binding.location.getText().toString();
+        String brand = binding.brand.getSelectedItem().toString();
 
-        Listing listing = new Listing(userID, "sell", productTitle, details, price, category, location, condition);
+        Listing listing = new Listing(userID, "sell", productTitle, details, price, category, location, condition, brand);
         listing.addListing(userID, password);
         Log.d("şişko", binding.productTitle.getText().toString());
         String[] images = {encodedImage};
