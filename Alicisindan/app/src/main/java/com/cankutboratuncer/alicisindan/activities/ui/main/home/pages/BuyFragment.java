@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -40,6 +41,7 @@ import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+import Alicisindan.AlicisindanException;
 import Alicisindan.Listing;
 import Alicisindan.User;
 
@@ -160,6 +162,22 @@ public class BuyFragment extends BaseFragment implements AdvertisementInterface 
         Bundle args = new Bundle();
         Fragment fragment = AdvertisementFragment.newInstance(advertisements.get(position).getAdvertisementID());
         Advertisement advertisement = advertisements.get(position);
+
+        // Load the rest of Listing details.
+        try {
+            Listing clickedListing = Listing.getListing(advertisement.getAdvertisementID());
+            advertisement.setDescription(clickedListing.getDescription());
+            //TODO
+            // ADVERTISEMENT CLASS DOESN'T SUPPORT MULTIPLE IMAGES YET!?
+            //advertisement.setImages(clickedListing.getImages());
+            advertisement.setPrice(clickedListing.getPrice());
+            advertisement.setLocation(clickedListing.getLocation());
+            advertisement.setBrand(clickedListing.getBrand());
+        }
+        catch (Exception e) {
+            showToast("Server Error");
+        }
+
         args.putString("ID", advertisement.getAdvertisementID());
         args.putString("title", advertisement.getTitle());
         args.putString("price", advertisement.getPrice());
@@ -240,43 +258,38 @@ public class BuyFragment extends BaseFragment implements AdvertisementInterface 
             }
         }
 
+        /**
+         * Used to create the homepage Listing cards.
+         *
+         * Pulls only the necessary data and creates a new Advertisement object with them.
+         * Other parameters of the object will be null.
+         */
         private void fetchDataFromDatabase() {
-            Listing[] listings;
             try {
-                listings = Listing.findListings(null, null, null, null, "buy", null, null, null, null, null, null, "50");
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-            for (Listing listing : listings) {
-                title = listing.getTitle();
-                location = listing.getLocation();
-                description = listing.getDescription();
-                userID = listing.getOwnerID();
-                brand = listing.getBrand();
-                type = listing.getType();
-                try {
-                    User user = User.getUser(userID);
-                    username = user.getUsername();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+                String[][] listings = Listing.findListingShowcases(null, null, null, null, "buy", null, null, null, null, null, null, "50");
+                for (String[] listing : listings) {
+                    if(listing[0] == null) {
+                        continue;
+                    }
 
-                try {
-                    image = listing.getListingsFirstImage();
+                    userID = listing[0];
+                    username = listing[1];
+                    ID = listing[2];
+                    image = listing[3];
                     if (image == null) {
                         Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
                         image = encodeImage(icon);
                     }
-                } catch (Exception ignored) {
-                } finally {
-                    if (image == null) {
-                        Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
-                        image = encodeImage(icon);
-                    }
+                    type = listing[4];
+                    title = listing[5];
+
+                    advertisements.add(new Advertisement(title, null, image, null, ID, null, userID, username, null, type));
                 }
-                price = listing.getPrice();
-                ID = listing.getID();
-                advertisements.add(new Advertisement(title, description, image, price, ID, location, userID, username, brand, type));
+            }
+            catch (AlicisindanException a) {
+                a.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
@@ -290,6 +303,10 @@ public class BuyFragment extends BaseFragment implements AdvertisementInterface 
             view.findViewById(R.id.buyFragment_recyclerView_advertisements).setVisibility(View.VISIBLE);
             view.findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     //    public void createSearchBar(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
