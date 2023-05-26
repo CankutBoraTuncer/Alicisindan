@@ -28,17 +28,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageProduct"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/advertisementFragment_imageSlider"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:maxHeight="@dimen/_320sdp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/product_image" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <FrameLayout
                 android:id="@+id/layoutMessage"
@@ -46,7 +43,7 @@
                 android:layout_height="@dimen/_60sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:background="@drawable/background_circle"
-                app:layout_constraintBottom_toBottomOf="@id/imageProduct"
+                app:layout_constraintBottom_toBottomOf="@id/advertisementFragment_imageSlider"
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -71,7 +68,7 @@
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_18ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageProduct"
+                app:layout_constraintTop_toBottomOf="@id/advertisementFragment_imageSlider"
                 android:text="Astylish Women Open Front Long Sleeve Chunky Knit Cardigan" />
 
             <TextView

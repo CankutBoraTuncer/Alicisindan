@@ -217,12 +217,12 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
         try {
             Listing clickedListing = Listing.getListing(advertisement.getAdvertisementID());
             advertisement.setDescription(clickedListing.getDescription());
-            //TODO
-            // ADVERTISEMENT CLASS DOESN'T SUPPORT MULTIPLE IMAGES YET!?
-            //advertisement.setImages(clickedListing.getImages());
+            advertisement.setImages(clickedListing.getListingImages());
             advertisement.setPrice(clickedListing.getPrice());
             advertisement.setLocation(clickedListing.getLocation());
             advertisement.setBrand(clickedListing.getBrand());
+            advertisement.setCategory(clickedListing.getCategory());
+            advertisement.setCondition(clickedListing.getCondition());
         }
         catch (Exception e) {
             showToast("Server Error");
@@ -232,11 +232,13 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
         args.putString("price", advertisement.getPrice());
         args.putString("description", advertisement.getDescription());
         args.putString("location", advertisement.getLocation());
-        args.putString("image", advertisement.getImage());
+        args.putStringArray("images", advertisement.getImages());
         args.putString("userID", advertisement.getUserID());
         args.putString("username", advertisement.getUsername());
         args.putString("brand", advertisement.getBrand());
         args.putString("type", advertisement.getType());
+        args.putString("category", advertisement.getCategory());
+        args.putString("condition", advertisement.getCondition());
         fragment.setArguments(args);
         loadFragment(fragment);
     }
@@ -314,7 +316,7 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
                 String type = listing[4];
                 String title = listing[5];
 
-                advertisements.add(new Advertisement(title, null, image, null, ID, null, userID, username, null, type));
+                advertisements.add(new Advertisement(title, null, new String[] {image}, null, ID, null, userID, username, null, type, null, null));
             }
         }
     }

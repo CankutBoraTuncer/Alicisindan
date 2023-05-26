@@ -86,8 +86,8 @@ public class AdvertisementAdapter extends RecyclerView.Adapter<AdvertisementAdap
 
         public void bind(Advertisement advertisement) {
             this.advertisementTitle.setText(advertisement.getTitle());
-            if(advertisement.getImage() != null){
-                Bitmap image = getBitmapFromEncodedString(advertisement.getImage());
+            if(advertisement.getPreviewImage() != null){
+                Bitmap image = getBitmapFromEncodedString(advertisement.getPreviewImage());
                 this.advertisementImage.setImageBitmap(image);
             }
             if(advertisement.getType().equals("sell")){

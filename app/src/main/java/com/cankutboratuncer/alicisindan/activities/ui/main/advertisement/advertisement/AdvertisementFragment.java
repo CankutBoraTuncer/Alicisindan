@@ -4,8 +4,11 @@ package com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advert
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.data.database.AdvertisementTest;
@@ -24,8 +28,14 @@ import com.cankutboratuncer.alicisindan.activities.ui.messaging.activities.ChatA
 import com.cankutboratuncer.alicisindan.activities.utilities.Advertisement;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import Alicisindan.Listing;
 
 public class AdvertisementFragment extends Fragment implements AdvertisementInterface {
 
@@ -33,10 +43,11 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
     ArrayList<com.cankutboratuncer.alicisindan.activities.utilities.Advertisement> advertisements;
 
     private View view;
+    private ViewPager2 imageSlider;
+    ArrayList<ImageItem> imageItemArrayList;
 
     private Advertisement advertisement;
     private String advertisementID;
-    private ArrayList<Integer> images = new ArrayList<>();
     private LocalSave localSave;
     public AdvertisementFragment() {
     }
@@ -73,12 +84,13 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
             String advertisementPrice = "$" + args.getString("price");
             String advertisementDescription = args.getString("description");
             String advertisementLocation = args.getString("location");
-            String advertisementImage = args.getString("image");
             String advertisementBrand = args.getString("brand");
             String userID = args.getString("userID");
             String username = args.getString("username");
             String type = args.getString("type");
-            advertisement = new Advertisement(advertisementTitle,advertisementDescription, advertisementImage, advertisementPrice, advertisementID, advertisementLocation, userID, username, advertisementBrand, type);
+            String category = args.getString("category");
+            String condition = args.getString("condition");
+            advertisement = new Advertisement(advertisementTitle,advertisementDescription, null, advertisementPrice, advertisementID, advertisementLocation, userID, username, advertisementBrand, type, category, condition);
         }
 
         if(advertisement.getUserID().equals(localSave.getString(Constants.KEY_USER_ID))){
@@ -93,8 +105,36 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
         productDetails.setText(advertisement.getDescription());
         TextView productLocation = view.findViewById(R.id.location);
         productLocation.setText(advertisement.getLocation());
-        ImageView productImage = view.findViewById(R.id.imageProduct);
-        productImage.setImageBitmap(decodeImage(advertisement.getImage()));
+
+        imageSlider = view.findViewById(R.id.advertisementFragment_imageSlider);
+        String[] images;
+        try {
+            Listing listing = Listing.getListing(advertisement.getAdvertisementID());
+            images = listing.getListingImages();
+            Log.d("Images: ", Arrays.toString(images));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        int x = 0;
+        for (int i = 0; i < images.length; i++) {
+            Log.d("Images:", i + ": " + images[i]);
+            if (images[i].length() > 10) {
+                x++;
+            }
+        }
+        Log.d("Images:", "x = " + x);
+        String[] newImages = new String[x];
+        Arrays.copyOfRange(images, 0, x);
+
+        advertisement.setImages(newImages);
+
+        imageItemArrayList = new ArrayList<>();
+        for (int i = 0; i < newImages.length; i++) {
+            Drawable d = new BitmapDrawable(getResources(), decodeImage(images[i]));
+            imageItemArrayList.add(new ImageItem(d));
+        }
+        ImageAdapter imageAdapter = new ImageAdapter(imageItemArrayList);
+        imageSlider.setAdapter(imageAdapter);
 
         LinearLayoutManager horizontalRecyclerViewLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false) {
             @Override
@@ -105,9 +145,8 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
             }
         };
 
-
-        RecyclerView recyclerViewForAdvertisements = view.findViewById(R.id.relatedProducts);
         advertisements = AdvertisementTest.advertisements;
+        RecyclerView recyclerViewForAdvertisements = view.findViewById(R.id.relatedProducts);
         recyclerViewForAdvertisements.setLayoutManager(horizontalRecyclerViewLayoutManager);
         AdvertisementAdapter advertisementAdapter = new AdvertisementAdapter(advertisements, this);
         recyclerViewForAdvertisements.setAdapter(advertisementAdapter);
@@ -152,7 +191,7 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                 args.putString(Constants.KEY_ADVERTISEMENT_ID, advertisement.getAdvertisementID());
                 args.putString(Constants.KEY_ADVERTISEMENT_LOCATION, advertisement.getLocation());
                 args.putString(Constants.KEY_ADVERTISEMENT_PRICE, advertisement.getPrice());
-                args.putString(Constants.KEY_ADVERTISEMENT_IMAGE, advertisement.getImage());
+                args.putString(Constants.KEY_ADVERTISEMENT_IMAGE, advertisement.getPreviewImage());
                 args.putString(Constants.KEY_ADVERTISEMENT_TYPE, advertisement.getType());
                 args.putString(Constants.KEY_SENDER_ID, localSave.getString(Constants.KEY_USER_ID));
                 args.putString(Constants.KEY_RECEIVER_ID, advertisement.getUserID());
@@ -191,5 +230,4 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
         }
         return null;
     }
-
 }
