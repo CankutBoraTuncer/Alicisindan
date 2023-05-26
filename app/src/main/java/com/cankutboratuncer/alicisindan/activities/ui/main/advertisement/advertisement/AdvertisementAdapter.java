@@ -2,6 +2,7 @@ package com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advert
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;

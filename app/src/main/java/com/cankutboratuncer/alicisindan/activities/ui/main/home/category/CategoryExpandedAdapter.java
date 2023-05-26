@@ -1,4 +1,4 @@
-package com.cankutboratuncer.alicisindan.activities.ui.main.category;
+package com.cankutboratuncer.alicisindan.activities.ui.main.home.category;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +16,12 @@ import com.cankutboratuncer.alicisindan.activities.utilities.Category;
 
 import java.util.ArrayList;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+public class CategoryExpandedAdapter extends RecyclerView.Adapter<CategoryExpandedAdapter.CategoryExpandedViewHolder> {
 
     private final CategoryInterface categoryInterface;
     private ArrayList<AllCategories> categories;
 
-    public CategoryAdapter(ArrayList<AllCategories> categories, CategoryInterface categoryInterface) {
+    public CategoryExpandedAdapter(ArrayList<AllCategories> categories, CategoryInterface categoryInterface) {
         this.categories = categories;
         this.categoryInterface = categoryInterface;
     }
@@ -33,22 +33,22 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @NonNull
     @Override
-    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
-        return new CategoryViewHolder(view, categoryInterface);
+    public CategoryExpandedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category_expanded, parent, false);
+        return new CategoryExpandedViewHolder(view, categoryInterface);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryExpandedViewHolder holder, int position) {
         holder.bind((Category) categories.get(position));
     }
 
-    static class CategoryViewHolder extends RecyclerView.ViewHolder {
+    static class CategoryExpandedViewHolder extends RecyclerView.ViewHolder {
 
         private TextView categoryName;
         private ImageView categoryImage;
 
-        public CategoryViewHolder(@NonNull View itemView, CategoryInterface categoryInterface) {
+        public CategoryExpandedViewHolder(@NonNull View itemView, CategoryInterface categoryInterface) {
             super(itemView);
             this.categoryName = itemView.findViewById(R.id.itemCategory_textView_categoryName);
             this.categoryImage = itemView.findViewById(R.id.itemCategory_imageView_categoryImage);
@@ -67,6 +67,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         }
 
         public void bind(Category category) {
+            this.categoryName.setText(category.getName());
             this.categoryImage.setImageResource(category.getImage());
         }
     }

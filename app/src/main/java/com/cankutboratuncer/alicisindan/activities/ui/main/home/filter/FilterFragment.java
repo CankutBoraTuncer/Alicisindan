@@ -1,4 +1,4 @@
-package com.cankutboratuncer.alicisindan.activities.ui.main.filter;
+package com.cankutboratuncer.alicisindan.activities.ui.main.home.filter;
 
 import android.os.Bundle;
 
@@ -16,7 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cankutboratuncer.alicisindan.R;
-import com.cankutboratuncer.alicisindan.activities.ui.main.buy.BuyFragment;
+import com.cankutboratuncer.alicisindan.activities.ui.main.home.pages.BuyFragment;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 
 /**

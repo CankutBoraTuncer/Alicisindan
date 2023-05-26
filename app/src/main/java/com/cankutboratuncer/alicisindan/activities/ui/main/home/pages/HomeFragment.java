@@ -15,12 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,11 +32,12 @@ import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.adverti
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementInterface;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.CategoryInterface;
-import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostAddSubCategoryActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostTypeActivity;
-import com.cankutboratuncer.alicisindan.activities.ui.main.ViewModelAdvertisement;
-import com.cankutboratuncer.alicisindan.activities.ui.main.category.CategoryAdapter;
-import com.cankutboratuncer.alicisindan.activities.ui.main.category.CategoryFragment;
+import com.cankutboratuncer.alicisindan.activities.ui.main.home.category.CategoryAdapter;
+import com.cankutboratuncer.alicisindan.activities.ui.main.home.category.CategoryFragment;
+import com.cankutboratuncer.alicisindan.activities.ui.main.home.filter.FilterCategoryFragment;
+import com.cankutboratuncer.alicisindan.activities.ui.main.home.filter.FilterFragment;
+import com.cankutboratuncer.alicisindan.activities.ui.main.home.filter.FilterSubCategoryFragment;
 import com.cankutboratuncer.alicisindan.activities.utilities.Advertisement;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
 import com.cankutboratuncer.alicisindan.activities.utilities.Category;
@@ -45,10 +46,19 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import Alicisindan.Listing;
-import Alicisindan.User;
 
 public class HomeFragment extends Fragment implements AdvertisementInterface, CategoryInterface {
+    // Give TAGS to the variables used for filtering
+    private static final String ARG_FILTER_CATEGORY = "filter_category";
+    private static final String ARG_FILTER_SUBCATEGORY = "filter_subCategory";
+    private static final String ARG_FILTER_BRAND = "filter_brand";
+    private static final String ARG_FILTER_CONDITION = "filter_condition";
 
+    // Strings to be used in filtering
+    String categoryForFilter;
+    String subCategoryForFilter;
+    String brandForFilter;
+    String conditionForFilter;
     ArrayList<Advertisement> advertisements;
     View view;
     ArrayList<AllCategories> categories;
@@ -62,19 +72,25 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
     String username;
     String brand;
     String type;
+
     RecyclerView recyclerViewForAdvertisements;
     RecyclerView recyclerViewForCategories;
-    Handler handler;
     LinearLayoutManager horizontalRecyclerViewLayoutManager;
     SwipeRefreshLayout swipeRefreshLayout;
-    private ViewModelAdvertisement viewModel;
+    AdvertisementAdapter advertisementAdapter;
+    BackgroundTask backgroundTask;
+    Handler handler;
 
     public HomeFragment() {
     }
 
-    public static HomeFragment newInstance(int advertisementID) {
+    public static HomeFragment newInstance(String categoryForFilter, String subCategoryForFilter, String brandForFilter, String conditionForFilter) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_FILTER_CATEGORY, categoryForFilter);
+        args.putString(ARG_FILTER_SUBCATEGORY, subCategoryForFilter);
+        args.putString(ARG_FILTER_BRAND, brandForFilter);
+        args.putString(ARG_FILTER_CONDITION, conditionForFilter);
         fragment.setArguments(args);
         return fragment;
     }
@@ -82,8 +98,27 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new ViewModelProvider((requireActivity())).get(ViewModelAdvertisement.class);
         if (getArguments() != null) {
+            try {
+                categoryForFilter = getArguments().getString(ARG_FILTER_CATEGORY);
+            } catch (Exception e) {
+                categoryForFilter = null;
+            }
+            try {
+                subCategoryForFilter = getArguments().getString(ARG_FILTER_SUBCATEGORY);
+            } catch (Exception e) {
+                subCategoryForFilter = null;
+            }
+            try {
+                brandForFilter = getArguments().getString(ARG_FILTER_BRAND);
+            } catch (Exception e) {
+                brandForFilter = null;
+            }
+            try {
+                conditionForFilter = getArguments().getString(ARG_FILTER_CONDITION);
+            } catch (Exception e) {
+                conditionForFilter = null;
+            }
         }
     }
 
@@ -91,77 +126,85 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        recyclerViewForAdvertisements = view.findViewById(R.id.homeFragment_recyclerView_advertisements);
-        recyclerViewForCategories = view.findViewById(R.id.homeFragment_recyclerView_categories);
-        swipeRefreshLayout = view.findViewById(R.id.homeFragment_recyclerView_container);
-        initCategories();
-        initListeners();
+        backgroundTask = new BackgroundTask(getContext());
+        backgroundTask.execute();
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (viewModel.getAdvertisements_home() != null) {
-            advertisements = viewModel.getAdvertisements_home();
-            initUI(viewModel.getAdvertisements_home());
-            Log.d("Tadaaa", "Here");
-        } else {
-            refreshList();
-        }
+        Log.d("UI", "initialize");
+        initUI();
+        Log.d("Listener", "initialize");
+        initListeners();
+        refreshList();
     }
 
-    public void refreshList(){
-        loading(true, view);
-        handler = new Handler(Looper.getMainLooper());
-        new BackgroundTask(getContext(), this, this).execute();
-    }
-
-    private void initUI(ArrayList<Advertisement> advertisements) {
-        AdvertisementAdapter advertisementAdapter = new AdvertisementAdapter(advertisements, this);
-        recyclerViewForAdvertisements.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerViewForAdvertisements.setAdapter(advertisementAdapter);
-        loading(false, view);
-    }
-
-    public void initCategories(){
+    public void initUI() {
+        categories = CategoryTest.categories;
+        Log.d("Category", "size: " + categories.size());
+        recyclerViewForCategories = view.findViewById(R.id.homeFragment_recyclerView_categories);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(categories, this);
+        recyclerViewForCategories.setAdapter(categoryAdapter);
         horizontalRecyclerViewLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false) {
             @Override
             public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
                 // force height of viewHolder here, this will override layout_height from xml
-                lp.width = (int) (getWidth() / 4);
+                lp.width = (int) (getWidth() / 6);
                 return true;
             }
         };
-        categories = CategoryTest.categories;
-        CategoryAdapter categoryAdapter = new CategoryAdapter(categories, this);
-        recyclerViewForCategories.setAdapter(categoryAdapter);
         recyclerViewForCategories.setLayoutManager(horizontalRecyclerViewLayoutManager);
+
+        swipeRefreshLayout = view.findViewById(R.id.homeFragment_recyclerView_container);
+
+        advertisements = new ArrayList<>();
+        recyclerViewForAdvertisements = view.findViewById(R.id.homeFragment_recyclerView_advertisements);
+        advertisementAdapter = new AdvertisementAdapter(advertisements, this);
+        recyclerViewForAdvertisements.setAdapter(advertisementAdapter);
+        recyclerViewForAdvertisements.setLayoutManager(new GridLayoutManager(getContext(), 2));
     }
 
-    public void initListeners(){
-        view.findViewById(R.id.buttonCreatePost).setOnClickListener(v -> {
+    public void refreshList() {
+        loading(true, view);
+        handler = new Handler(Looper.getMainLooper());
+        backgroundTask.cancel(false);
+        backgroundTask = new BackgroundTask(getContext());
+        backgroundTask.execute();
+    }
+
+    public void initListeners() {
+        view.findViewById(R.id.homeFragment_buttonCreatePost).setOnClickListener(v -> {
             startActivity(new Intent(getContext(), PostTypeActivity.class));
         });
         TextView textView_seeAll = view.findViewById(R.id.homeFragment_textView_seeAll);
-        textView_seeAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = new CategoryFragment();
-                loadFragment(fragment);
+        textView_seeAll.setOnClickListener(view -> {
+            Fragment fragment = new CategoryFragment();
+            loadFragment(fragment);
+        });
+        TextView textView_filter = view.findViewById(R.id.homeFragment_textView_filter);
+        textView_filter.setOnClickListener(view -> {
+            Fragment fragment;
+            if (categoryForFilter == null) {
+                fragment = FilterCategoryFragment.newInstance();
+                Log.d("Category", "null");
+            } else {
+                fragment = FilterFragment.newInstance(categoryForFilter, subCategoryForFilter);
+                Log.d("Category", "non-null");
             }
+            loadFragment(fragment);
         });
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(false);
-                refreshList();
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            refreshList();
         });
     }
 
+
     void loadFragment(Fragment fragment) {
+
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.mainActivity_frameLayout_main, fragment);
@@ -171,10 +214,9 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
 
     @Override
     public void onCategoryClick(int position) {
-        Intent intent = new Intent(view.getContext(), PostAddSubCategoryActivity.class);
         Category category = (Category) categories.get(position);
-        intent.putExtra("category", category.getName());
-        startActivity(intent);
+        Fragment fragment = FilterSubCategoryFragment.newInstance(category.getName());
+        loadFragment(fragment);
     }
 
     @Override
@@ -182,6 +224,21 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
         Bundle args = new Bundle();
         Fragment fragment = AdvertisementFragment.newInstance(advertisements.get(position).getAdvertisementID());
         Advertisement advertisement = advertisements.get(position);
+
+        // Load the rest of Listing details.
+        try {
+            Listing clickedListing = Listing.getListing(advertisement.getAdvertisementID());
+            advertisement.setDescription(clickedListing.getDescription());
+            //TODO
+            // ADVERTISEMENT CLASS DOESN'T SUPPORT MULTIPLE IMAGES YET!?
+            //advertisement.setImages(clickedListing.getImages());
+            advertisement.setPrice(clickedListing.getPrice());
+            advertisement.setLocation(clickedListing.getLocation());
+            advertisement.setBrand(clickedListing.getBrand());
+        }
+        catch (Exception e) {
+            showToast("Server Error");
+        }
         args.putString("ID", advertisement.getAdvertisementID());
         args.putString("title", advertisement.getTitle());
         args.putString("price", advertisement.getPrice());
@@ -209,110 +266,87 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
 
     private class BackgroundTask extends AsyncTask<Void, Void, String> {
         Context context;
-        AdvertisementInterface advertisementInterface;
 
-        CategoryInterface categoryInterface;
-
-        public BackgroundTask(Context context, AdvertisementInterface advertisementInterface, CategoryInterface categoryInterface) {
+        public BackgroundTask(Context context) {
+            Log.d("BackgroundTask", "Initialized");
             this.context = context;
-            this.advertisementInterface = advertisementInterface;
-            this.categoryInterface = categoryInterface;
         }
 
         @Override
         protected String doInBackground(Void... voids) {
             // Simulate the database retrieval process
-            horizontalRecyclerViewLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false) {
-                @Override
-                public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
-                    // force height of viewHolder here, this will override layout_height from xml
-                    lp.width = (int) (getWidth() / 4);
-                    return true;
-                }
-            };
-            advertisements = new ArrayList<>();
-            // Retrieve data from the database
-            fetchDataFromDatabase();
-            categories = CategoryTest.categories;
+            Log.d("Data", "Fetching Data: start");
+            fetchDataFromDatabase(categoryForFilter, subCategoryForFilter, brandForFilter, conditionForFilter);
+            Log.d("Data", "Fetching Data: complete. Ad count: " + advertisements.size());
             return "Done";
         }
 
         @Override
         protected void onPostExecute(final String data) {
+            Log.d("onPostExecute", "begin");
             Activity activity = getActivity();
             if (activity != null) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Update the UI with the retrieved data
-                        AdvertisementAdapter advertisementAdapter = new AdvertisementAdapter(advertisements, advertisementInterface);
-                        CategoryAdapter categoryAdapter = new CategoryAdapter(categories, categoryInterface);
-                        recyclerViewForAdvertisements.setAdapter(advertisementAdapter);
-                        recyclerViewForCategories.setAdapter(categoryAdapter);
-
-                        ((Activity) context).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                recyclerViewForAdvertisements.setLayoutManager(new GridLayoutManager(getContext(), 2));
-                                recyclerViewForCategories.setLayoutManager(horizontalRecyclerViewLayoutManager);
-                                loading(false, view);
-                                viewModel.setAdvertisements_home(advertisements);
-                                Log.d("Tadaaa", "adsadsa");
-                            }
-                        });
-                    }
-                });
+                handler.post(() -> ((Activity) context).runOnUiThread(() -> {
+                    advertisementAdapter.notifyDataSetChanged();
+                    Log.d("Adverts", "update");
+                    loading(false, view);
+                    Log.d("onPostExecute", "end");
+                }));
             }
         }
 
-        private void fetchDataFromDatabase() {
-            Listing[] listings;
+
+        /**
+         * Used to create the homepage Listing cards.
+         *
+         * Pulls only the necessary data and creates a new Advertisement object with them.
+         * Other parameters of the object will be null.
+         */
+        private void fetchDataFromDatabase(String categoryForFilter, String subCategoryForFilter, String brandForFilter, String conditionForFilter) {
+            String[][] listings;
             try {
-                listings = Listing.findListings(null, null, null, null, null, null, null, null, null, null, null, "50");
+                Log.d("Data:Server", "findListingShowcases:begin. " + categoryForFilter + "/" + subCategoryForFilter);
+                if (categoryForFilter == null) {
+                    listings = Listing.findListingShowcases(null, null, null, null, null, conditionForFilter, null, null, null, null, null, "50");
+                } else {
+                    listings = Listing.findListingShowcases(null, categoryForFilter + "/" + subCategoryForFilter, null, null, null, conditionForFilter, null, null, null, null, null, "50");
+                }
+                Log.d("Data:Server", "findListing:end. Pulled " + listings.length + " listings");
+                advertisements.clear();
             } catch (Exception e) {
+                e.printStackTrace();;
                 throw new RuntimeException(e);
             }
-            for (Listing listing : listings) {
-                title = listing.getTitle();
-                location = listing.getLocation();
-                description = listing.getDescription();
-                userID = listing.getOwnerID();
-                brand = listing.getBrand();
-                type = listing.getType();
-                try {
-                    User user = User.getUser(userID);
-                    username = user.getUsername();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+
+            for (String[] listing : listings) {
+                if(listing[0] == null) {
+                    continue;
                 }
 
-                try {
-                    image = listing.getListingsFirstImage();
-                    if (image == null) {
-                        Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
-                        image = encodeImage(icon);
-                    }
-                } catch (Exception ignored) {
-                } finally {
-                    if (image == null) {
-                        Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
-                        image = encodeImage(icon);
-                    }
+                userID = listing[0];
+                username = listing[1];
+                ID = listing[2];
+                image = listing[3];
+                if (image == null) {
+                    Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
+                    image = encodeImage(icon);
                 }
-                price = listing.getPrice();
-                ID = listing.getID();
-                advertisements.add(new Advertisement(title, description, image, price, ID, location, userID, username, brand, type));
+                type = listing[4];
+                title = listing[5];
+
+                advertisements.add(new Advertisement(title, null, image, null, ID, null, userID, username, null, type));
             }
         }
     }
 
+
     private void loading(boolean isLoading, View view) {
         if (isLoading) {
             view.findViewById(R.id.homeFragment_recyclerView_advertisements).setVisibility(View.INVISIBLE);
-            view.findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.homeFragment_progressBar).setVisibility(View.VISIBLE);
         } else {
             view.findViewById(R.id.homeFragment_recyclerView_advertisements).setVisibility(View.VISIBLE);
-            view.findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.homeFragment_progressBar).setVisibility(View.INVISIBLE);
         }
     }
 
@@ -384,4 +418,7 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
 //
 //    }
 
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
 }

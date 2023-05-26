@@ -1,4 +1,4 @@
-package com.cankutboratuncer.alicisindan.activities.ui.main.filter;
+package com.cankutboratuncer.alicisindan.activities.ui.main.home.filter;
 
 import android.os.Bundle;
 

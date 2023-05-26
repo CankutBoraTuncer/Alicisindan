@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ui.main.filter.FilterSubCategoryFragment">
+    tools:context=".activities.ui.main.home.filter.FilterSubCategoryFragment">
 
     <TextView
         android:id="@+id/filterSubCategoryFragment_topPanel"

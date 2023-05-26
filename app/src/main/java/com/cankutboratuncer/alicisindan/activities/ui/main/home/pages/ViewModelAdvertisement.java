@@ -1,4 +1,4 @@
-package com.cankutboratuncer.alicisindan.activities.ui.main;
+package com.cankutboratuncer.alicisindan.activities.ui.main.home.pages;
 
 import androidx.lifecycle.ViewModel;
 
@@ -36,5 +36,4 @@ public class ViewModelAdvertisement extends ViewModel {
     public void setAdvertisements_sell(ArrayList<Advertisement> advertisements_sell) {
         this.advertisements_sell = advertisements_sell;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.cankutboratuncer.alicisindan.activities.ui.main.sell;
+package com.cankutboratuncer.alicisindan.activities.ui.main.home.pages;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -32,11 +33,11 @@ import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.adverti
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementInterface;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.CategoryInterface;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostTypeActivity;
-import com.cankutboratuncer.alicisindan.activities.ui.main.category.CategoryAdapter;
-import com.cankutboratuncer.alicisindan.activities.ui.main.category.CategoryFragment;
-import com.cankutboratuncer.alicisindan.activities.ui.main.filter.FilterCategoryFragment;
-import com.cankutboratuncer.alicisindan.activities.ui.main.filter.FilterFragment;
-import com.cankutboratuncer.alicisindan.activities.ui.main.filter.FilterSubCategoryFragment;
+import com.cankutboratuncer.alicisindan.activities.ui.main.home.category.CategoryAdapter;
+import com.cankutboratuncer.alicisindan.activities.ui.main.home.category.CategoryFragment;
+import com.cankutboratuncer.alicisindan.activities.ui.main.home.filter.FilterCategoryFragment;
+import com.cankutboratuncer.alicisindan.activities.ui.main.home.filter.FilterFragment;
+import com.cankutboratuncer.alicisindan.activities.ui.main.home.filter.FilterSubCategoryFragment;
 import com.cankutboratuncer.alicisindan.activities.utilities.Advertisement;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
 import com.cankutboratuncer.alicisindan.activities.utilities.Category;
@@ -47,7 +48,7 @@ import java.util.ArrayList;
 import Alicisindan.Listing;
 import Alicisindan.User;
 
-public class SellFragment extends Fragment implements AdvertisementInterface, CategoryInterface {
+public class BuyFragment extends Fragment implements AdvertisementInterface, CategoryInterface {
     // Give TAGS to the variables used for filtering
     private static final String ARG_FILTER_CATEGORY = "filter_category";
     private static final String ARG_FILTER_SUBCATEGORY = "filter_subCategory";
@@ -81,11 +82,11 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
     BackgroundTask backgroundTask;
     Handler handler;
 
-    public SellFragment() {
+    public BuyFragment() {
     }
 
-    public static SellFragment newInstance(String categoryForFilter, String subCategoryForFilter, String brandForFilter, String conditionForFilter) {
-        SellFragment fragment = new SellFragment();
+    public static BuyFragment newInstance(String categoryForFilter, String subCategoryForFilter, String brandForFilter, String conditionForFilter) {
+        BuyFragment fragment = new BuyFragment();
         Bundle args = new Bundle();
         args.putString(ARG_FILTER_CATEGORY, categoryForFilter);
         args.putString(ARG_FILTER_SUBCATEGORY, subCategoryForFilter);
@@ -125,7 +126,7 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_sell, container, false);
+        view = inflater.inflate(R.layout.fragment_buy, container, false);
         backgroundTask = new BackgroundTask(getContext());
         backgroundTask.execute();
         return view;
@@ -144,7 +145,7 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
     public void initUI() {
         categories = CategoryTest.categories;
         Log.d("Category", "size: " + categories.size());
-        recyclerViewForCategories = view.findViewById(R.id.sellFragment_recyclerView_categories);
+        recyclerViewForCategories = view.findViewById(R.id.buyFragment_recyclerView_categories);
         CategoryAdapter categoryAdapter = new CategoryAdapter(categories, this);
         recyclerViewForCategories.setAdapter(categoryAdapter);
         horizontalRecyclerViewLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false) {
@@ -157,10 +158,10 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
         };
         recyclerViewForCategories.setLayoutManager(horizontalRecyclerViewLayoutManager);
 
-        swipeRefreshLayout = view.findViewById(R.id.sellFragment_recyclerView_container);
+        swipeRefreshLayout = view.findViewById(R.id.buyFragment_recyclerView_container);
 
         advertisements = new ArrayList<>();
-        recyclerViewForAdvertisements = view.findViewById(R.id.sellFragment_recyclerView_advertisements);
+        recyclerViewForAdvertisements = view.findViewById(R.id.buyFragment_recyclerView_advertisements);
         advertisementAdapter = new AdvertisementAdapter(advertisements, this);
         recyclerViewForAdvertisements.setAdapter(advertisementAdapter);
         recyclerViewForAdvertisements.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -175,15 +176,15 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
     }
 
     public void initListeners() {
-        view.findViewById(R.id.sellFragment_buttonCreatePost).setOnClickListener(v -> {
+        view.findViewById(R.id.buyFragment_buttonCreatePost).setOnClickListener(v -> {
             startActivity(new Intent(getContext(), PostTypeActivity.class));
         });
-        TextView textView_seeAll = view.findViewById(R.id.sellFragment_textView_seeAll);
+        TextView textView_seeAll = view.findViewById(R.id.buyFragment_textView_seeAll);
         textView_seeAll.setOnClickListener(view -> {
             Fragment fragment = new CategoryFragment();
             loadFragment(fragment);
         });
-        TextView textView_filter = view.findViewById(R.id.sellFragment_textView_filter);
+        TextView textView_filter = view.findViewById(R.id.buyFragment_textView_filter);
         textView_filter.setOnClickListener(view -> {
             Fragment fragment;
             if (categoryForFilter == null) {
@@ -251,12 +252,14 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
         Context context;
 
         public BackgroundTask(Context context) {
+            Log.d("BackgroundTask", "Initialized");
             this.context = context;
         }
 
         @Override
         protected String doInBackground(Void... voids) {
             // Simulate the database retrieval process
+            // Retrieve data from the database
             Log.d("Data", "Fetching Data: start");
             fetchDataFromDatabase(categoryForFilter, subCategoryForFilter, brandForFilter, conditionForFilter);
             Log.d("Data", "Fetching Data: complete. Ad count: " + advertisements.size());
@@ -278,60 +281,53 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
         }
 
         private void fetchDataFromDatabase(String categoryForFilter, String subCategoryForFilter, String brandForFilter, String conditionForFilter) {
-            Listing[] listings;
+            String[][] listings;
             try {
-                Log.d("Data:Server", "findListing:begin. " + categoryForFilter + "/" + subCategoryForFilter);
+                Log.d("Data:Server", "findListingShowcases:begin. " + categoryForFilter + "/" + subCategoryForFilter);
                 if (categoryForFilter == null) {
-                    listings = Listing.findListings(null, null, null, null, "sell", conditionForFilter, null, null, null, null, null, "50");
+                    listings = Listing.findListingShowcases(null, null, null, null, "buy", conditionForFilter, null, null, null, null, null, "50");
                 } else {
-                    listings = Listing.findListings(null, categoryForFilter + "/" + subCategoryForFilter, null, null, "sell", conditionForFilter, null, null, null, null, null, "50");
+                    listings = Listing.findListingShowcases(null, categoryForFilter + "/" + subCategoryForFilter, null, null, "buy", conditionForFilter, null, null, null, null, null, "50");
                 }
                 Log.d("Data:Server", "findListing:end. Pulled " + listings.length + " listings");
                 advertisements.clear();
             } catch (Exception e) {
+                e.printStackTrace();;
                 throw new RuntimeException(e);
             }
-            for (Listing listing : listings) {
-                title = listing.getTitle();
-                location = listing.getLocation();
-                description = listing.getDescription();
-                userID = listing.getOwnerID();
-                brand = listing.getBrand();
-                type = listing.getType();
-                try {
-                    User user = User.getUser(userID);
-                    username = user.getUsername();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+
+            for (String[] listing : listings) {
+                if(listing[0] == null) {
+                    continue;
                 }
 
-                try {
-                    image = listing.getListingsFirstImage();
-                    if (image == null) {
-                        Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
-                        image = encodeImage(icon);
-                    }
-                } catch (Exception ignored) {
-                } finally {
-                    if (image == null) {
-                        Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
-                        image = encodeImage(icon);
-                    }
+                userID = listing[0];
+                username = listing[1];
+                ID = listing[2];
+                image = listing[3];
+                if (image == null) {
+                    Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
+                    image = encodeImage(icon);
                 }
-                price = listing.getPrice();
-                ID = listing.getID();
-                advertisements.add(new Advertisement(title, description, image, price, ID, location, userID, username, brand, type));
+                type = listing[4];
+                title = listing[5];
+
+                advertisements.add(new Advertisement(title, null, image, null, ID, null, userID, username, null, type));
             }
         }
     }
 
     private void loading(boolean isLoading, View view) {
         if (isLoading) {
-            view.findViewById(R.id.sellFragment_recyclerView_advertisements).setVisibility(View.INVISIBLE);
-            view.findViewById(R.id.sellFragment_progressBar).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.buyFragment_recyclerView_advertisements).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.buyFragment_progressBar).setVisibility(View.VISIBLE);
         } else {
-            view.findViewById(R.id.sellFragment_recyclerView_advertisements).setVisibility(View.VISIBLE);
-            view.findViewById(R.id.sellFragment_progressBar).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.buyFragment_recyclerView_advertisements).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.buyFragment_progressBar).setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
