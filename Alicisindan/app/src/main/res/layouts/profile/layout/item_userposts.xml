@@ -53,8 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintWidth_percent="0.27"
-                android:scaleType="centerCrop"
-
+                android:background="@drawable/ic_launcher_background"
                 app:layout_constraintLeft_toRightOf="@id/myposts_item_linearLayout"/>
 
 

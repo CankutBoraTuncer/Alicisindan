@@ -36,7 +36,6 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.signUpActivityEditTextCountry.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Constants.COUNTRIES));
         localSave = new LocalSave(getApplicationContext());
         setListeners();
     }
@@ -59,26 +58,9 @@ public class SignUpActivity extends AppCompatActivity {
                 }
         );
 
-        binding.signUpActivityEditTextCountry.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String country = binding.signUpActivityEditTextCountry.getText().toString();
-                if (Constants.COUNTRIES.contains(country)) {
-                    binding.signUpActivityEditTextCity.setAdapter(new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, Constants.CITIES.get(0)));
-                }
-            }
-        });
-    }
 
     private void signUp() {
         loading(true);

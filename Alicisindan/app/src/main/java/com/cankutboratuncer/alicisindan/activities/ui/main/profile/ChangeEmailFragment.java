@@ -15,6 +15,7 @@ import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
+import Alicisindan.AlicisindanException;
 import Alicisindan.Password;
 import Alicisindan.User;
 
@@ -43,12 +44,16 @@ public class ChangeEmailFragment extends Fragment {
                 {
                     localSave.putString(Constants.KEY_USER_EMAIL, null);
                     localSave.putString(Constants.KEY_USER_EMAIL, email);
-                    showToast("Your e-mail has changed." );
+
                     try {
                         User user = User.getUser(localSave.getString(Constants.KEY_USER_ID));
                         user.setEmail(localSave.getString(Constants.KEY_PASSWORD), email);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        showToast("Your e-mail has changed." );
+                    } catch (AlicisindanException e) {
+                        e.printStackTrace();
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                 }

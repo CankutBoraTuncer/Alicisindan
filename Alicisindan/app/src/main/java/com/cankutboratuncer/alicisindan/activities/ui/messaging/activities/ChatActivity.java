@@ -1,5 +1,6 @@
 package com.cankutboratuncer.alicisindan.activities.ui.messaging.activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -9,8 +10,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
+import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.ui.BaseActivity;
+import com.cankutboratuncer.alicisindan.activities.ui.main.profile.OtherProfileFragment;
+import com.cankutboratuncer.alicisindan.activities.ui.main.profile.OtherProfileFragmentActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.messaging.adapters.ChatAdapter;
 import com.cankutboratuncer.alicisindan.activities.ui.messaging.network.ApiClient;
 import com.cankutboratuncer.alicisindan.activities.ui.messaging.network.ApiService;
@@ -310,6 +315,13 @@ public class ChatActivity extends BaseActivity {
     private void setListeners() {
         //binding.imageBack.setOnClickListener(v -> onBackPressed());
         binding.messageSendButton.setOnClickListener(v -> sendMessage());
+        binding.userCardName.setOnClickListener(v2 -> {
+            Bundle b = new Bundle();
+            b.putString("userId", chatMessage.getUserId());
+            Intent i = new Intent(ChatActivity.this, OtherProfileFragmentActivity.class);
+            i.putExtras(b);
+            startActivity(i);
+        });
     }
 
     private String getReadableDateTime(Date date) {
@@ -347,4 +359,6 @@ public class ChatActivity extends BaseActivity {
             conversionId = documentSnapshot.getId();
         }
     };
+
+
 }
