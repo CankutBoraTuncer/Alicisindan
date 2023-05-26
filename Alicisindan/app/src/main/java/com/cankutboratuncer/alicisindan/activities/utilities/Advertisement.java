@@ -130,7 +130,6 @@ public class Advertisement {
         return type;
     }
 
-
     public void setType(String type) {
         this.type = type;
     }

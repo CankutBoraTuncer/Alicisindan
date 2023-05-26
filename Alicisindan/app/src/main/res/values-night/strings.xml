@@ -7,16 +7,7 @@
     <string name="email_or_phone_number">Email or Phone Number</string>
     <string name="password">Password</string>
     <string name="no_account">No Account?</string>
-    <string name="help1"><b>What is Alicisindan?</b>\nAlicisindan is an e-commerce app that allows you to find products to buy and sell.</string>
-    <string name="help2"><b>How will the payment process be carried out?</b>\nAlicisindan does not interfere with the payment process, the buyers and the sellers have to communicate and determine a method of exchanging money among themselves.</string>
-    <string name="help3"><b>How does the app work?</b>\nTo use the app, simply create an account and log in. You can then start creating listings for the products you want to sell or buy. Provide detailed information, including product description, price, and images. Users interested in buying or selling your product can connect with you through the app\'s messaging system.</string>
-    <string name="help4"><b>How secure is the app for buying and selling?</b>
-\nThe app prioritizes user security and safety. While we do not provide a platform for transactions, it\'s important to exercise caution and follow best practices. We recommend meeting in public places to exchange products and utilizing secure payment methods such as cash-on-delivery or trusted online payment gateways.</string>
-    <string name="help5"><b>Can I browse and buy products on the app?</b>
-\nAbsolutely! In addition to selling, you can explore the app\'s extensive collection of listings created by other users. Use search filters and categories to find the products you\'re interested in, and connect with sellers directly through the app to finalize your purchase.</string>
-    <string name="help6"><b>Is there a rating or feedback system for sellers?</b>
-\nYes, the app incorporates a rating and feedback system to foster a trustworthy community. Users can rate their experiences with sellers/buyers and leave feedback. This helps establish credibility and reliability within the marketplace.</string>
-    <string name="help7"><b>Are there any fees for using the app?</b>\nNo! Our app is completely free to use.</string> <string name="sign_in">Sign In</string>
+    <string name="sign_in">Sign In</string>
     <string name="or_sign_in_with">Or Sign in with</string>
     <string name="sign_up">Sign Up</string>
     <string name="confirm_password">Confirm Password</string>

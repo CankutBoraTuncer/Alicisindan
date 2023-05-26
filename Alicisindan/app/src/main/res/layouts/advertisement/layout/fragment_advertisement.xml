@@ -37,102 +37,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-                android:scaleType="centerCrop">
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imageProduct1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/_320sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/product_image" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imageProduct2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/_320sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/product_image" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imageProduct3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/_320sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/product_image" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imageProduct4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/_320sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/product_image" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imageProduct5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/_320sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/product_image" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imageProduct6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/_320sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/product_image" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imageProduct7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/_320sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/product_image" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imageProduct8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/_320sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/product_image" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imageProduct9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/_320sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/product_image" />
-
-           </ViewFlipper>
-
-
             <FrameLayout
                 android:id="@+id/layoutMessage"
                 android:layout_width="@dimen/_60sdp"
@@ -167,61 +71,35 @@
                 app:layout_constraintTop_toBottomOf="@id/advertisementFragment_imageSlider"
                 android:text="Astylish Women Open Front Long Sleeve Chunky Knit Cardigan" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lato"
+                android:maxLines="3"
+                android:paddingHorizontal="@dimen/_4sdp"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/_14ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productTitle"
-
-                android:id="@+id/adUsername">
-
-                <TextView
-                    android:id="@+id/adBy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginVertical="@dimen/_8sdp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/lato_bold"
-                    android:maxLines="3"
-                    android:paddingHorizontal="@dimen/_4sdp"
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_14ssp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/productTitle"
-
-                    android:text="By" />
-                <TextView
-                    android:id="@+id/adUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginVertical="@dimen/_8sdp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/lato"
-                    android:maxLines="3"
-                    android:paddingHorizontal="@dimen/_4sdp"
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_14ssp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/productTitle"
-
-                    android:text="Username" />
-            </LinearLayout>
+                app:layout_constraintTop_toBottomOf="@id/productTitle"
+                android:text="Cankut Bora Tuncer" />
 
             <TextView
                 android:id="@+id/productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:ellipsize="end"
                 android:fontFamily="@font/lato_bold"
                 android:maxLines="3"
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_24ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/adUsername"
+                app:layout_constraintTop_toBottomOf="@id/username"
                 android:text="$89.99" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -249,28 +127,9 @@
                 android:textSize="@dimen/_18ssp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-            <LinearLayout
-                android:id="@+id/category"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@id/productDetailsTitle">
-            <TextView
-                android:id="@+id/categoryTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:ellipsize="end"
-                android:fontFamily="@font/lato_bold"
-                android:maxLines="3"
-                android:paddingHorizontal="@dimen/_4sdp"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintStart_toStartOf="parent"
 
-                android:text="Category" />
             <TextView
-                android:id="@+id/productCategory"
+                android:id="@+id/productDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_12sdp"
@@ -283,28 +142,10 @@
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/productDetailsTitle"
-                android:text="Category" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/productDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:ellipsize="end"
-                android:fontFamily="@font/lato"
-                android:maxLines="3"
-                android:paddingHorizontal="@dimen/_4sdp"
                 android:text="Women's Casual V-Neck Pullover Sweater Long Sleeved
 Sweater Top with High Low Hemline is going to be the
 newest staple in your wardrobe! Living up to its namesake,
-this sweater is unbelievably soft, li..."
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/category"
-                tools:layout_editor_absoluteY="145dp" />
+this sweater is unbelievably soft, li..." />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

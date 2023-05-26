@@ -103,11 +103,26 @@ public class ReviewFragment extends Fragment {
             String rate = rating.get() + "";
             String text = details.getText().toString();
             try {
-                Review review = new Review(localSave.getString(Constants.KEY_USER_ID), userId, rate, "", text );
-                review.addReview(localSave.getString(Constants.KEY_PASSWORD));
-                showToast("Your rating is saved.");
-                Fragment fragment = new OtherProfileFragment(userId);
-                loadFragment(fragment);
+                if(!(Review.reviewExists(localSave.getString(Constants.KEY_USER_ID), userId)))
+                {
+                    if(!(localSave.getString(Constants.KEY_USER_ID) == userId))
+                    {
+                        Review review = new Review(localSave.getString(Constants.KEY_USER_ID), userId, rate, "", text );
+                        review.addReview(localSave.getString(Constants.KEY_PASSWORD));
+                        showToast("Your rating is saved.");
+                        Fragment fragment = new OtherProfileFragment(userId);
+                        loadFragment(fragment);
+                    }
+                    else
+                    {
+                        showToast("You cannot rate yourself.");
+                    }
+                }
+                else
+                {
+                    showToast("You have already reviewed this user.");
+                }
+
             } catch (AlicisindanException e)
             {
                 e.printStackTrace();

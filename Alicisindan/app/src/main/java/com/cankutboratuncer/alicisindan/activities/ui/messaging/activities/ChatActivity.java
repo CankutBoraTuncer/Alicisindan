@@ -10,11 +10,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
-import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.ui.BaseActivity;
-import com.cankutboratuncer.alicisindan.activities.ui.main.profile.OtherProfileFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.profile.OtherProfileFragmentActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.messaging.adapters.ChatAdapter;
 import com.cankutboratuncer.alicisindan.activities.ui.messaging.network.ApiClient;
@@ -179,26 +176,6 @@ public class ChatActivity extends BaseActivity {
     }
 
 
-//    private void listenAvailabilityOfReceiver() {
-//        database.collection(Constants.KEY_COLLECTION_USERS).document(receiverUser.id).addSnapshotListener(ChatActivity.this, (value, error) -> {
-//            if (error != null) {
-//                return;
-//            }
-//            if (value != null) {
-//                if (value.getLong(Constants.KEY_AVAILABILITY) != null) {
-//                    int availability = Objects.requireNonNull(value.getLong(Constants.KEY_AVAILABILITY)).intValue();
-//                    isReceiverAvailable = availability == 1;
-//                }
-//                receiverUser.token = value.getString(Constants.KEY_FCM_TOKEN);
-//                if (receiverUser.image == null) {
-//                    receiverUser.image = value.getString(Constants.KEY_IMAGE);
-//                    chatAdapter.setReceiverProfileImage(getBitmapFromEncodedString(receiverUser.image));
-//                    chatAdapter.notifyItemRangeChanged(0, chatMessages.size());
-//                }
-//            }
-//        });
-//    }
-
     private void listenMessages() {
         database.collection(Constants.KEY_COLLECTION_ADVERTISEMENT_CHAT)
                 .whereEqualTo(Constants.KEY_SENDER_ID, localSave.getString(Constants.KEY_USER_ID))
@@ -295,7 +272,7 @@ public class ChatActivity extends BaseActivity {
     private void setListeners() {
         //binding.imageBack.setOnClickListener(v -> onBackPressed());
         binding.messageSendButton.setOnClickListener(v -> sendMessage());
-        binding.userCardName.setOnClickListener(v2 -> {
+        binding.productCardName.setOnClickListener(v2 -> {
             Bundle b = new Bundle();
             b.putString("userId", chatMessage.getUserId());
             Intent i = new Intent(ChatActivity.this, OtherProfileFragmentActivity.class);
@@ -339,6 +316,4 @@ public class ChatActivity extends BaseActivity {
             conversionId = documentSnapshot.getId();
         }
     };
-
-
 }
