@@ -225,9 +225,9 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
             advertisement.setBrand(clickedListing.getBrand());
             advertisement.setCategory(clickedListing.getCategory());
             advertisement.setCondition(clickedListing.getCondition());
-        }
-        catch (Exception e) {
-            showToast("Server Error");
+
+        } catch (Exception e) {
+            showToast("Server Error: "+ e.getMessage());
         }
         args.putString("ID", advertisement.getAdvertisementID());
         args.putString("title", advertisement.getTitle());
@@ -290,7 +290,7 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
 
         /**
          * Used to create the homepage Listing cards.
-         *
+         * <p>
          * Pulls only the necessary data and creates a new Advertisement object with them.
          * Other parameters of the object will be null.
          */
@@ -305,28 +305,32 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
                 }
                 Log.d("Data:Server", "findListing:end. Pulled " + listings.length + " listings");
                 advertisements.clear();
+
+                for (String[] listing : listings) {
+                    if (listing[0] == null) {
+                        continue;
+                    }
+
+                    String userID = listing[0];
+                    String username = listing[1];
+                    String ID = listing[2];
+                    String image = listing[3];
+                    if (image == null) {
+                        Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
+                        image = encodeImage(icon);
+                    }
+                    String type = listing[4];
+                    String title = listing[5];
+
+                    advertisements.add(new Advertisement(title, null, new String[]{image}, null, ID, null, userID, username, null, type, null, null));
+                }
             } catch (Exception e) {
-                e.printStackTrace();;
-                throw new RuntimeException(e);
-            }
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        showToast("Server Error" + e.getMessage());
+                    }
+                });
 
-            for (String[] listing : listings) {
-                if(listing[0] == null) {
-                    continue;
-                }
-
-                String userID = listing[0];
-                String username = listing[1];
-                String ID = listing[2];
-                String image = listing[3];
-                if (image == null) {
-                    Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
-                    image = encodeImage(icon);
-                }
-                String  type = listing[4];
-                String title = listing[5];
-
-                advertisements.add(new Advertisement(title, null, new String[] {image}, null, ID, null, userID, username, null, type, null, null));
             }
         }
     }

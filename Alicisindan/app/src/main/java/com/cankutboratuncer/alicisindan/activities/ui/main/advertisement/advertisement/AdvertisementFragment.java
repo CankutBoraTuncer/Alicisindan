@@ -28,9 +28,7 @@ import com.cankutboratuncer.alicisindan.activities.ui.messaging.activities.ChatA
 import com.cankutboratuncer.alicisindan.activities.utilities.Advertisement;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
-import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.models.SlideModel;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -90,7 +88,7 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
             String type = args.getString("type");
             String category = args.getString("category");
             String condition = args.getString("condition");
-            advertisement = new Advertisement(advertisementTitle,advertisementDescription, null, advertisementPrice, advertisementID, advertisementLocation, userID, username, advertisementBrand, type, category, condition);
+            advertisement = new Advertisement(advertisementTitle, advertisementDescription, null, advertisementPrice, advertisementID, advertisementLocation, userID, username, advertisementBrand, type, category, condition);
         }
 
         if(advertisement.getUserID().equals(localSave.getString(Constants.KEY_USER_ID))){
@@ -111,21 +109,18 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
         try {
             Listing listing = Listing.getListing(advertisement.getAdvertisementID());
             images = listing.getListingImages();
-            Log.d("Images: ", Arrays.toString(images));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         int x = 0;
         for (int i = 0; i < images.length; i++) {
-            Log.d("Images:", i + ": " + images[i]);
             if (images[i].length() > 10) {
                 x++;
             }
         }
         Log.d("Images:", "x = " + x);
         String[] newImages = new String[x];
-        Arrays.copyOfRange(images, 0, x);
-
+        newImages = Arrays.copyOfRange(images, 0, x);
         advertisement.setImages(newImages);
 
         imageItemArrayList = new ArrayList<>();

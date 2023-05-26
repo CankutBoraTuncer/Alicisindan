@@ -77,66 +77,46 @@ public class ChatActivity extends BaseActivity {
     }
 
     private void sendMessage() {
-        HashMap<String, Object> message = new HashMap<>();
-        message.put(Constants.KEY_SENDER_ID, localSave.getString(Constants.KEY_USER_ID));
-        message.put(Constants.KEY_RECEIVER_ID, chatMessage.receiverId);
-        message.put(Constants.KEY_MESSAGE, binding.messageInputField.getText().toString());
-        message.put(Constants.KEY_ADVERTISEMENT_ID, chatMessage.getProductId());
-        message.put(Constants.KEY_TIMESTAMP, new Date());
-        database.collection(Constants.KEY_COLLECTION_ADVERTISEMENT_CHAT).add(message);
+        if (binding.messageInputField.getText() != null && binding.messageInputField.getText().toString().length() != 0) {
+            String userMessage = binding.messageInputField.getText().toString().trim();
+            HashMap<String, Object> message = new HashMap<>();
+            message.put(Constants.KEY_SENDER_ID, localSave.getString(Constants.KEY_USER_ID));
+            message.put(Constants.KEY_RECEIVER_ID, chatMessage.receiverId);
+            message.put(Constants.KEY_MESSAGE, userMessage);
+            message.put(Constants.KEY_ADVERTISEMENT_ID, chatMessage.getProductId());
+            message.put(Constants.KEY_TIMESTAMP, new Date());
+            database.collection(Constants.KEY_COLLECTION_ADVERTISEMENT_CHAT).add(message);
+            if (conversionId != null) {
+                updateConversion(userMessage);
+            } else {
+                HashMap<String, Object> conversion = new HashMap<>();
+                conversion.put(Constants.KEY_SENDER_ID, localSave.getString(Constants.KEY_USER_ID));
+                conversion.put(Constants.KEY_SENDER_NAME, localSave.getString(Constants.KEY_USER_NAME));
+                conversion.put(Constants.KEY_RECEIVER_ID, chatMessage.receiverId);
+                conversion.put(Constants.KEY_RECEIVER_NAME, chatMessage.getUserName());
 
-        if (conversionId != null) {
-            updateConversion(binding.messageInputField.getText().toString());
-        } else {
-            HashMap<String, Object> conversion = new HashMap<>();
-            conversion.put(Constants.KEY_SENDER_ID, localSave.getString(Constants.KEY_USER_ID));
-            conversion.put(Constants.KEY_SENDER_NAME, localSave.getString(Constants.KEY_USER_NAME));
-            conversion.put(Constants.KEY_RECEIVER_ID, chatMessage.receiverId);
-            conversion.put(Constants.KEY_RECEIVER_NAME, chatMessage.getUserName());
-
-            conversion.put(Constants.KEY_ADVERTISEMENT_TITLE, chatMessage.getProductTitle());
-            conversion.put(Constants.KEY_ADVERTISEMENT_DESCRIPTION, chatMessage.getProductDescription());
-            conversion.put(Constants.KEY_ADVERTISEMENT_ID, chatMessage.getProductId());
-            conversion.put(Constants.KEY_ADVERTISEMENT_LOCATION, chatMessage.getLocation());
-            conversion.put(Constants.KEY_ADVERTISEMENT_USERNAME, chatMessage.getUserName());
-            conversion.put(Constants.KEY_ADVERTISEMENT_USERID, chatMessage.getUserId());
-            conversion.put(Constants.KEY_ADVERTISEMENT_PRICE, chatMessage.getPrice());
-            conversion.put(Constants.KEY_ADVERTISEMENT_IMAGE, chatMessage.getImage());
-            conversion.put(Constants.KEY_ADVERTISEMENT_BRAND, chatMessage.getBrand());
-            conversion.put(Constants.KEY_ADVERTISEMENT_TYPE, chatMessage.getType());
-            conversion.put(Constants.KEY_ADVERTISEMENT_CATEGORY, chatMessage.getCategory());
-            conversion.put(Constants.KEY_ADVERTISEMENT_CONDITION, chatMessage.getCondition());
+                conversion.put(Constants.KEY_ADVERTISEMENT_TITLE, chatMessage.getProductTitle());
+                conversion.put(Constants.KEY_ADVERTISEMENT_DESCRIPTION, chatMessage.getProductDescription());
+                conversion.put(Constants.KEY_ADVERTISEMENT_ID, chatMessage.getProductId());
+                conversion.put(Constants.KEY_ADVERTISEMENT_LOCATION, chatMessage.getLocation());
+                conversion.put(Constants.KEY_ADVERTISEMENT_USERNAME, chatMessage.getUserName());
+                conversion.put(Constants.KEY_ADVERTISEMENT_USERID, chatMessage.getUserId());
+                conversion.put(Constants.KEY_ADVERTISEMENT_PRICE, chatMessage.getPrice());
+                conversion.put(Constants.KEY_ADVERTISEMENT_IMAGE, chatMessage.getImage());
+                conversion.put(Constants.KEY_ADVERTISEMENT_BRAND, chatMessage.getBrand());
+                conversion.put(Constants.KEY_ADVERTISEMENT_TYPE, chatMessage.getType());
+                conversion.put(Constants.KEY_ADVERTISEMENT_CATEGORY, chatMessage.getCategory());
+                conversion.put(Constants.KEY_ADVERTISEMENT_CONDITION, chatMessage.getCondition());
 
 //            conversion.put(Constants.KEY_SENDER_IMAGE, localSave.getString(Constants.KEY_IMAGE));
 //            conversion.put(Constants.KEY_RECEIVER_IMAGE, advertisement.image);
-            conversion.put(Constants.KEY_LAST_MESSAGE, binding.messageInputField.getText().toString());
-            conversion.put(Constants.KEY_TIMESTAMP, new Date());
-            addConversion(conversion);
+                conversion.put(Constants.KEY_LAST_MESSAGE, userMessage);
+                conversion.put(Constants.KEY_TIMESTAMP, new Date());
+                addConversion(conversion);
+            }
+            sendNotification(userMessage);
+            binding.messageInputField.setText(null);
         }
-        sendNotification();
-
-//        if (!isReceiverAvailable) {
-//            try {
-//                JSONArray tokens = new JSONArray();
-//                tokens.put(receiverUser.token);
-//
-//                JSONObject data = new JSONObject();
-//                data.put(Constants.KEY_USER_ID, localSave.getString(Constants.KEY_USER_ID));
-//                data.put(Constants.KEY_USER_NAME, localSave.getString(Constants.KEY_USER_NAME));
-//                data.put(Constants.KEY_FCM_TOKEN, localSave.getString(Constants.KEY_FCM_TOKEN));
-//                data.put(Constants.KEY_MESSAGE, binding.messageInputField.getText().toString());
-//
-//                JSONObject body = new JSONObject();
-//                body.put(Constants.REMOTE_MSG_DATA, data);
-//                body.put(Constants.REMOTE_MSG_REGISTRATION_IDS, tokens);
-//
-//                sendNotification(body.toString());
-//
-//            } catch (Exception exception) {
-//                showToast(exception.getMessage());
-//            }
-//        }
-        binding.messageInputField.setText(null);
     }
 
     private void showToast(String message) {
@@ -144,19 +124,16 @@ public class ChatActivity extends BaseActivity {
     }
 
 
-    private void sendNotification() {
-
+    private void sendNotification(String userMessage) {
         try {
             JSONArray tokens = new JSONArray();
-
             tokens.put(User.getUserToken(chatMessage.getReceiverId()));
-            Log.d("UserIDd", User.getUserToken(chatMessage.getReceiverId()));
+
             JSONObject data = new JSONObject();
             data.put(Constants.KEY_USER_ID, localSave.getString(Constants.KEY_USER_ID));
             data.put(Constants.KEY_USER_NAME, localSave.getString(Constants.KEY_USER_NAME));
             data.put(Constants.KEY_FCM_TOKEN, localSave.getString(Constants.KEY_FCM_TOKEN));
-            Log.d("UserIDd",localSave.getString(Constants.KEY_FCM_TOKEN));
-            data.put(Constants.KEY_MESSAGE, binding.messageInputField.getText().toString());
+            data.put(Constants.KEY_MESSAGE, userMessage);
 
             JSONObject body = new JSONObject();
             body.put(Constants.REMOTE_MSG_DATA, data);
@@ -181,7 +158,6 @@ public class ChatActivity extends BaseActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        showToast("Notification sent successfully");
                     } else {
                         showToast("Error: " + response.code());
                     }
@@ -280,7 +256,7 @@ public class ChatActivity extends BaseActivity {
         binding.productCardTitle.setText(chatMessage.getProductTitle());
         binding.productCardPrice.setText(chatMessage.getPrice());
         binding.productCardLocation.setText(chatMessage.getLocation());
-        binding.userCardName.setText(chatMessage.getUserName());
+        binding.productCardName.setText(chatMessage.getUserName());
         binding.productCardImage.setImageBitmap(Advertisement.decodeImage(chatMessage.getImage()));
     }
 
@@ -295,7 +271,7 @@ public class ChatActivity extends BaseActivity {
             String id = bundle.getString(Constants.KEY_ADVERTISEMENT_ID);
             String location = bundle.getString(Constants.KEY_ADVERTISEMENT_LOCATION);
             String price = bundle.getString(Constants.KEY_ADVERTISEMENT_PRICE);
-            String image = bundle.getString(Constants.KEY_ADVERTISEMENT_IMAGE);
+            String[] image = new String[]{bundle.getString(Constants.KEY_ADVERTISEMENT_IMAGE)};
             String brand = bundle.getString(Constants.KEY_ADVERTISEMENT_LOCATION);
             String type = bundle.getString(Constants.KEY_ADVERTISEMENT_TYPE);
             String category = bundle.getString(Constants.KEY_ADVERTISEMENT_CATEGORY);
@@ -303,7 +279,7 @@ public class ChatActivity extends BaseActivity {
             String senderId = bundle.getString(Constants.KEY_SENDER_ID);
             String receiverId = bundle.getString(Constants.KEY_RECEIVER_ID);
 
-            advertisement = new Advertisement(title, description, null, price, id, location, userId, userName, brand, type, category, condition);
+            advertisement = new Advertisement(title, description, image, price, id, location, userId, userName, brand, type, category, condition);
             chatMessage = new ChatMessage();
             chatMessage.senderId = senderId;
             chatMessage.receiverId = receiverId;

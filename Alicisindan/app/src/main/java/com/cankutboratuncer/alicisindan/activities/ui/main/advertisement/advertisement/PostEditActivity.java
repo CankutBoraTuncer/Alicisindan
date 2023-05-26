@@ -33,7 +33,7 @@ import java.util.ArrayList;
 
 import Alicisindan.Listing;
 
-public class PostEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class PostEditActivity extends AppCompatActivity {
 
     private ActivityPostEditBinding binding;
     private ArrayList<String> encodedImages;
@@ -63,25 +63,7 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
         }
         binding.subTitle.setText(category);
         initImageButton();
-        initSpinners();
         setListeners();
-
-    }
-
-    private void initSpinners() {
-        Spinner spinnerBrand = binding.brand;
-        Spinner spinnerCondition = binding.condition;
-
-        spinnerBrand.setOnItemSelectedListener(this);
-        spinnerCondition.setOnItemSelectedListener(this);
-
-        ArrayAdapter brandAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Constants.CAR_CAR_BRAND);
-        brandAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerBrand.setAdapter(brandAdapter);
-
-        ArrayAdapter conditionAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Constants.CONDITION);
-        conditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCondition.setAdapter(conditionAdapter);
 
     }
 
@@ -217,20 +199,6 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
         pickImage.launch(intent);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if(adapterView == binding.brand){
-            brand = adapterView.getItemAtPosition(i).toString();
-        } else if (adapterView == binding.condition){
-            condition = adapterView.getItemAtPosition(i).toString();
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
     private Boolean isValidPostDetails() {
         if (encodedImages == null) {
             showToast("Select at least 1 image");
@@ -245,12 +213,13 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
             showToast("Location cannot be empty");
             return false;
         }
-//         else if (binding.brand.getCount() == 0) {
-//            showToast("Please select a brand");
-//            return false;
-//        } else if (binding.condition.getCount() == 0) {
-//            showToast("Please select a condition");
-//            return false;
+         else if (binding.brand.getText().toString().trim().isEmpty()) {
+            showToast("Please select a brand");
+            return false;
+        } else if (binding.condition.getText().toString().trim().isEmpty()) {
+            showToast("Please select a condition");
+            return false;
+        }
         else {
             return true;
         }

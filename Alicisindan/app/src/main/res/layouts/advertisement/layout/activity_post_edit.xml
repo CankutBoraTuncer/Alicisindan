@@ -57,12 +57,17 @@
 
             <TextView
                 android:id="@+id/subTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:ellipsize="end"
                 android:fontFamily="@font/lato"
+                android:maxLines="1"
+                android:maxLength="25"
                 android:textColor="@color/gray_dark"
                 android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toStartOf="@id/change"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 tools:text="Car / Wheel and Tire" />
@@ -112,7 +117,7 @@
                 app:layout_constraintTop_toBottomOf="@id/title2" />
 
 
-            <Spinner
+            <EditText
                 android:id="@+id/brand"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
@@ -122,19 +127,13 @@
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="text"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:maxLength="20"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title2" />
-
-            <View
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:background="@drawable/ic_down_arrow"
-                app:layout_constraintBottom_toBottomOf="@id/brand"
-                app:layout_constraintEnd_toEndOf="@id/brand"
-                app:layout_constraintTop_toTopOf="@id/brand" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -148,7 +147,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/brand" />
 
-            <Spinner
+            <EditText
                 android:id="@+id/condition"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
@@ -159,21 +158,12 @@
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:maxLength="10"
+                android:maxLength="20"
                 android:maxLines="1"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/brand" />
-
-            <View
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:background="@drawable/ic_down_arrow"
-                app:layout_constraintBottom_toBottomOf="@id/condition"
-                app:layout_constraintEnd_toEndOf="@id/condition"
-                app:layout_constraintTop_toTopOf="@id/condition" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -199,7 +189,7 @@
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:maxLength="10"
+                android:maxLength="20"
                 android:maxLines="1"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
@@ -230,7 +220,7 @@
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
-                android:maxLines="4"
+                android:maxLines="5"
                 android:padding="@dimen/_12sdp"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
@@ -449,7 +439,7 @@
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:maxLength="10"
+                android:maxLength="20"
                 android:maxLines="1"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
