@@ -47,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
                 try {
                     signUp();
                 } catch (Exception e) {
-                    showToast("The register failed.");
+                    showToast("Registration failed.");
                     throw new RuntimeException(e);
                 }
             }
@@ -65,15 +65,22 @@ public class SignUpActivity extends AppCompatActivity {
     private void signUp() {
         loading(true);
         try {
-            if (!User.emailExists(binding.signUpActivityEditTextEmailOrPhoneNumber.getText().toString())) {
-                String username = binding.signUpActivityEditTextUserName.getText().toString();
-                String email = binding.signUpActivityEditTextEmailOrPhoneNumber.getText().toString();
-                String password = get_SHA_256_SecurePassword(binding.signUpActivityEditTextPassword.getText().toString(), "salt");
-                String name = binding.signUpActivityEditTextName.getText().toString();
-                String surname = binding.signUpActivityEditTextSurname.getText().toString();
-                String phone = binding.signUpActivityEditTextEmailOrPhoneNumber.getText().toString();
-                String address = binding.signUpActivityEditTextCountry.getText().toString() + "/" + binding.signUpActivityEditTextCity.getText().toString();
-                String birthday = "";
+            String username = binding.signUpActivityEditTextUserName.getText().toString();
+            String email = binding.signUpActivityEditTextEmailOrPhoneNumber.getText().toString();
+            String password = get_SHA_256_SecurePassword(binding.signUpActivityEditTextPassword.getText().toString(), "salt");
+            String name = binding.signUpActivityEditTextName.getText().toString();
+            String surname = binding.signUpActivityEditTextSurname.getText().toString();
+            String phone = "";
+            String address = binding.signUpActivityEditTextCountry.getText().toString() + "/" + binding.signUpActivityEditTextCity.getText().toString();
+            String birthday = "";
+
+            if(User.emailExists(email)) {
+                showToast("There is already an user with this email.");
+            }
+            else if(User.usernameExists(username)) {
+                showToast("There is already an user with this username.");
+            }
+            else {
                 FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
@@ -103,41 +110,39 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
 
-            } else {
-                showToast("There is already a user with this email.");
             }
         } catch (Exception e) {
-            showToast(e.getMessage());
+            showToast("An error occured. Please try again.");
         }
     }
 
     private Boolean isValidSignUpDetails() {
         if (binding.signUpActivityEditTextName.getText().toString().trim().isEmpty()) {
-            showToast("Enter Name");
+            showToast("Enter a name.");
             return false;
         } else if (binding.signUpActivityEditTextSurname.getText().toString().trim().isEmpty()) {
-            showToast("Enter Surname");
+            showToast("Enter a surname.");
             return false;
         } else if (binding.signUpActivityEditTextUserName.getText().toString().trim().isEmpty()) {
-            showToast("Enter Username");
+            showToast("Enter an username.");
             return false;
         } else if (binding.signUpActivityEditTextEmailOrPhoneNumber.getText().toString().trim().isEmpty()) {
-            showToast("Enter Email");
+            showToast("Enter an email.");
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.signUpActivityEditTextEmailOrPhoneNumber.getText().toString()).matches()) {
-            showToast("Error invalid email");
+            showToast("Invalid email.");
             return false;
         } else if (binding.signUpActivityEditTextPassword.getText().toString().trim().isEmpty()) {
-            showToast("Enter password");
+            showToast("Enter a password.");
             return false;
         } else if (binding.signUpActivityEditTextConfirmPassword.getText().toString().trim().isEmpty()) {
-            showToast("Confirm your password");
+            showToast("Confirm your password.");
             return false;
         } else if (!binding.signUpActivityEditTextPassword.getText().toString().equals(binding.signUpActivityEditTextConfirmPassword.getText().toString())) {
-            showToast("Password & confirm password are not matching");
+            showToast("Password & confirmed password do not match.");
             return false;
         } else if (!binding.signUpActivityCheckBoxTermsAndServices.isChecked()) {
-            showToast("Please check the Terms & Services");
+            showToast("Please read and accept Terms & Services.");
             return false;
         } else {
             return true;
