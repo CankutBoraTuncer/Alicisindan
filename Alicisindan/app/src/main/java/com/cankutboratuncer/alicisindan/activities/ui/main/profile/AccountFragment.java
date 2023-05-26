@@ -38,8 +38,6 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         CardView changePassword = view.findViewById(R.id.accountFragment_cardView_changePassword);
         CardView userInfo = view.findViewById(R.id.accountFragment_cardView_userInfo);
-        CardView location = view.findViewById(R.id.accountFragment_cardView_addressInfo);
-        CardView email = view.findViewById(R.id.accountFragment_cardView_changeMailOrPhone);
         CardView delete = view.findViewById(R.id.accountFragment_cardView_deleteAccount);
         changePassword.setOnClickListener(v -> {
             Fragment fragment = new ChangePasswordFragment();
@@ -47,14 +45,6 @@ public class AccountFragment extends Fragment {
         });
         userInfo.setOnClickListener(v3 -> {
             Fragment fragment = new UserInfoFragment();
-            loadFragment(fragment);
-        });
-        location.setOnClickListener(v4 -> {
-            Fragment fragment = new AddressFragment();
-            loadFragment(fragment);
-        });
-        email.setOnClickListener(v5 -> {
-            Fragment fragment = new ChangeEmailFragment();
             loadFragment(fragment);
         });
         delete.setOnClickListener(v6 -> {

@@ -10,7 +10,7 @@
     android:overScrollMode="never"
     android:paddingBottom="@dimen/_20sdp"
     android:scrollbars="none"
-    tools:context=".activities.ui.main.profile.ChangePasswordFragment">
+    tools:context=".activities.ui.main.profile.ChangeNameFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato_bold"
-                android:text="Change Password"
+                android:text="Change Name"
                 android:textColor="@color/text_dark"
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/lato_bold"
-                android:text="Old Password"
+                android:text="Enter a new name"
                 android:textColor="@color/text_dark"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/_12ssp"
@@ -80,7 +80,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/title" />
 
             <EditText
-                android:id="@+id/oldPassword"
+                android:id="@+id/newName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="11dp"
@@ -92,7 +92,7 @@
 
 
 
-                android:inputType="textPassword"
+                android:inputType="text"
 
                 android:maxLength="15"
                 android:maxLines="1"
@@ -108,14 +108,14 @@
                 android:layout_marginStart="@dimen/_4sdp"
                 android:layout_marginTop="18dp"
                 android:fontFamily="@font/lato_bold"
-                android:text="New Password"
+                android:text="Enter a new surname"
                 android:textColor="@color/text_dark"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/oldPassword" />
+                app:layout_constraintTop_toBottomOf="@+id/newName" />
 
             <EditText
-                android:id="@+id/newPassword"
+                android:id="@+id/newSurname"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="12dp"
@@ -126,7 +126,7 @@
                 android:importantForAutofill="no"
 
 
-                android:inputType="textPassword"
+                android:inputType="text"
 
                 android:maxLength="15"
                 android:maxLines="1"
@@ -138,7 +138,7 @@
 
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/changeButton"
+                android:id="@+id/changeNameButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginStart="4dp"
@@ -150,7 +150,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/newPassword" />
+                app:layout_constraintTop_toBottomOf="@+id/newSurname" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

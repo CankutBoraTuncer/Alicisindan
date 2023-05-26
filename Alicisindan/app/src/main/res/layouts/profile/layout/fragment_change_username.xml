@@ -10,7 +10,7 @@
     android:overScrollMode="never"
     android:paddingBottom="@dimen/_20sdp"
     android:scrollbars="none"
-    tools:context=".activities.ui.main.profile.ChangePasswordFragment">
+    tools:context=".activities.ui.main.profile.ChangeUsernameFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:background="@drawable/background_main_gradient"
             android:fontFamily="@font/lato"
             android:gravity="center"
-            android:text="Change Password"
+            android:text="Change Username"
             android:textColor="@color/white"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,8 +34,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="361dp"
+            android:layout_height="311dp"
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/background_category"
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato_bold"
-                android:text="Change Password"
+                android:text="Change Username"
                 android:textColor="@color/text_dark"
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/lato_bold"
-                android:text="Old Password"
+                android:text="Enter new username"
                 android:textColor="@color/text_dark"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/_12ssp"
@@ -80,7 +80,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/title" />
 
             <EditText
-                android:id="@+id/oldPassword"
+                android:id="@+id/newUsername"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="11dp"
@@ -89,68 +89,29 @@
                 android:fontFamily="@font/lato"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
-
-
-
-                android:inputType="textPassword"
-
-                android:maxLength="15"
+                android:inputType="text"
+                android:maxLength="50"
                 android:maxLines="1"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/lato_bold"
-                android:text="New Password"
-                android:textColor="@color/text_dark"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/oldPassword" />
-
-            <EditText
-                android:id="@+id/newPassword"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/background_edit_text_add_post"
-                android:ellipsize="end"
-                android:fontFamily="@font/lato"
-                android:imeOptions="actionNext"
-                android:importantForAutofill="no"
-
-
-                android:inputType="textPassword"
-
-                android:maxLength="15"
-                android:maxLines="1"
-                android:paddingHorizontal="@dimen/_16sdp"
-                android:textColor="@color/primary_text"
-                android:textCursorDrawable="@null"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/changeButton"
+                android:id="@+id/changeUsernameButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="32dp"
                 android:background="@drawable/background_main_button"
                 android:fontFamily="@font/lato_bold"
                 android:text="Change"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/newPassword" />
+                app:layout_constraintTop_toBottomOf="@+id/newUsername" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

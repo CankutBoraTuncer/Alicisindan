@@ -129,6 +129,7 @@
                 android:inputType="text"
                 android:maxLength="30"
                 android:maxLines="1"
+                android:maxLength="50"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
                 android:textCursorDrawable="@null"
