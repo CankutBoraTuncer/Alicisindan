@@ -169,9 +169,18 @@ public class ProfileFragment extends Fragment {
             loadFragment(fragment);
         });
         TextView username = view.findViewById(R.id.profileFragment_textView_fullName);
-        username.setText(localSave.getString(Constants.KEY_USER_NAME));
         TextView email = view.findViewById(R.id.profileFragment_textView_email);
-        email.setText(localSave.getString(Constants.KEY_USER_EMAIL));
+
+        // When user is not logged in:
+        if(localSave.getString(Constants.KEY_USER_NAME) == null) {
+            username.setText("Guest");
+            email.setText("Log in to access more features.");
+        }
+        else {
+            username.setText(localSave.getString(Constants.KEY_USER_NAME));
+            email.setText(localSave.getString(Constants.KEY_USER_EMAIL));
+        }
+
         return view;
     }
 

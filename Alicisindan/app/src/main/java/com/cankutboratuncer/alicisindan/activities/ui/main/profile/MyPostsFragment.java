@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.ui.main.profile.recycleview_necessities.myposts.MyPosts_Adapter;
 import com.cankutboratuncer.alicisindan.activities.ui.main.profile.recycleview_necessities.myposts._MyPosts;
+import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
 /**
@@ -77,6 +79,12 @@ public class MyPostsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_my_posts, container, false);
 
+        // When user is not logged in:
+        if (_MyPosts.local_save.getString(Constants.KEY_USER_ID) == null) {
+            showToast("You have to log in first.");
+            return view;
+        }
+
         recyclerView = view.findViewById(R.id.mypostsFragment_recycleview);
         myposts_adapter = new MyPosts_Adapter(_MyPosts.manageData(), this.getActivity());
 
@@ -86,5 +94,13 @@ public class MyPostsFragment extends Fragment {
         recyclerView.setAdapter(myposts_adapter);
 
         return view;
+    }
+
+    /**
+     * Creates a toast message.
+     * @param toastMessage to show
+     */
+    private void showToast(String toastMessage) {
+        Toast.makeText(getContext(), toastMessage, Toast.LENGTH_SHORT).show();
     }
 }

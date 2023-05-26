@@ -21,7 +21,7 @@
     <string name="or_sign_in_with">Or Sign in with</string>
     <string name="sign_up">Sign Up</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="have_already_an_account">Have Already an Account?</string>
+    <string name="have_already_an_account">Already have an account?</string>
     <string name="i_have_read_and_acknowledged_the_terms_services"><![CDATA[I have read and acknowledged the Terms & Services]]></string>
     <string name="title_activity_phone">PhoneActivity</string>
     <string name="prompt_email">Email</string>

@@ -59,6 +59,13 @@ public class MessagesFragment extends Fragment implements ConversionListener {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_messages, container, false);
         localSave = new LocalSave(getContext());
+
+        // When user is not logged in:
+        if (localSave.getString(Constants.KEY_USER_ID) == null) {
+            showToast("You have to log in first.");
+            return view;
+        }
+
         init();
         getToken();
         listenConversations();
@@ -176,4 +183,5 @@ public class MessagesFragment extends Fragment implements ConversionListener {
         intent.putExtras(args);
         startActivity(intent);
     }
+
 }
