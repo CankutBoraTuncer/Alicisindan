@@ -63,16 +63,6 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
     ArrayList<Advertisement> advertisements;
     View view;
     ArrayList<AllCategories> categories;
-    String title;
-    String description;
-    String image;
-    String price;
-    String ID;
-    String location;
-    String userID;
-    String username;
-    String brand;
-    String type;
 
     RecyclerView recyclerViewForAdvertisements;
     RecyclerView recyclerViewForCategories;
@@ -223,6 +213,21 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
         Bundle args = new Bundle();
         Fragment fragment = AdvertisementFragment.newInstance(advertisements.get(position).getAdvertisementID());
         Advertisement advertisement = advertisements.get(position);
+
+        // Load the rest of Listing details.
+        try {
+            Listing clickedListing = Listing.getListing(advertisement.getAdvertisementID());
+            advertisement.setDescription(clickedListing.getDescription());
+            //TODO
+            // ADVERTISEMENT CLASS DOESN'T SUPPORT MULTIPLE IMAGES YET!?
+            //advertisement.setImages(clickedListing.getImages());
+            advertisement.setPrice(clickedListing.getPrice());
+            advertisement.setLocation(clickedListing.getLocation());
+            advertisement.setBrand(clickedListing.getBrand());
+        }
+        catch (Exception e) {
+            showToast("Server Error");
+        }
         args.putString("ID", advertisement.getAdvertisementID());
         args.putString("title", advertisement.getTitle());
         args.putString("price", advertisement.getPrice());
@@ -301,16 +306,16 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
                     continue;
                 }
 
-                userID = listing[0];
-                username = listing[1];
-                ID = listing[2];
-                image = listing[3];
+                String userID = listing[0];
+                String username = listing[1];
+                String ID = listing[2];
+                String image = listing[3];
                 if (image == null) {
                     Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
                     image = encodeImage(icon);
                 }
-                type = listing[4];
-                title = listing[5];
+                String type = listing[4];
+                String  title = listing[5];
 
                 advertisements.add(new Advertisement(title, null, image, null, ID, null, userID, username, null, type));
             }
