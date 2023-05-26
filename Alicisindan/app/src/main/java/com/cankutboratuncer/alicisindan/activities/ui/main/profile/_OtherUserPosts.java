@@ -16,14 +16,14 @@ import java.util.ArrayList;
 import Alicisindan.Listing;
 import Alicisindan.User;
 
-public class _MyPosts {
+public class _OtherUserPosts {
     private String order;
     private String name;
     private Bitmap bitmap;
 
     public static LocalSave local_save;
 
-    public _MyPosts(String order, String name, Bitmap bitmap) {
+    public _OtherUserPosts(String order, String name, Bitmap bitmap, String id) {
         this.order = order;
         this.name = name;
         this.bitmap = bitmap;

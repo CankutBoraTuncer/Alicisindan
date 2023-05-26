@@ -30,44 +30,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/helpFragment_layout_searchBar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="429dp"
+        android:layout_height="5dp"
+        android:foregroundGravity="center"
         android:paddingHorizontal="@dimen/_16sdp"
         android:paddingVertical="@dimen/_10sdp"
-        android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.101"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/helpFragment_layout_top"
-        app:layout_constraintVertical_bias="0.0">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="@dimen/_100sdp">
-
-            <EditText
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:background="@color/white"
-                android:id="@+id/helpFragment_editText_searchBar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:ems="10"
-                android:fontFamily="@font/lato_bold"
-                android:inputType="textPersonName"
-                android:hint="What are you looking for?"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_13ssp"
-                app:layout_constraintCircleRadius="@dimen/_8sdp"
-                app:drawableStartCompat="@drawable/ic_search"
-                app:drawableTint="@color/primary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintVertical_bias="0.0" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -103,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
                     android:fontFamily="@font/lato"
-                    android:text="Tip 1: \nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    android:text="@string/help1"
                     android:textColor="@color/primary_text" />
             </androidx.cardview.widget.CardView>
 
@@ -122,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
                     android:fontFamily="@font/lato"
-                    android:text="Tip 2: \nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    android:text="@string/help3"
                     android:textColor="@color/primary_text" />
             </androidx.cardview.widget.CardView>
 
@@ -141,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
                     android:fontFamily="@font/lato"
-                    android:text="Tip 3: \nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    android:text="@string/help5"
                     android:textColor="@color/primary_text" />
             </androidx.cardview.widget.CardView>
 
@@ -160,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
                     android:fontFamily="@font/lato"
-                    android:text="Tip 4: \nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    android:text="@string/help2"
                     android:textColor="@color/primary_text" />
             </androidx.cardview.widget.CardView>
 
@@ -180,7 +154,7 @@
                     android:layout_margin="@dimen/_8sdp"
                     android:textColor="@color/primary_text"
                     android:fontFamily="@font/lato"
-                    android:text="Tip 5: \nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+                    android:text="@string/help4" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -199,7 +173,25 @@
                     android:layout_margin="@dimen/_8sdp"
                     android:textColor="@color/primary_text"
                     android:fontFamily="@font/lato"
-                    android:text="Tip 6: \nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+                    android:text="@string/help6"/>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/helpFragment_cardView_example7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/helpFragment_cardView_example6">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:textColor="@color/primary_text"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/help7"/>
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

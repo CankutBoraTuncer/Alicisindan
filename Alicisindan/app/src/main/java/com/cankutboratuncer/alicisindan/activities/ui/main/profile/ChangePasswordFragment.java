@@ -14,16 +14,11 @@ import androidx.fragment.app.Fragment;
 import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
-<<<<<<< HEAD
-import com.cankutboratuncer.alicisindan.databinding.FragmentChangePasswordBinding;
-import com.cankutboratuncer.alicisindan.databinding.FragmentProfileBinding;
-=======
 //import com.cankutboratuncer.alicisindan.databinding.FragmentChangePasswordBinding;
 //import com.cankutboratuncer.alicisindan.databinding.FragmentProfileBinding;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
->>>>>>> main
 
 import Alicisindan.Password;
 
@@ -31,11 +26,7 @@ public class ChangePasswordFragment extends Fragment {
     private LocalSave localSave;
     private String oldPassword;
     private String newPassword;
-<<<<<<< HEAD
-    private FragmentChangePasswordBinding binding;
-=======
     //private FragmentChangePasswordBinding binding;
->>>>>>> main
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         localSave = new LocalSave(getContext());
@@ -45,20 +36,12 @@ public class ChangePasswordFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_change_password, container, false);
-<<<<<<< HEAD
-        binding = FragmentChangePasswordBinding.inflate(getLayoutInflater());
-=======
         //binding = FragmentChangePasswordBinding.inflate(getLayoutInflater());
->>>>>>> main
         androidx.appcompat.widget.AppCompatButton button = view.findViewById(R.id.changeButton);
         button.setOnClickListener(v2 -> {
             EditText oldPass = view.findViewById(R.id.oldPassword);
             oldPassword = oldPass.getText().toString();
-<<<<<<< HEAD
-            EditText newPass = view.findViewById(R.id.oldPassword);
-=======
             EditText newPass = view.findViewById(R.id.newPassword);
->>>>>>> main
             newPassword = newPass.getText().toString();
             if (oldPassword.equals("") || newPassword.equals(""))
             {
@@ -66,14 +49,6 @@ public class ChangePasswordFragment extends Fragment {
             }
             else
             {
-<<<<<<< HEAD
-                if (oldPassword.equals(localSave.getString(Constants.KEY_PASSWORD)))
-                {
-                    localSave.putString(Constants.KEY_PASSWORD, newPassword);
-                    showToast("Your password has changed.");
-                    try {
-                        Password.setPassword(Constants.KEY_USER_ID, oldPassword, newPassword);
-=======
                 if ((get_SHA_256_SecurePassword(oldPassword, "salt")).equals(localSave.getString(Constants.KEY_PASSWORD)))
                 {
                     localSave.putString(Constants.KEY_PASSWORD, null);
@@ -81,7 +56,6 @@ public class ChangePasswordFragment extends Fragment {
                     showToast("Your password has changed.");
                     try {
                         Password.setPassword(localSave.getString(Constants.KEY_USER_ID), get_SHA_256_SecurePassword(oldPassword, "salt"), get_SHA_256_SecurePassword(newPassword, "salt"));
->>>>>>> main
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -89,12 +63,8 @@ public class ChangePasswordFragment extends Fragment {
                 }
                 else
                 {
-<<<<<<< HEAD
-                    showToast("Your old password is not correct.");
-=======
 
                     showToast("Your old password is not correct." );
->>>>>>> main
                 }
             }
         });
@@ -103,9 +73,6 @@ public class ChangePasswordFragment extends Fragment {
     private void showToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
-<<<<<<< HEAD
-}
-=======
 
     private static String get_SHA_256_SecurePassword(String passwordToHash,
                                                      String salt) {
@@ -126,4 +93,3 @@ public class ChangePasswordFragment extends Fragment {
         return generatedPassword;
     }
 }
->>>>>>> main

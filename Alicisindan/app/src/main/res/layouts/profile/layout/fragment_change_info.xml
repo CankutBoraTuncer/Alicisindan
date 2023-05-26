@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
-    tools:context=".activities.ui.main.profile.UserInfoFragment">
+    tools:context=".activities.ui.main.profile.ChangeInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="User Info"
+            android:text="Edit Your Info"
             android:textColor="@color/white"
             android:gravity="center"
             android:textSize="@dimen/_16ssp"/>
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/accountFragment_layout_top">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/accountFragment_cardView_name"
+            android:id="@+id/change_cardView_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
@@ -48,183 +48,103 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="1">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
-                android:drawablePadding="@dimen/_8sdp"
-                android:fontFamily="@font/lato_bold"
-                android:text="Name"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_16ssp"
-                app:drawableStartCompat="@drawable/ic_person"
-                app:drawableTint="@color/primary" />
-                <TextView
-                    android:id="@+id/usersName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_12sdp"
-                    android:drawablePadding="@dimen/_8sdp"
-                    android:fontFamily="@font/lato"
-                    android:text="Name"
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_16ssp"
-                    app:drawableTint="@color/primary" />
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/accountFragment_cardView_username"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/accountFragment_cardView_name"
-            app:layout_constraintWidth_percent="1">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
-                android:drawablePadding="@dimen/_8sdp"
-                android:fontFamily="@font/lato_bold"
-                android:text="Username"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_16ssp"
-                app:drawableStartCompat="@drawable/ic_person"
-                app:drawableTint="@color/primary" />
-
-                <TextView
-                    android:id="@+id/usersUsername"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_12sdp"
-                    android:drawablePadding="@dimen/_8sdp"
-                    android:fontFamily="@font/lato"
-                    android:text="Username"
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_16ssp"
-                    app:drawableTint="@color/primary" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/accountFragment_cardView_email"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/accountFragment_cardView_username"
-            app:layout_constraintWidth_percent="1">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_12sdp"
                     android:drawablePadding="@dimen/_8sdp"
                     android:fontFamily="@font/lato_bold"
-                    android:text="E-Mail"
+                    android:text="Edit Your Name"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_16ssp"
+                    app:drawableStartCompat="@drawable/ic_person"
+                    app:drawableTint="@color/primary" />
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/change_cardView_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/change_cardView_name"
+            app:layout_constraintWidth_percent="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="Edit Your Username"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_16ssp"
+                    app:drawableStartCompat="@drawable/ic_person"
+                    app:drawableTint="@color/primary" />
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/change_cardView_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/change_cardView_username"
+            app:layout_constraintWidth_percent="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="Edit Your E-Mail"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/_16ssp"
                     app:drawableStartCompat="@drawable/ic_email"
                     app:drawableTint="@color/primary" />
-                <TextView
-                    android:id="@+id/usersEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_12sdp"
-                    android:drawablePadding="@dimen/_8sdp"
-                    android:fontFamily="@font/lato"
-                    android:text="E-Mail"
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_16ssp"
-                    app:drawableTint="@color/primary" />
-            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/accountFragment_cardView_location"
+            android:id="@+id/change_cardView_location"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
             app:cardCornerRadius="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/accountFragment_cardView_email"
+            app:layout_constraintTop_toBottomOf="@+id/change_cardView_email"
             app:layout_constraintWidth_percent="1">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_12sdp"
                     android:drawablePadding="@dimen/_8sdp"
                     android:fontFamily="@font/lato_bold"
-                    android:text="Location"
+                    android:text="Edit Your Location"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/_16ssp"
                     app:drawableStartCompat="@drawable/ic_location"
                     app:drawableTint="@color/primary" />
-                <TextView
-                    android:id="@+id/location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_12sdp"
-                    android:drawablePadding="@dimen/_8sdp"
-                    android:fontFamily="@font/lato"
-                    android:text="Location"
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_16ssp"
-                    app:drawableTint="@color/primary" />
-            </LinearLayout>
+
+
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/accountFragment_cardView_changeInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/accountFragment_cardView_location"
-            app:layout_constraintWidth_percent="1">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_12sdp"
-                    android:drawablePadding="@dimen/_8sdp"
-                    android:fontFamily="@font/lato_bold"
-                    android:text="Edit Your Info"
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_16ssp"
-                    app:drawableStartCompat="@drawable/ic_settings"
-                    app:drawableTint="@color/primary" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
 
 
 
