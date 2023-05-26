@@ -292,9 +292,9 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
             try {
                 Log.d("Data:Server", "findListingShowcases:begin. " + categoryForFilter + "/" + subCategoryForFilter);
                 if (categoryForFilter == null) {
-                    listings = Listing.findListingShowcases(null, null, null, null, "buy", conditionForFilter, null, null, null, null, null, "50");
+                    listings = Listing.findListingShowcases(null, null, null, null, "buy", conditionForFilter, null, null, null, "NewestFirst", null, "100");
                 } else {
-                    listings = Listing.findListingShowcases(null, categoryForFilter + "/" + subCategoryForFilter, null, null, "buy", conditionForFilter, null, null, null, null, null, "50");
+                    listings = Listing.findListingShowcases(null, categoryForFilter + "/" + subCategoryForFilter, null, null, "buy", conditionForFilter, null, null, null, "NewestFirst", null, "100");
                 }
                 Log.d("Data:Server", "findListing:end. Pulled " + listings.length + " listings");
                 advertisements.clear();
