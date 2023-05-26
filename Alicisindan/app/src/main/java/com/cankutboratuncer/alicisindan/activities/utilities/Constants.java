@@ -28,10 +28,13 @@ public class Constants {
     public static final String KEY_ADVERTISEMENT_ID = "advertisement_id";
     public static final String KEY_ADVERTISEMENT_LOCATION = "advertisement_location";
     public static final String KEY_ADVERTISEMENT_PRICE = "advertisement_price";
+    public static final String KEY_ADVERTISEMENT_PREVIEW_IMAGE = "advertisement_preview_image";
     public static final String KEY_ADVERTISEMENT_IMAGE = "advertisement_image";
     public static final String KEY_ADVERTISEMENT_DESCRIPTION = "advertisement_description";
     public static final String KEY_ADVERTISEMENT_BRAND = "advertisement_brand";
     public static final String KEY_ADVERTISEMENT_TYPE = "advertisement_type";
+    public static final String KEY_ADVERTISEMENT_CATEGORY= "advertisement_category";
+    public static final String KEY_ADVERTISEMENT_CONDITION = "advertisement_condition";
 
     public static final String KEY_ADVERTISEMENT_TOKEN = "advertisement_token";
 

@@ -104,6 +104,8 @@ public class ChatActivity extends BaseActivity {
             conversion.put(Constants.KEY_ADVERTISEMENT_IMAGE, chatMessage.getImage());
             conversion.put(Constants.KEY_ADVERTISEMENT_BRAND, chatMessage.getBrand());
             conversion.put(Constants.KEY_ADVERTISEMENT_TYPE, chatMessage.getType());
+            conversion.put(Constants.KEY_ADVERTISEMENT_CATEGORY, chatMessage.getCategory());
+            conversion.put(Constants.KEY_ADVERTISEMENT_CONDITION, chatMessage.getCondition());
 
 //            conversion.put(Constants.KEY_SENDER_IMAGE, localSave.getString(Constants.KEY_IMAGE));
 //            conversion.put(Constants.KEY_RECEIVER_IMAGE, advertisement.image);
@@ -296,10 +298,12 @@ public class ChatActivity extends BaseActivity {
             String image = bundle.getString(Constants.KEY_ADVERTISEMENT_IMAGE);
             String brand = bundle.getString(Constants.KEY_ADVERTISEMENT_LOCATION);
             String type = bundle.getString(Constants.KEY_ADVERTISEMENT_TYPE);
+            String category = bundle.getString(Constants.KEY_ADVERTISEMENT_CATEGORY);
+            String condition = bundle.getString(Constants.KEY_ADVERTISEMENT_CONDITION);
             String senderId = bundle.getString(Constants.KEY_SENDER_ID);
             String receiverId = bundle.getString(Constants.KEY_RECEIVER_ID);
 
-            advertisement = new Advertisement(title, description, image, price, id, location, userId, userName, brand, type);
+            advertisement = new Advertisement(title, description, null, price, id, location, userId, userName, brand, type, category, condition);
             chatMessage = new ChatMessage();
             chatMessage.senderId = senderId;
             chatMessage.receiverId = receiverId;

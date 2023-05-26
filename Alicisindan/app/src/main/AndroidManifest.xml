@@ -8,8 +8,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_alicisidan_logo"
         android:label="@string/app_name"
+        android:logo="@mipmap/ic_alicisidan_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Alicisindan"
         tools:targetApi="31">
@@ -67,7 +67,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ui.main.home.category.CategoryFragment"
+            android:name=".activities.ui.main.category.CategoryFragment"
             android:exported="false" />
         <activity
             android:name=".activities.ui.main.profile.ProfileFragment"
@@ -76,13 +76,13 @@
             android:name=".activities.ui.main.forum.forum.ForumFragment"
             android:exported="false" />
         <activity
-            android:name=".activities.ui.main.home.pages.SellFragment"
+            android:name=".activities.ui.main.sell.SellFragment"
             android:exported="false" />
         <activity
-            android:name=".activities.ui.main.home.pages.FilterFragment"
+            android:name=".activities.ui.main.filter.FilterFragment"
             android:exported="false" />
         <activity
-            android:name=".activities.ui.main.home.pages.BuyFragment"
+            android:name=".activities.ui.main.buy.BuyFragment"
             android:exported="false" />
 
         <meta-data

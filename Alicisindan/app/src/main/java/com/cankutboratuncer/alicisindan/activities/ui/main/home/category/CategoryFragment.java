@@ -6,11 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.data.database.CategoryTest;
+import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.CategoryInterface;
+import com.cankutboratuncer.alicisindan.activities.ui.main.home.filter.FilterSubCategoryFragment;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
 import com.cankutboratuncer.alicisindan.activities.utilities.Category;
 
@@ -21,12 +25,13 @@ import java.util.ArrayList;
  * Use the {@link CategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends Fragment implements CategoryInterface {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private ArrayList<AllCategories> categories;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -72,13 +77,27 @@ public class CategoryFragment extends Fragment {
 
         RecyclerView recyclerViewForCategories = view.findViewById(R.id.categoryFragment_recyclerView_categories);
 
-        ArrayList<AllCategories> categories = CategoryTest.categories;
+        categories = CategoryTest.categories;
 
         recyclerViewForCategories.setLayoutManager(horizontalRecyclerViewLayoutManager);
 
-        CategoryExpandedAdapter categoryAdapter = new CategoryExpandedAdapter(categories);
+        CategoryExpandedAdapter categoryAdapter = new CategoryExpandedAdapter(categories, this);
         recyclerViewForCategories.setAdapter(categoryAdapter);
 
         return view;
+    }
+
+    public void onCategoryClick(int position) {
+        Category category = (Category) categories.get(position);
+        Fragment fragment = FilterSubCategoryFragment.newInstance(category.getName());
+        loadFragment(fragment);
+    }
+
+    void loadFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.mainActivity_frameLayout_main, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

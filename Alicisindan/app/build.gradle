@@ -55,7 +55,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     implementation 'androidx.navigation:navigation-ui:2.5.3'
-    implementation files('libs\\lib-2.9.5.jar')
+    implementation files('libs/lib-2.9.5.jar')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -87,4 +87,6 @@ dependencies {
     // Swipe Animation
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
+    // Image slider
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.2'
 }
