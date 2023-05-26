@@ -21,6 +21,7 @@ import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.data.database.AdvertisementTest;
 import com.cankutboratuncer.alicisindan.activities.ui.login.SignInActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.profile.OtherProfileFragment;
+import com.cankutboratuncer.alicisindan.activities.ui.main.profile.ProfileFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.messaging.activities.ChatActivity;
 import com.cankutboratuncer.alicisindan.activities.utilities.Advertisement;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
@@ -98,8 +99,16 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
         TextView username = view.findViewById(R.id.adUser);
         username.setText(advertisement.getUsername());
         username.setOnClickListener(view20 -> {
-            Fragment profile = new OtherProfileFragment(advertisement.getUserID());
-            loadFragment(profile);
+            if (!(advertisement.getUserID().equals(localSave.getString(Constants.KEY_USER_ID))))
+            {
+                Fragment profile = new OtherProfileFragment(advertisement.getUserID());
+                loadFragment(profile);
+            }
+            else
+            {
+                Fragment profile = new ProfileFragment();
+                loadFragment(profile);
+            }
         });
         ImageView productImage = view.findViewById(R.id.imageProduct1);
         productImage.setImageBitmap(decodeImage(advertisement.getImage()));
