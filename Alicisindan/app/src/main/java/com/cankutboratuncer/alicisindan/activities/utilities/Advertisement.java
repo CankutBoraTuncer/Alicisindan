@@ -5,46 +5,68 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 
 public class Advertisement {
+    String title, description, price, previewImage, advertisementID, location, userID, username, brand, type, category, condition;
+    String[] images;
 
-    // User advertisementOwner;
-    // Category advertisementCategory;
-    String title, description, price, image, advertisementID, location, userID, username, brand, type;
-
-    /*  after completing other classes, use this constructor instead.
-        also change advertisementTest class members according to the new design
-
-    public Advertisement(User advertisementOwner, Category advertisementCategory, String title, String description, String price, int image, int advertisementID) {
-        this.advertisementOwner = advertisementOwner;
-        this.advertisementCategory = advertisementCategory;
+    public Advertisement(String title, String description, String[] images, String price, String advertisementID, String location, String userID, String username, String brand, String type, String category, String condition) {
         this.title = title;
         this.description = description;
         this.price = price;
-        this.image = image;
-        this.advertisementID = advertisementID;
-    }
-    */
-
-    public Advertisement(String title, String description, String image, String price, String advertisementID, String location, String userID, String username, String brand, String type) {
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.image = image;
+        this.images = images;
+        if (images != null) {
+            this.previewImage = images[0];
+        } else {
+            this.previewImage = null;
+        }
         this.advertisementID = advertisementID;
         this.location = location;
         this.userID = userID;
         this.username = username;
         this.brand = brand;
         this.type = type;
+        this.category = category;
+        this.condition = condition;
+    }
+
+    public String getPreviewImage() {
+        return previewImage;
+    }
+
+    public void setPreviewImage(String previewImage) {
+        this.previewImage = previewImage;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     public String getTitle() {
         return title;
     }
-    public String getBrand(){ return brand;}
+
+    public String getBrand() {
+        return brand;
+    }
+
     public String getUsername() {
         return username;
     }
-    public String getUserID(){ return userID;}
+
+    public String getUserID() {
+        return userID;
+    }
 
     public void setTitle(String title) {
         this.title = title;
@@ -66,13 +88,16 @@ public class Advertisement {
         this.price = price;
     }
 
-    public String getImage() {
-        return image;
+    public String[] getImages() {
+        return images;
     }
-    public String getLocation() { return location; }
 
-    public void setImage(String image) {
-        this.image = image;
+    public String getLocation() {
+        return location;
+    }
+
+    public void setImages(String[] images) {
+        this.images = images;
     }
 
     public String getAdvertisementID() {

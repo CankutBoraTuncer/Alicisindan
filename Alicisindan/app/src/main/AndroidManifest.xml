@@ -8,89 +8,58 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_alicisidan_logo"
         android:label="@string/app_name"
+        android:logo="@mipmap/ic_alicisidan_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Alicisindan"
         tools:targetApi="31">
-
         <activity
             android:name=".activities.ui.main.advertisement.category.PostTypeActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.login.SignInActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.login.SignUpActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.main.advertisement.advertisement.CheckNewPostActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.main.forum.forum.ForumChatActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.main.forum.category.ForumAddCategoryActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.main.advertisement.advertisement.PostEditActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.main.advertisement.category.PostAddSubCategoryActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.main.forum.category.ForumAddSubCategoryActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.main.forum.category.ForumEditActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.main.advertisement.category.PostAddCategoryActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.messaging.activities.ChatActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.login.SplashActivity"
             android:exported="false"
             android:label="@string/title_activity_splash"
-            android:theme="@style/Theme.Alicisindan.NoActionBar"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:theme="@style/Theme.Alicisindan.NoActionBar" />
         <activity
             android:name=".activities.ui.main.MainActivity"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.login.LoadingActivity"
-            android:exported="true"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -98,51 +67,23 @@
             </intent-filter>
         </activity>
         <activity
-<<<<<<< Updated upstream
-            android:name=".activities.ui.main.home.category.CategoryFragment"
-            android:exported="false" />
-=======
             android:name=".activities.ui.main.category.CategoryFragment"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
->>>>>>> Stashed changes
+            android:exported="false" />
         <activity
             android:name=".activities.ui.main.profile.ProfileFragment"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.main.forum.forum.ForumFragment"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
-<<<<<<< Updated upstream
-            android:name=".activities.ui.main.home.pages.SellFragment"
             android:exported="false" />
         <activity
-            android:name=".activities.ui.main.home.pages.FilterFragment"
-            android:exported="false" />
-        <activity
-            android:name=".activities.ui.main.home.pages.BuyFragment"
-            android:exported="false" />
-=======
             android:name=".activities.ui.main.sell.SellFragment"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.main.filter.FilterFragment"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".activities.ui.main.buy.BuyFragment"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
->>>>>>> Stashed changes
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

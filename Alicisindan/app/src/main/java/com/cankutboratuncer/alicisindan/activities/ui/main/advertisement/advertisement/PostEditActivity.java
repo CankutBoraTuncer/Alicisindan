@@ -29,13 +29,15 @@ import com.cankutboratuncer.alicisindan.databinding.ActivityPostEditBinding;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import Alicisindan.Listing;
 
 public class PostEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private ActivityPostEditBinding binding;
-    private String encodedImage;
+    private ArrayList<String> encodedImages;
+    private int pointer = 0;
     private LocalSave localSave;
     private int imageRow;
     private int imageCol;
@@ -130,7 +132,11 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                     imageButtons[imageRow][imageCol].setImageBitmap(bitmap);
                     updateImageRowCol();
-                    encodedImage = encodeImage(bitmap);
+                    if (encodedImages == null) {
+                        encodedImages = new ArrayList<>();
+                    }
+                    encodedImages.add(encodeImage(bitmap));
+                    pointer++;
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -195,7 +201,10 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
         Listing listing = new Listing(userID, type, productTitle, details, price, category, location, condition, "AKShdj");
         listing.addListing(userID, password);
         Log.d("şişko", binding.productTitle.getText().toString());
-        String[] images = {encodedImage};
+        String[] images = new String[pointer];
+        for (int i = 0; i < images.length; i++) {
+            images[i] = encodedImages.get(i);
+        }
         listing.setListingImages(userID, password, images);
         showToast("Add successfully posted");
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -223,7 +232,7 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
     }
 
     private Boolean isValidPostDetails() {
-        if (encodedImage == null) {
+        if (encodedImages == null) {
             showToast("Select at least 1 image");
             return false;
         } else if (binding.productTitle.getText().toString().trim().isEmpty()) {

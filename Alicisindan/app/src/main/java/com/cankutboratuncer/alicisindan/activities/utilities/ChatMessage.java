@@ -10,7 +10,7 @@ public class ChatMessage {
     public String senderId, senderName, receiverId, message, dateTime, forumId;
     public Date dateObject;
     public String conversionId, conversionName, conversionImage;
-    public String productTitle, productDescription, userId, userName, productId, location, price, image, brand, type;
+    public String productTitle, productDescription, userId, userName, productId, location, price, image, brand, type, category, condition;
 
 
     public void loadAdvertisement(Advertisement advertisement) {
@@ -21,9 +21,11 @@ public class ChatMessage {
         productId = advertisement.getAdvertisementID();
         location = advertisement.getLocation();
         price = advertisement.getPrice();
-        image = advertisement.getImage();
+        image = advertisement.getPreviewImage();
         brand = advertisement.getBrand();
         type = advertisement.getType();
+        category = advertisement.getCategory();
+        condition = advertisement.getCondition();
     }
 
     public static Bitmap decodeImage(String encodedImage) {
@@ -106,5 +108,13 @@ public class ChatMessage {
 
     public String getBrand() {
         return brand;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getCondition() {
+        return condition;
     }
 }

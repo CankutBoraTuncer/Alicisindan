@@ -1,178 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background"
-    tools:context=".activities.ui.main.home.pages.FilterFragment">
+    tools:context=".activities.ui.main.home.filter.FilterFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/filterFragment_layout_top"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <TextView
+        android:id="@+id/filterFragment_topPanel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_90sdp"
         android:background="@drawable/background_main_gradient"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.18"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/filterFragment_textView_appName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lato_bold"
-            android:gravity="center"
-            android:text="Filter"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_24ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.6" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/filterFragment_textView_locationLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
-        android:fontFamily="@font/lato_bold"
-        android:text="Location"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterFragment_layout_top" />
-
-    <EditText
-        android:id="@+id/filterFragment_editText_location"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_32sdp"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterFragment_textView_locationLabel" />
-
-    <TextView
-        android:id="@+id/filterFragment_textView_typeLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
-        android:fontFamily="@font/lato_bold"
-        android:text="Type"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterFragment_editText_location" />
-
-    <EditText
-        android:id="@+id/filterFragment_editText_type"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_32sdp"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterFragment_textView_typeLabel" />
-
-    <TextView
-        android:id="@+id/filterFragment_textView_categoryLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
-        android:fontFamily="@font/lato_bold"
-        android:text="Category"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterFragment_editText_type" />
-
-    <EditText
-        android:id="@+id/filterFragment_editText_category"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_32sdp"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterFragment_textView_categoryLabel" />
-
-    <TextView
-        android:id="@+id/filterFragment_textView_brandLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
-        android:fontFamily="@font/lato_bold"
-        android:text="Brand"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterFragment_editText_category" />
-
-    <EditText
-        android:id="@+id/filterFragment_editText_brand"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_32sdp"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterFragment_textView_brandLabel" />
-
-    <TextView
-        android:id="@+id/filterFragment_textView_colorLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
-        android:fontFamily="@font/lato_bold"
-        android:text="Color"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterFragment_editText_brand" />
-
-    <EditText
-        android:id="@+id/filterFragment_editText_color"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_32sdp"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterFragment_textView_colorLabel" />
-
-    <TextView
-        android:id="@+id/filterFragment_textView_sortingMethod"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
-        android:fontFamily="@font/lato_bold"
-        android:text="Sort By"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterFragment_editText_color" />
-
-    <Spinner
-        android:id="@+id/filterFragment_spinner_sortingMethod"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_32sdp"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterFragment_textView_sortingMethod" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/filterFragment_button_filter"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_48sdp"
-        android:layout_marginBottom="@dimen/_12sdp"
-        android:background="@drawable/background_main_button"
-        android:fontFamily="@font/lato_bold"
-        android:text="Filter"
+        android:fontFamily="@font/lato"
+        android:gravity="center"
+        android:text="Filtering Options"
         android:textColor="@color/white"
         android:textSize="@dimen/_16ssp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.5" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/filterFragment_mainPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/background_category"
+        android:padding="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filterFragment_topPanel">
+
+        <TextView
+            android:id="@+id/filterFragment_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:text="@string/selected_category"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/filterFragment_subTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/lato"
+            android:textColor="@color/gray_dark"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filterFragment_title"
+            tools:text="Car / Wheel and Tire" />
+
+        <TextView
+            android:id="@+id/filterFragment_changeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/lato"
+            android:text="@string/change"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filterFragment_title" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/gray_light"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filterFragment_subTitle" />
+
+        <TextView
+            android:id="@+id/title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Options"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filterFragment_subTitle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:fontFamily="@font/lato_bold"
+            android:text="@string/brand"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title2" />
+
+
+        <Spinner
+            android:id="@+id/filterFragment_brand"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_36sdp"
+            android:background="@drawable/background_edit_text_add_post"
+            android:fontFamily="@font/lato"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:textColor="@color/primary_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title2" />
+
+        <View
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@drawable/ic_down_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/filterFragment_brand"
+            app:layout_constraintEnd_toEndOf="@id/filterFragment_brand"
+            app:layout_constraintTop_toTopOf="@id/filterFragment_brand" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/lato_bold"
+            android:text="@string/condition"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filterFragment_brand" />
+
+        <Spinner
+            android:id="@+id/filterFragment_condition"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_28sdp"
+            android:background="@drawable/background_edit_text_add_post"
+            android:ellipsize="end"
+            android:fontFamily="@font/lato"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:textColor="@color/primary_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filterFragment_brand" />
+
+        <View
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@drawable/ic_down_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/filterFragment_condition"
+            app:layout_constraintEnd_toEndOf="@id/filterFragment_condition"
+            app:layout_constraintTop_toTopOf="@id/filterFragment_condition" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/filterFragment_buttonPost"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/background_main_button"
+            android:fontFamily="@font/lato_bold"
+            android:text="Search"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filterFragment_condition" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
