@@ -265,6 +265,7 @@ public class SellFragment extends Fragment implements AdvertisementInterface {
          */
         private void fetchDataFromDatabase() {
             try {
+<<<<<<< Updated upstream
                 String[][] listings = Listing.findListingShowcases(null, null, null, null, "sell", null, null, null, null, null, null, "50");
                 for (String[] listing : listings) {
                     if(listing[0] == null) {
@@ -283,6 +284,13 @@ public class SellFragment extends Fragment implements AdvertisementInterface {
                     title = listing[5];
 
                     advertisements.add(new Advertisement(title, image, image, null, ID, null, userID, username, null, type));
+=======
+                Log.d("Data:Server", "findListingShowcases:begin. " + categoryForFilter + "/" + subCategoryForFilter);
+                if (categoryForFilter == null) {
+                    listings = Listing.findListingShowcases(null, null, null, null, "sell", conditionForFilter, null, null, null, "NewestFirst", null, "100");
+                } else {
+                    listings = Listing.findListingShowcases(null, categoryForFilter + "/" + subCategoryForFilter, null, null, "sell", conditionForFilter, null, null, null, "NewestFirst", null, "100");
+>>>>>>> Stashed changes
                 }
             } catch (Exception e) {
                 e.printStackTrace();
