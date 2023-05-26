@@ -57,11 +57,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
                 <TextView
-                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:paddingHorizontal="@dimen/_7sdp"
                     android:id="@+id/user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
+                    android:fontFamily="@font/lato_bold"
                     android:text="username"
                     android:textColor="@color/text_dark"
                     android:textSize="@dimen/_16ssp"

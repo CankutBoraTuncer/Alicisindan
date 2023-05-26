@@ -18,9 +18,12 @@ import androidx.fragment.app.Fragment;
 import com.cankutboratuncer.alicisindan.R;
 import com.google.android.material.imageview.ShapeableImageView;
 
+import org.w3c.dom.Text;
+
 import java.io.ByteArrayOutputStream;
 
 import Alicisindan.AlicisindanException;
+import Alicisindan.Review;
 
 public class OtherProfileFragment extends Fragment {
     private String otherUserId;
@@ -45,6 +48,7 @@ public class OtherProfileFragment extends Fragment {
         TextView userLocation = view.findViewById(R.id.otherUserLocation);
         CardView userPosts = view.findViewById(R.id.otherProfileFragment_cardView_posts);
         CardView rate = view.findViewById(R.id.otherProfileFragment_cardView_rate);
+        TextView ratingAv = view.findViewById(R.id.ratingAverage);
         String name = "";
         String username = "";
         String location = "";
@@ -53,6 +57,7 @@ public class OtherProfileFragment extends Fragment {
             name = Alicisindan.User.getUser(otherUserId).getName() + " " + Alicisindan.User.getUser(otherUserId).getSurname();
             username = Alicisindan.User.getUser(otherUserId).getUsername();
             location = Alicisindan.User.getUser(otherUserId).getAddress();
+            ratingAv.setText(String.format("%.2f", Review.getRatingAverageFor(otherUserId)) + "/5.00");
             profilePic.setImageBitmap( decodeImage(Alicisindan.User.getUser(otherUserId).getUserImage()));
         } catch (AlicisindanException e) {
             e.printStackTrace();
