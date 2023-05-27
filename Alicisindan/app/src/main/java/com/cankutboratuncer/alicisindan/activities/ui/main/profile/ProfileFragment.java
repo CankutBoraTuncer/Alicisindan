@@ -122,6 +122,7 @@ public class ProfileFragment extends Fragment {
         CardView cardView_favorite = view.findViewById(R.id.profileFragment_cardView_favorite);
         CardView cardView_help = view.findViewById(R.id.profileFragment_cardView_help);
         CardView cardView_logOut = view.findViewById(R.id.profileFragment_cardView_logOut);
+        CardView cardView_reviews = view.findViewById(R.id.profileFragment_cardView_reviews);
         profilePic = view.findViewById(R.id.profileFragment_imageView_profilePicture);
         TextView privacyPolicy = view.findViewById(R.id.privacyPolicy);
 
@@ -166,6 +167,10 @@ public class ProfileFragment extends Fragment {
         });
         privacyPolicy.setOnClickListener(view22 -> {
             Fragment fragment = new PrivacyFragment();
+            loadFragment(fragment);
+        });
+        cardView_reviews.setOnClickListener(view25 -> {
+            Fragment fragment = new MyReviewsFragment();
             loadFragment(fragment);
         });
         TextView username = view.findViewById(R.id.profileFragment_textView_fullName);
