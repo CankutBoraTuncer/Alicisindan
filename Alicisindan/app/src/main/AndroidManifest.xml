@@ -32,6 +32,9 @@
             android:name=".activities.ui.main.forum.category.ForumAddCategoryActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.ui.main.profile.OtherProfileFragmentActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ui.main.advertisement.advertisement.PostEditActivity"
             android:exported="false" />
         <activity

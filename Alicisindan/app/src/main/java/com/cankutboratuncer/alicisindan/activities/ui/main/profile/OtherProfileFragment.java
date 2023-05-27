@@ -92,8 +92,12 @@ public class OtherProfileFragment extends Fragment {
 
     public static Bitmap decodeImage(String encodedImage) {
         try {
-            byte[] imageBytes = Base64.decode(encodedImage, Base64.DEFAULT);
-            return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+            if(encodedImage != null && encodedImage.length() > 100){
+                byte[] imageBytes = Base64.decode(encodedImage, Base64.DEFAULT);
+                return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+            } else {
+                return null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
