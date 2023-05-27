@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,11 +18,7 @@ import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.ui.main.home.pages.BuyFragment;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FilterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FilterFragment extends Fragment {
     private static final String ARG_CATEGORY = "category";
     private static final String ARG_SUBCATEGORY = "subCategory";
