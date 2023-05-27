@@ -193,7 +193,7 @@
                     android:layout_margin="@dimen/_12sdp"
                     android:drawablePadding="@dimen/_8sdp"
                     android:fontFamily="@font/lato_bold"
-                    android:text="@string/favorite"
+                    android:text="Favorites"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/_16ssp"
                     app:drawableStartCompat="@drawable/ic_star"
@@ -209,7 +209,7 @@
                 app:cardCornerRadius="@dimen/_8sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileFragment_cardView_favorite"
+                app:layout_constraintTop_toBottomOf="@+id/profileFragment_cardView_reviews"
                 app:layout_constraintWidth_percent="1">
 
                 <TextView
@@ -259,7 +259,7 @@
                 app:cardCornerRadius="@dimen/_8sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileFragment_cardView_logOut"
+                app:layout_constraintTop_toBottomOf="@+id/profileFragment_cardView_favorite"
                 app:layout_constraintWidth_percent="1">
 
                 <TextView
@@ -286,7 +286,7 @@
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileFragment_cardView_reviews" />
+                app:layout_constraintTop_toBottomOf="@+id/profileFragment_cardView_logOut" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
