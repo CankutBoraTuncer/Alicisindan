@@ -85,11 +85,13 @@
     <ScrollView
         android:id="@+id/profileFragment_scrollView_main"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profileFragment_layout_top">
+        app:layout_constraintTop_toBottomOf="@id/profileFragment_layout_top"
+        app:layout_constraintVertical_bias="0.013">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/profileFragment_layout_main"
@@ -111,9 +113,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="1">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -125,6 +129,7 @@
                         android:textSize="@dimen/_16ssp"
                         app:drawableStartCompat="@drawable/ic_location"
                         app:drawableTint="@color/primary" />
+
                     <TextView
                         android:id="@+id/otherUserLocation"
                         android:layout_width="wrap_content"
@@ -134,13 +139,14 @@
                         android:fontFamily="@font/lato"
                         android:text="Location"
                         android:textColor="@color/primary_text"
-                        android:textSize="@dimen/_16ssp"
+                        android:textSize="@dimen/_13ssp"
                         app:drawableTint="@color/primary" />
 
                 </LinearLayout>
 
 
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/otherProfileFragment_cardView_posts"
                 android:layout_width="0dp"
@@ -180,18 +186,20 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                <TextView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_12sdp"
-                    android:drawablePadding="@dimen/_8sdp"
-                    android:fontFamily="@font/lato_bold"
-                    android:text="Rating"
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_16ssp"
-                    app:drawableStartCompat="@drawable/ic_star_full"
-                    app:drawableTint="@color/primary" />
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_12sdp"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:fontFamily="@font/lato_bold"
+                        android:text="Rating"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/_16ssp"
+                        app:drawableStartCompat="@drawable/ic_star_full"
+                        app:drawableTint="@color/primary" />
+
                     <TextView
                         android:id="@+id/ratingAverage"
                         android:layout_width="wrap_content"
@@ -201,13 +209,27 @@
                         android:fontFamily="@font/lato_bold"
                         android:text="Rating"
                         android:textColor="@color/primary_text"
-                        android:textSize="@dimen/_16ssp"
+                        android:textSize="@dimen/_13ssp"
+
+                        app:drawableTint="@color/primary" />
+
+                    <TextView
+                        android:id="@+id/numOfReviews"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_12sdp"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:fontFamily="@font/lato"
+                        android:text="Number"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/_13ssp"
 
                         app:drawableTint="@color/primary" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/otherProfileFragment_cardView_rate"
                 android:layout_width="0dp"
@@ -234,13 +256,27 @@
             </androidx.cardview.widget.CardView>
 
 
-
-
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     </ScrollView>
+    <TextView
+        android:id="@+id/reviewsTitle"
+        android:text="Reviews Made for This User"
+        android:fontFamily="@font/lato_bold"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/_16ssp"
+        android:layout_marginLeft="@dimen/_12sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        app:layout_constraintTop_toBottomOf="@id/profileFragment_scrollView_main"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_170sdp"
+        android:id="@+id/reviews"
+        app:layout_constraintTop_toBottomOf="@id/reviewsTitle">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
