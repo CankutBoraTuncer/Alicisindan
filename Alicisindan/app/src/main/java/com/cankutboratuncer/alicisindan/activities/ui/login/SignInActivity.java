@@ -77,7 +77,7 @@ public class SignInActivity extends AppCompatActivity {
             startActivity(intent);
         } else {
             loading(false);
-            showToast("Incorrect username or password");
+            showToast("Incorrect username or password!");
         }
     }
 
@@ -87,7 +87,7 @@ public class SignInActivity extends AppCompatActivity {
             localSave.saveUser(user.getID(), user.getEmail(), user.getPhone(), user.getUsername(), password, user.getName(), user.getSurname(), user.getAddress(), token);
         } catch (Exception e) {
             localSave.clear();
-            showToast("The user couldn't saved to the local");
+            showToast("An error occurred while trying to save user information.");
         }
     }
 
@@ -98,7 +98,7 @@ public class SignInActivity extends AppCompatActivity {
                 try {
                     signIn();
                 } catch (Exception e) {
-                    showToast("User not found");
+                    showToast("User not found.");
                 }
             }
         });
@@ -110,13 +110,13 @@ public class SignInActivity extends AppCompatActivity {
 
     private Boolean isValidSignInDetails() {
         if (binding.signInActivityEditTextEmailOrPhoneNumber.getText().toString().trim().isEmpty()) {
-            showToast("Enter email");
+            showToast("Enter your email.");
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.signInActivityEditTextEmailOrPhoneNumber.getText().toString()).matches()) {
-            showToast("Error invalid email");
+            showToast("Invalid email.");
             return false;
         } else if (binding.signInActivityEditTextPassword.getText().toString().trim().isEmpty()) {
-            showToast("Enter password");
+            showToast("Enter your password.");;
             return false;
         } else {
             return true;

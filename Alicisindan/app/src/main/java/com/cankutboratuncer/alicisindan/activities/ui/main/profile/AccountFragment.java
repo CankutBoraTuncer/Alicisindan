@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.cankutboratuncer.alicisindan.R;
+import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 import com.cankutboratuncer.alicisindan.activities.utilities.User;
 
@@ -36,6 +38,12 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         LocalSave localSave = new LocalSave(getContext());
         View view = inflater.inflate(R.layout.fragment_account, container, false);
+
+        if (localSave.getString(Constants.KEY_USER_ID) == null) {
+            showToast("You have to log in first.");
+            return view;
+        }
+
         CardView changePassword = view.findViewById(R.id.accountFragment_cardView_changePassword);
         CardView userInfo = view.findViewById(R.id.accountFragment_cardView_userInfo);
         CardView delete = view.findViewById(R.id.accountFragment_cardView_deleteAccount);
@@ -58,5 +66,9 @@ public class AccountFragment extends Fragment {
     public void loadFragment(Fragment fragment) {
         //to attach fragment
         getParentFragmentManager().beginTransaction().replace(R.id.mainActivity_frameLayout_main, fragment).addToBackStack(null).commit();
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

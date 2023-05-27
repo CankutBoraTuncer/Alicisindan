@@ -144,7 +144,6 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
         recyclerViewForCategories.setLayoutManager(horizontalRecyclerViewLayoutManager);
     }
 
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -284,7 +283,7 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
             try {
                 Log.d("Data:Server", "findListingShowcases:begin. " + categoryForFilter + "/" + subCategoryForFilter);
                 if (categoryForFilter == null) {
-                    listings = Listing.findListingShowcases(null, null, null, null, null, conditionForFilter, null, null, null, null, null, "50");
+                    listings = Listing.findListingShowcases(null, null, null, null, null, conditionForFilter, null, null, null, "NewestFirst", null, "100");
                 } else {
                     listings = Listing.findListingShowcases(null, categoryForFilter + "/" + subCategoryForFilter, null, null, null, conditionForFilter, null, null, null, null, null, "50");
                 }
