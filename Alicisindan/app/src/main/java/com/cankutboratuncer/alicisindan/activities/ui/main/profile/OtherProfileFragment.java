@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cankutboratuncer.alicisindan.R;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -21,6 +23,8 @@ import com.google.android.material.imageview.ShapeableImageView;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import Alicisindan.AlicisindanException;
 import Alicisindan.Review;
@@ -49,6 +53,8 @@ public class OtherProfileFragment extends Fragment {
         CardView userPosts = view.findViewById(R.id.otherProfileFragment_cardView_posts);
         CardView rate = view.findViewById(R.id.otherProfileFragment_cardView_rate);
         TextView ratingAv = view.findViewById(R.id.ratingAverage);
+        TextView numOfReviews = view.findViewById(R.id.numOfReviews);
+        RecyclerView recyclerView = view.findViewById(R.id.reviews);
         String name = "";
         String username = "";
         String location = "";
@@ -57,8 +63,20 @@ public class OtherProfileFragment extends Fragment {
             name = Alicisindan.User.getUser(otherUserId).getName() + " " + Alicisindan.User.getUser(otherUserId).getSurname();
             username = Alicisindan.User.getUser(otherUserId).getUsername();
             location = Alicisindan.User.getUser(otherUserId).getAddress();
-            ratingAv.setText(String.format("%.2f", Review.getRatingAverageFor(otherUserId)) + "/5.00");
             profilePic.setImageBitmap( decodeImage(Alicisindan.User.getUser(otherUserId).getUserImage()));
+
+            ratingAv.setText(String.format("%.2f", Review.getRatingAverageFor(otherUserId)[0]) + "/5.00");
+
+            int reviewNum = Review.findReviews(null, otherUserId, "", "", "", "", "NewestFirst", "0","").length;
+            numOfReviews.setText("(" + reviewNum + " reviews)");
+            Review[] reviews = Review.findReviews(null, otherUserId, "", "", "", "", "NewestFirst", "0","");
+            List<ReviewItem> items = new ArrayList<ReviewItem>();
+            for (int i = 0; i < reviewNum; i++)
+            {
+                items.add(new ReviewItem(Integer.parseInt(reviews[i].getRating()), reviews[i].getText(), reviews[i].getAuthorID()));
+            }
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setAdapter(new ReviewAdapter(getContext(), items));
         } catch (AlicisindanException e) {
             e.printStackTrace();
         }
@@ -92,12 +110,8 @@ public class OtherProfileFragment extends Fragment {
 
     public static Bitmap decodeImage(String encodedImage) {
         try {
-            if(encodedImage != null && encodedImage.length() > 100){
-                byte[] imageBytes = Base64.decode(encodedImage, Base64.DEFAULT);
-                return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-            } else {
-                return null;
-            }
+            byte[] imageBytes = Base64.decode(encodedImage, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         } catch (Exception e) {
             e.printStackTrace();
         }

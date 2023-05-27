@@ -69,7 +69,7 @@ public class _MyPosts {
             try {
                 //Bitmap bitmap = getBitmapFromEncodedString(listings[i].getListingsFirstImage());
                 //user_posts.add(new _MyPosts(listings[i].getType(), listings[i].getTitle(), bitmap));
-                user_posts.add(new _MyPosts(listings[i][4], listings[i][5], getBitmapFromEncodedString(listings[i][3])));
+                user_posts.add(new _MyPosts("xxx", listings[i][5], getBitmapFromEncodedString(listings[i][3])));
             }
             catch (Exception e) {
                 System.out.println(e);
