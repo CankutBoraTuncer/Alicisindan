@@ -55,6 +55,24 @@
                     app:tint="@color/white" />
             </FrameLayout>
 
+            <FrameLayout
+                android:id="@+id/layoutEdit"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:background="@drawable/background_circle"
+                app:layout_constraintBottom_toBottomOf="@id/advertisementFragment_imageSlider"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/buttonEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_8sdp"
+                    android:src="@drawable/ic_settings"
+                    app:tint="@color/white" />
+            </FrameLayout>
+
             <TextView
                 android:id="@+id/productTitle"
                 android:layout_width="wrap_content"
@@ -127,6 +145,21 @@
                 android:textSize="@dimen/_18ssp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/productCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lato_bold"
+                android:maxLines="3"
+                android:paddingHorizontal="@dimen/_4sdp"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productDetailsTitle"
+                />
 
             <TextView
                 android:id="@+id/productDetails"
@@ -141,7 +174,7 @@
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productDetailsTitle"
+                app:layout_constraintTop_toBottomOf="@id/productCategory"
                  />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

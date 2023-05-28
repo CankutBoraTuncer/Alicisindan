@@ -10,7 +10,7 @@
     android:overScrollMode="never"
     android:paddingBottom="@dimen/_20sdp"
     android:scrollbars="none"
-    tools:context=".activities.ui.main.advertisement.advertisement.PostEditActivity">
+    tools:context=".activities.ui.main.advertisement.advertisement.ExistingPostEditFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -72,17 +72,7 @@
                 app:layout_constraintTop_toBottomOf="@id/title"
                 tools:text="Car / Wheel and Tire" />
 
-            <TextView
-                android:id="@+id/change"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:fontFamily="@font/lato"
-                android:text="@string/change"
-                android:textColor="@color/red"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title" />
+
 
             <View
                 android:layout_width="match_parent"
@@ -467,6 +457,20 @@
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/location" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonDelete"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/background_main_button"
+                android:backgroundTint="@color/red"
+                android:fontFamily="@font/lato_bold"
+                android:text="Delete Post"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/buttonPost" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

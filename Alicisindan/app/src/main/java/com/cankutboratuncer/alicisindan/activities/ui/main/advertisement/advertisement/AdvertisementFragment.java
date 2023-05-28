@@ -55,6 +55,7 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
     }
 
 
+
     public static AdvertisementFragment newInstance(String advertisementID) {
         AdvertisementFragment fragment = new AdvertisementFragment();
         Bundle args = new Bundle();
@@ -176,6 +177,12 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
     public void initUI() {
         if (advertisement.getUserID().equals(localSave.getString(Constants.KEY_USER_ID))) {
             view.findViewById(R.id.layoutMessage).setVisibility(View.GONE);
+            view.findViewById(R.id.layoutEdit).setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            view.findViewById(R.id.layoutMessage).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.layoutEdit).setVisibility(View.GONE);
         }
 
         TextView productTitle = view.findViewById(R.id.productTitle);
@@ -186,8 +193,8 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
         productDetails.setText(advertisement.getDescription());
         TextView productLocation = view.findViewById(R.id.location);
         productLocation.setText(advertisement.getLocation());
-
-//        TextView category = view.findViewById(R.id.productCategory);
+        TextView category = view.findViewById(R.id.productCategory);
+        category.setText(advertisement.getCategory());
         username = view.findViewById(R.id.username);
         username.setText(advertisement.getUsername());
 
@@ -240,6 +247,10 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                 localSave.putBoolean(Constants.KEY_IS_USER_SKIP, false);
                 startActivity(new Intent(getContext(), SignInActivity.class));
             }
+        });
+        view.findViewById(R.id.buttonEdit).setOnClickListener(v25 -> {
+            Fragment fragment = new ExistingPostEditFragment(advertisement);
+            loadFragment(fragment);
         });
         username.setOnClickListener(view20 -> {
             Fragment profile = new OtherProfileFragment(advertisement.getUserID());
