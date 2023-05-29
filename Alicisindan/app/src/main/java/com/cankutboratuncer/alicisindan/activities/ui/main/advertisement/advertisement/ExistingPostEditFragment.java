@@ -12,7 +12,9 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +53,7 @@ public class ExistingPostEditFragment extends Fragment {
     private String adCategory;
     private Advertisement ad;
     private AppCompatImageButton[][] imageButtons;
+    private int imageCount;
     public ExistingPostEditFragment(Advertisement ad)
     {
         this.ad = ad;
@@ -78,14 +81,26 @@ public class ExistingPostEditFragment extends Fragment {
         }
         TextView subcategory = view.findViewById(R.id.subTitle);
         EditText brand = view.findViewById(R.id.brand);
-        EditText condition = view.findViewById(R.id.condition);
         EditText title = view.findViewById(R.id.productTitle);
         EditText details = view.findViewById(R.id.details);
         EditText price = view.findViewById(R.id.price);
         EditText location = view.findViewById(R.id.location);
         subcategory.setText(this.adCategory);
         brand.setText(ad.getBrand());
-        condition.setText(ad.getCondition());
+
+        Spinner condition = view.findViewById(R.id.condition);
+        ArrayAdapter conditionAdapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_spinner_item, Constants.CONDITION);
+        conditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        condition.setAdapter(conditionAdapter);
+        if (ad.getCondition() != null) {
+            int spinnerPosition;
+            try {
+                spinnerPosition = conditionAdapter.getPosition(ad.getCondition());
+            } catch (Exception e) {
+                spinnerPosition = 0;
+            }
+            condition.setSelection(spinnerPosition);
+        }
         title.setText(ad.getTitle());
         details.setText(ad.getDescription());
         price.setText(ad.getPrice().substring(1));
@@ -100,19 +115,24 @@ public class ExistingPostEditFragment extends Fragment {
 
         try {
             String[] images = Listing.getListing(adID).getListingImages();
-            int imageNum = images.length;
-            int count = 0;
+            int imageNum = 0;
+            encodedImages = new ArrayList<>();
+            imageCount = 0;
+            for (int i = 0; i < images.length; i++) {
+                if (images[i].length() > 10) {
+                    imageNum++;
+                }
+            }
             for (int i = 0; i < 3; i++){
                 for (int j = 0; j < 3; j++)
                 {
                     if (imageNum > 0)
                     {
-                        imageButtons[i][j].setImageBitmap(decodeImage(images[count]));
-                        encodedImages = new ArrayList<>();
-                        encodedImages.add(images[count]);
+                        imageButtons[i][j].setImageBitmap(decodeImage(images[imageCount]));
+                        encodedImages.add(images[imageCount]);
                         pointer++;
                         updateImageRowCol();
-                        count++;
+                        imageCount++;
                         imageNum--;
                     }
                 }
@@ -179,7 +199,7 @@ public class ExistingPostEditFragment extends Fragment {
                 showToast("Location cannot be empty.");
             } else if (brand.getText().toString().trim().isEmpty()) {
                 showToast("Please select a brand.");
-            } else if (condition.getText().toString().trim().isEmpty()) {
+            } else if (condition.getSelectedItem().toString().trim().isEmpty()) {
                 showToast("Please select a condition.");
             } else
             {
@@ -193,7 +213,7 @@ public class ExistingPostEditFragment extends Fragment {
                 String productDetails = details.getText().toString();
                 String productPrice = price.getText().toString();
                 String productLocation = location.getText().toString();
-                String productCondition = condition.getText().toString();
+                String productCondition = condition.getSelectedItem().toString();
                 String productBrand = brand.getText().toString();
                 try {
                     Listing listing = Listing.getListing(ad.getAdvertisementID());
@@ -204,7 +224,7 @@ public class ExistingPostEditFragment extends Fragment {
                     listing.setCondition(userID,password,productCondition);
                     listing.setBrand(userID,password, productBrand);
                     String[] images = new String[pointer];
-                    for (int i = 0; i < images.length; i++) {
+                    for (int i = 0; i < imageCount; i++) {
                         images[i] = encodedImages.get(i);
                     }
                     listing.setListingImages(userID, password, images);
@@ -250,6 +270,7 @@ public class ExistingPostEditFragment extends Fragment {
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                     imageButtons[imageRow][imageCol].setImageBitmap(bitmap);
                     updateImageRowCol();
+                    imageCount++;
                     if (encodedImages == null) {
                         encodedImages = new ArrayList<>();
                     }

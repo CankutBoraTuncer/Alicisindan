@@ -137,7 +137,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/brand" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/condition"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
@@ -154,6 +154,15 @@
                 android:textColor="@color/primary_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/brand" />
+
+            <View
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:background="@drawable/ic_down_arrow"
+                app:layout_constraintBottom_toBottomOf="@id/condition"
+                app:layout_constraintEnd_toEndOf="@id/condition"
+                app:layout_constraintTop_toTopOf="@id/condition" />
 
             <TextView
                 android:layout_width="wrap_content"

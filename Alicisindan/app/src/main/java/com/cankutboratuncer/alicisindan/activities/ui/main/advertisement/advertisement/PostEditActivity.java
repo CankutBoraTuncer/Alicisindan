@@ -179,8 +179,7 @@ public class PostEditActivity extends AppCompatActivity {
         String details = binding.details.getText().toString();
         String price = binding.price.getText().toString();
         String location = binding.location.getText().toString();
-        //TODO: conditions shouldn't be editable?
-        String condition = binding.condition.getText().toString();
+        String condition = binding.condition.getSelectedItem().toString();
         String brand = binding.brand.getText().toString();
         Listing listing = new Listing(userID, type, productTitle, details, price, condition, location, condition, brand);
         listing.addListing(userID, password);
@@ -216,7 +215,7 @@ public class PostEditActivity extends AppCompatActivity {
         } else if (binding.brand.getText().toString().trim().isEmpty()) {
             showToast("Please select a brand.");
             return false;
-        } else if (binding.condition.getText().toString().trim().isEmpty()) {
+        } else if (binding.condition.getSelectedItem().toString().trim().isEmpty()) {
             showToast("Please select a condition.");
             return false;
         } else {
