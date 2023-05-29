@@ -5,19 +5,26 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cankutboratuncer.alicisindan.R;
+import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
 import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
     Context context;
     List<ReviewItem> items;
-    public ReviewAdapter(Context context, List<ReviewItem> items)
+    Fragment profileFragment;
+    String localID;
+
+    public ReviewAdapter(Context context, List<ReviewItem> items, Fragment profile, String localID)
     {
         this.context = context;
         this.items = items;
+        this.profileFragment = profile;
+        this.localID = localID;
     }
     @NonNull
     @Override
@@ -77,6 +84,24 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
             holder.star4.setImageResource(R.drawable.ic_star_full);
             holder.star5.setImageResource(R.drawable.ic_star_full);
         }
+        holder.username.setOnClickListener(v -> {
+
+            if (items.get(position).getUserID().equals(localID))
+            {
+                Fragment fragment = new ProfileFragment();
+                loadFragment(fragment);
+            }
+            else
+            {
+                Fragment fragment = new OtherProfileFragment(items.get(position).getUserID());
+                loadFragment(fragment);
+            }
+        });
+    }
+
+    public void loadFragment(Fragment fragment) {
+        //to attach fragment
+        profileFragment.getParentFragmentManager().beginTransaction().replace(R.id.mainActivity_frameLayout_main, fragment).addToBackStack(null).commit();
     }
 
     @Override

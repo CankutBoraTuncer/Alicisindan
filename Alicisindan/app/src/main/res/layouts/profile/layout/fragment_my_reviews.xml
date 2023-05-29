@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/lato"
-            android:text="My Reviews"
+            android:text="Reviews"
             android:textColor="@color/white"
             android:textSize="@dimen/_16ssp"
             android:gravity="center"/>
