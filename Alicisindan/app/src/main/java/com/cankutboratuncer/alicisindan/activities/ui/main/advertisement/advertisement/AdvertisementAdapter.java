@@ -37,7 +37,7 @@ public class AdvertisementAdapter extends RecyclerView.Adapter<AdvertisementAdap
     @Override
     public AdvertisementViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_advertisement, parent, false);
-        return new AdvertisementViewHolder(view, advertisementInterface);
+        return new AdvertisementViewHolder(view, advertisementInterface, advertisements);
     }
 
     @Override
@@ -49,9 +49,10 @@ public class AdvertisementAdapter extends RecyclerView.Adapter<AdvertisementAdap
 
         TextView advertisementTitle, advertisementIntent, advertisementTag;
         ImageView advertisementImage, favoriteButton;
+        Advertisement clickedAdvertisement;
         boolean isFavorited;
 
-        public AdvertisementViewHolder(@NonNull View itemView, AdvertisementInterface advertisementInterface) {
+        public AdvertisementViewHolder(@NonNull View itemView, AdvertisementInterface advertisementInterface, ArrayList<Advertisement> advertisements) {
             super(itemView);
             this.advertisementTitle = itemView.findViewById(R.id.itemAdvertisement_textView_title);
             this.advertisementImage = itemView.findViewById(R.id.itemAdvertisement_imageView_image);
@@ -64,6 +65,7 @@ public class AdvertisementAdapter extends RecyclerView.Adapter<AdvertisementAdap
                 public void onClick(View view) {
                     if (advertisementInterface != null) {
                         int pos = getAdapterPosition();
+                        clickedAdvertisement = advertisements.get(pos);
 
                         if (pos != RecyclerView.NO_POSITION) {
                             advertisementInterface.onAdvertisementClick(pos);

@@ -191,7 +191,7 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
         productPrice.setText(advertisement.getPrice());
         TextView productDetails = view.findViewById(R.id.productDetails);
         productDetails.setText(advertisement.getDescription());
-        TextView productLocation = view.findViewById(R.id.location);
+        TextView productLocation = view.findViewById(R.id.productLocation);
         productLocation.setText(advertisement.getLocation());
         TextView productCategory = view.findViewById(R.id.productCategory);
         productCategory.setText(advertisement.getCategory());

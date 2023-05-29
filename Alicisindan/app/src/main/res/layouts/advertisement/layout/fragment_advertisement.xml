@@ -35,25 +35,7 @@
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <FrameLayout
-                android:id="@+id/layoutMessage"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_60sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:background="@drawable/background_circle"
-                app:layout_constraintBottom_toBottomOf="@id/advertisementFragment_imageSlider"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/buttonMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/_8sdp"
-                    android:src="@drawable/ic_chat"
-                    app:tint="@color/white" />
-            </FrameLayout>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <FrameLayout
                 android:id="@+id/layoutEdit"
@@ -73,6 +55,24 @@
                     app:tint="@color/white" />
             </FrameLayout>
 
+            <FrameLayout
+                android:id="@+id/layoutMessage"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:background="@drawable/background_circle"
+                app:layout_constraintBottom_toBottomOf="@id/advertisementFragment_imageSlider"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/buttonMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_8sdp"
+                    android:src="@drawable/ic_chat"
+                    app:tint="@color/white" />
+            </FrameLayout>
+
             <TextView
                 android:id="@+id/productTitle"
                 android:layout_width="wrap_content"
@@ -83,11 +83,11 @@
                 android:fontFamily="@font/lato"
                 android:maxLines="3"
                 android:paddingHorizontal="@dimen/_4sdp"
+                android:text="@string/advertisement_title"
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_18ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/advertisementFragment_imageSlider"
-                android:text="Advertisement Title" />
+                app:layout_constraintTop_toBottomOf="@id/advertisementFragment_imageSlider" />
 
             <TextView
                 android:id="@+id/username"
@@ -102,23 +102,23 @@
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productTitle"
-                />
+                app:layout_constraintTop_toBottomOf="@id/productTitle" />
 
             <TextView
                 android:id="@+id/productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
                 android:ellipsize="end"
                 android:fontFamily="@font/lato_bold"
                 android:maxLines="3"
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_24ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/username"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/advertisementFragment_imageSlider" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -147,111 +147,152 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
+                android:id="@+id/categoryLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/categoryLayout"
                 app:layout_constraintTop_toBottomOf="@id/productDetailsTitle">
+
                 <TextView
                     android:id="@+id/category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lato_bold"
                     android:maxLines="3"
-                    android:text="Category"
                     android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/category"
                     android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_14ssp"
-                    />
+                    android:textSize="@dimen/_14ssp" />
+
                 <TextView
                     android:id="@+id/productCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lato"
                     android:maxLines="3"
-                    android:text="Category"
                     android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/category"
                     android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_14ssp"
-                    />
+                    android:textSize="@dimen/_14ssp" />
 
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/brandLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/brandLayout"
                 app:layout_constraintTop_toBottomOf="@id/categoryLayout">
+
                 <TextView
                     android:id="@+id/brand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lato_bold"
                     android:maxLines="3"
-                    android:text="Brand"
                     android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/brand"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/_14ssp"
 
                     />
+
                 <TextView
                     android:id="@+id/productBrand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lato"
                     android:maxLines="3"
-                    android:text="Brand"
                     android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/brand"
                     android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_14ssp"
-                    />
+                    android:textSize="@dimen/_14ssp" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/conditionLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/conditionLayout"
                 app:layout_constraintTop_toBottomOf="@id/brandLayout">
+
                 <TextView
                     android:id="@+id/condition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lato_bold"
                     android:maxLines="3"
-                    android:text="Condition"
                     android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/condition"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/_14ssp"
 
                     />
+
                 <TextView
                     android:id="@+id/productCondition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lato"
                     android:maxLines="3"
-                    android:text="Condition"
                     android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/condition"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_14ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/locationLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@+id/conditionLayout">
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato_bold"
+                    android:maxLines="3"
+                    android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/location"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/_14ssp"
+
                     />
+
+                <TextView
+                    android:id="@+id/productLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato"
+                    android:maxLines="3"
+                    android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/location"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_14ssp" />
 
             </LinearLayout>
 
@@ -259,8 +300,8 @@
                 android:id="@+id/productDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginVertical="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:ellipsize="end"
                 android:fontFamily="@font/lato"
                 android:maxLines="3"
@@ -268,53 +309,7 @@
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/conditionLayout"
-                />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/locationCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/background_advertisement_card"
-            android:paddingHorizontal="@dimen/_12sdp"
-            android:paddingVertical="@dimen/_16sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/productDetailsCard">
-
-            <TextView
-                android:id="@+id/locationTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:fontFamily="@font/lato"
-                android:paddingHorizontal="@dimen/_4sdp"
-                android:text="@string/location"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_18ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:ellipsize="end"
-                android:fontFamily="@font/lato"
-                android:maxLines="3"
-                android:paddingHorizontal="@dimen/_4sdp"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/locationTitle"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/locationLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -327,7 +322,7 @@
             android:paddingVertical="@dimen/_16sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/locationCard">
+            app:layout_constraintTop_toBottomOf="@id/productDetailsCard">
 
             <TextView
                 android:id="@+id/relatedProductsTitle"
@@ -354,16 +349,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/relatedProductsTitle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <ProgressBar
             android:id="@+id/advertisementFragment_progressBar"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_gravity="center"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:visibility="invisible" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
