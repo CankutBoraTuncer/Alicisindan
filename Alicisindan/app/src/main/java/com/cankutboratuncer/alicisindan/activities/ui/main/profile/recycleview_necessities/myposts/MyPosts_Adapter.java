@@ -60,7 +60,7 @@ public class MyPosts_Adapter extends  RecyclerView.Adapter<MyPosts_Adapter.MyPos
         public void setData(_MyPosts myposts) {
             this.order.setText(myposts.getOrder());
             this.name.setText(myposts.getName());
-            this.image.setImageResource(myposts.getImage());
+            this.image.setImageBitmap(myposts.getBitmap());
         }
     }
 }

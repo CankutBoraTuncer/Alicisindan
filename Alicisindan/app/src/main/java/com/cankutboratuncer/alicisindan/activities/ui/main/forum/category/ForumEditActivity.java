@@ -134,13 +134,13 @@ public class ForumEditActivity extends AppCompatActivity {
 
     private Boolean isValidForumDetails() {
         if (encodedImage == null) {
-            showToast("Pick an image");
+            showToast("Pick an image.");
             return false;
         } else if (binding.forumTitle.getText().toString().trim().isEmpty()) {
-            showToast("Enter title");
+            showToast("Enter a title.");
             return false;
         } else if (binding.details.getText().toString().trim().isEmpty()) {
-            showToast("Enter Description");
+            showToast("Enter a description.");
             return false;
         } else {
             return true;

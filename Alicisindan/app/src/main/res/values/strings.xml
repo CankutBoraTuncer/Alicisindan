@@ -7,11 +7,21 @@
     <string name="email_or_phone_number">Email or Phone Number</string>
     <string name="password">Password</string>
     <string name="no_account">No Account?</string>
+    <string name="help1"><b>What is Alicisindan?</b>\nAlicisindan is an e-commerce app that allows you to find products to buy and sell.</string>
+    <string name="help2"><b>How will the payment process be carried out?</b>\nAlicisindan does not interfere with the payment process, the buyers and the sellers have to communicate and determine a method of exchanging money among themselves.</string>
+    <string name="help3"><b>How does the app work?</b>\nTo use the app, simply create an account and log in. You can then start creating listings for the products you want to sell or buy. Provide detailed information, including product description, price, and images. Users interested in buying or selling your product can connect with you through the app\'s messaging system.</string>
+    <string name="help4"><b>How secure is the app for buying and selling?</b>
+\nThe app prioritizes user security and safety. While we do not provide a platform for transactions, it\'s important to exercise caution and follow best practices. We recommend meeting in public places to exchange products and utilizing secure payment methods such as cash-on-delivery or trusted online payment gateways.</string>
+    <string name="help5"><b>Can I browse and buy products on the app?</b>
+\nAbsolutely! In addition to selling, you can explore the app\'s extensive collection of listings created by other users. Use search filters and categories to find the products you\'re interested in, and connect with sellers directly through the app to finalize your purchase.</string>
+    <string name="help6"><b>Is there a rating or feedback system for sellers?</b>
+\nYes, the app incorporates a rating and feedback system to foster a trustworthy community. Users can rate their experiences with sellers/buyers and leave feedback. This helps establish credibility and reliability within the marketplace.</string>
+    <string name="help7"><b>Are there any fees for using the app?</b>\nNo! Our app is completely free to use.</string>
     <string name="sign_in">Sign In</string>
     <string name="or_sign_in_with">Or Sign in with</string>
     <string name="sign_up">Sign Up</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="have_already_an_account">Have Already an Account?</string>
+    <string name="have_already_an_account">Already have an account?</string>
     <string name="i_have_read_and_acknowledged_the_terms_services"><![CDATA[I have read and acknowledged the Terms & Services]]></string>
     <string name="title_activity_phone">PhoneActivity</string>
     <string name="prompt_email">Email</string>
@@ -33,7 +43,7 @@
     <string name="what_are_you_looking_for">What are you looking for?</string>
     <string name="my_posts">My Posts</string>
     <string name="full_name">Full Name</string>
-    <string name="privacy_policy">Privacy Policy</string>
+    <string name="privacy_policy">Privacy Policy </string>
     <string name="log_out">Log Out</string>
     <string name="help">Help</string>
     <string name="favorite">Favorite</string>
@@ -48,16 +58,14 @@
     <string name="buy">Buy</string>
     <string name="home">Home</string>
     <string name="send_verification_code">Send Verification Code</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="title_activity_splash">SplashActivity</string>
-    <!-- Strings used for fragments for navigation -->
+
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="text_alert">IMPORTANT! PLEASE READ!\n\nPlease continue using the given id convention: For any item on your XML file, do:\n android:id = +@+id/activityName_viewType_nameOfView\nFor example, an EditText in HomeFragment that will hold the app\'s name should have an id like \"@+id/homeFragment_editText_appName\". \nSimilarly, \"@+id/homeFragment_layout_top\" is the id of the Layout(constraint) on top of HomeFragment.\n\nAlso, continue using this convention in your Java files as well: For example, do something like \nViewType viewType_viewName\nwhen naming views. For example, something like\nEditText editText_appName\nwould work for the previous example. All this is because when you call findViewById(R.id.) function, android studio lists ALL views on the ENTIRE project. Everything gets mixed up if we don\'t use a naming convention that uses descriptive names.\n\nAlso, adding functionality to a Fragment is similar to an Activity. In summary, instead of Activity OnCreate method, you write your code in Fragment onCreateView method. Instead of creating an Intent and startActivity method to change into another screen, you use loadFragment method. Refer to implemented fragments to see this method. There are more things to discuss here, but see HomeFragment and ProfileFragment as working examples of Fragments and for further information. If there are functionalities you wish to add to a fragment, you can ask me about them.\n GL\n\n NullPointerException xd</string>
     <string name="name">Name</string>
     <string name="username">Username</string>
     <string name="surname">Surname</string>
@@ -80,4 +88,5 @@
     <string name="product_details">Product Details</string>
     <string name="location">Location</string>
     <string name="products_related_to_this_item">Products related to this item</string>
+
 </resources>

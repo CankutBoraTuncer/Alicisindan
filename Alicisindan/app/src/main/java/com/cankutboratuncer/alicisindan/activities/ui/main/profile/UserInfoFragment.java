@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.cankutboratuncer.alicisindan.R;
@@ -31,6 +32,18 @@ public class UserInfoFragment extends Fragment {
         username.setText(localSave.getString(Constants.KEY_USER_USERNAME));
         TextView email = view.findViewById(R.id.usersEmail);
         email.setText(localSave.getString(Constants.KEY_USER_EMAIL));
+        TextView location = view.findViewById(R.id.location);
+        location.setText(localSave.getString(Constants.KEY_USER_ADDRESS));
+        CardView changeInfo = view.findViewById(R.id.accountFragment_cardView_changeInfo);
+        changeInfo.setOnClickListener(v9 -> {
+            Fragment fragment = new ChangeInfoFragment();
+            loadFragment(fragment);
+        });
         return view;
+    }
+
+    public void loadFragment(Fragment fragment) {
+        //to attach fragment
+        getParentFragmentManager().beginTransaction().replace(R.id.mainActivity_frameLayout_main, fragment).addToBackStack(null).commit();
     }
 }

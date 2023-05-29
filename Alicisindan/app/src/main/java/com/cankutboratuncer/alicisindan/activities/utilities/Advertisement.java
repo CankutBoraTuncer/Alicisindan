@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+
 public class Advertisement {
     String title, description, price, previewImage, advertisementID, location, userID, username, brand, type, category, condition;
     String[] images;
@@ -13,7 +14,7 @@ public class Advertisement {
         this.description = description;
         this.price = price;
         this.images = images;
-        if (images != null) {
+        if (images != null && images.length != 0) {
             this.previewImage = images[0];
         } else {
             this.previewImage = null;
@@ -98,6 +99,7 @@ public class Advertisement {
 
     public void setImages(String[] images) {
         this.images = images;
+        setPreviewImage(images[0]);
     }
 
     public String getAdvertisementID() {
