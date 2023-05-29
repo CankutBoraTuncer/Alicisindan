@@ -2,29 +2,38 @@ package com.cankutboratuncer.alicisindan.activities.ui.main.profile;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cankutboratuncer.alicisindan.R;
+import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
 import java.util.List;
+
+import Alicisindan.AlicisindanException;
+import Alicisindan.Review;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
     Context context;
     List<ReviewItem> items;
     Fragment profileFragment;
     String localID;
-
-    public ReviewAdapter(Context context, List<ReviewItem> items, Fragment profile, String localID)
+    boolean myReviews;
+    LocalSave localSave;
+    public ReviewAdapter(Context context, List<ReviewItem> items, Fragment profile, String localID, boolean myReviews)
     {
         this.context = context;
         this.items = items;
         this.profileFragment = profile;
         this.localID = localID;
+        this.myReviews = myReviews;
+        this.localSave = new LocalSave(this.context);
     }
     @NonNull
     @Override
@@ -36,6 +45,14 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
         holder.text.setText(items.get(position).getText());
         holder.username.setText(items.get(position).getUsername());
+        if (myReviews)
+        {
+            holder.delete.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            holder.delete.setVisibility(View.GONE);
+        }
         if (items.get(position).getRating() == 0)
         {
             holder.star1.setImageResource(R.drawable.ic_star);
@@ -97,6 +114,20 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
                 loadFragment(fragment);
             }
         });
+        holder.delete.setOnClickListener(v-> {
+            try {
+                Review review = Review.findReviews(localID, items.get(position).getUserID(),"","","","","","","1")[0];
+                review.deleteReview(localSave.getString(Constants.KEY_PASSWORD));
+                showToast("Review successfully deleted.");
+                Fragment fragment = new ReviewsIHaveWrittenFragment();
+                loadFragment(fragment);
+            } catch (AlicisindanException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void loadFragment(Fragment fragment) {
@@ -107,5 +138,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
     @Override
     public int getItemCount() {
         return items.size();
+    }
+    private void showToast(String message) {
+        Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show();
     }
 }

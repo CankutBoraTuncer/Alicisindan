@@ -15,6 +15,7 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
     ImageView star3;
     ImageView star4;
     ImageView star5;
+    ImageView delete;
     TextView text;
     TextView username;
     public ReviewViewHolder(@NonNull View itemView) {
@@ -24,6 +25,7 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
         star3 = itemView.findViewById(R.id.rstar3);
         star4 = itemView.findViewById(R.id.rstar4);
         star5 = itemView.findViewById(R.id.rstar5);
+        delete = itemView.findViewById(R.id.delete);
         username = itemView.findViewById(R.id.reviewerUsername);
         text = itemView.findViewById(R.id.reviewText);
     }
