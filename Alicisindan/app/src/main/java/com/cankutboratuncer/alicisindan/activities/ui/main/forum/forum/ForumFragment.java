@@ -2,23 +2,16 @@ package com.cankutboratuncer.alicisindan.activities.ui.main.forum.forum;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cankutboratuncer.alicisindan.R;
-import com.cankutboratuncer.alicisindan.activities.data.database.ForumTest;
-import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostAddCategoryActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.forum.category.ForumAddCategoryActivity;
-import com.cankutboratuncer.alicisindan.activities.ui.messaging.activities.ChatActivity;
-import com.cankutboratuncer.alicisindan.activities.ui.messaging.adapters.RecentConversationAdapter;
-import com.cankutboratuncer.alicisindan.activities.utilities.ChatMessage;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.Forum;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
@@ -29,9 +22,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 public class ForumFragment extends Fragment implements ForumListener {
 

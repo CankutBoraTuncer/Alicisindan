@@ -120,6 +120,7 @@ public class ProfileFragment extends Fragment {
         CardView cardView_help = view.findViewById(R.id.profileFragment_cardView_help);
         CardView cardView_logOut = view.findViewById(R.id.profileFragment_cardView_logOut);
         CardView cardView_reviews = view.findViewById(R.id.profileFragment_cardView_reviews);
+        CardView cardView_reviews2 = view.findViewById(R.id.profileFragment_cardView_reviews2);
         profilePic = view.findViewById(R.id.profileFragment_imageView_profilePicture);
         TextView privacyPolicy = view.findViewById(R.id.privacyPolicy);
         String userID = localSave.getString(Constants.KEY_USER_ID);
@@ -159,6 +160,10 @@ public class ProfileFragment extends Fragment {
                 Fragment fragment = new MyReviewsFragment();
                 loadFragment(fragment);
             });
+            cardView_reviews2.setOnClickListener(view26 -> {
+                Fragment fragment = new ReviewsIHaveWrittenFragment();
+                loadFragment(fragment);
+            });
             profilePic.setOnClickListener(view17 -> {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -188,6 +193,7 @@ public class ProfileFragment extends Fragment {
             cardView_messages.setVisibility(View.GONE);
             cardView_myPosts.setVisibility(View.GONE);
             cardView_reviews.setVisibility(View.GONE);
+            cardView_reviews2.setVisibility(View.GONE);
             cardView_help.setOnClickListener(view15 -> {
                 Fragment fragment = new HelpFragment();
                 loadFragment(fragment);

@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,7 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,9 +39,9 @@ import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
 import Alicisindan.Listing;
+import Alicisindan.User;
 
 public class AdvertisementFragment extends Fragment implements AdvertisementInterface {
 
@@ -54,6 +55,18 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
     TextView username;
     private String advertisementID;
     private LocalSave localSave;
+    private ImageView add_remove_favorite;
+
+    //
+    private static User user = null;
+    private static String password = null;
+    private static String[] favorites = null;
+
+    public static Alicisindan.User getUser_Advertisementfragment() {return user;}
+    public static String getPassword() {return password;}
+    public static String[] getFavorites_AdvertisementFragment() {return favorites;}
+    public static void setFavorites_AdvertisementFragment(String[] favorites) {AdvertisementFragment.favorites = favorites;}
+    //
     BackgroundTask backgroundTask;
     Handler handler;
 
@@ -73,6 +86,20 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         localSave = new LocalSave(getContext());
+
+        try {
+            user = Alicisindan.User.getUser(localSave.getString(Constants.KEY_USER_ID));
+            password = localSave.getString(Constants.KEY_PASSWORD);
+            favorites = user.getFavorites();
+            if (favorites == null) {
+                favorites = new String[]{"e"};
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (favorites == null) {
+                favorites = new String[]{"e"};
+            }
+        }
     }
 
     @Override
@@ -149,6 +176,26 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
 //        TextView category = view.findViewById(R.id.productCategory);
         username = view.findViewById(R.id.username);
         username.setText(advertisement.getUsername());
+
+        // favorite button - text
+        add_remove_favorite = (ImageView) view.findViewById(R.id.itemAdvertisement_imageView_favorite);
+
+        boolean inFavorites = false;
+        for (String id : favorites) {
+            if (advertisement.getAdvertisementID().equals(id)) {
+                inFavorites = true;
+
+                break;
+            }
+        }
+
+        if (!inFavorites) {
+            add_remove_favorite.setImageResource(R.drawable.ic_star);
+        }
+        else {
+            add_remove_favorite.setImageResource(R.drawable.ic_star_full);
+        }
+
         initImgSlider();
     }
 
@@ -207,6 +254,38 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
             Fragment profile = new OtherProfileFragment(advertisement.getUserID());
             loadFragment(profile);
         });
+
+        // favorite text - button click listener
+        view.findViewById(R.id.itemAdvertisement_imageView_favorite).setOnClickListener(fav -> {
+            boolean inFavorites = false;
+            for (String id : favorites) {
+                if (advertisement.getAdvertisementID().equals(id)) {
+                    inFavorites = true;
+
+                    break;
+                }
+            }
+
+            if (!inFavorites) {
+                try {
+                    user.addFavorite(localSave.getString(Constants.KEY_PASSWORD) ,advertisement.getAdvertisementID());
+                    add_remove_favorite.setImageResource(R.drawable.ic_star_full);
+                    favorites = user.getFavorites();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                try {
+                    user.removeFavorite(localSave.getString(Constants.KEY_PASSWORD) ,advertisement.getAdvertisementID());
+                    add_remove_favorite.setImageResource(R.drawable.ic_star);
+                    favorites = user.getFavorites();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     void loadFragment(Fragment fragment) {
@@ -367,8 +446,9 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                         }
                         String type = listing[4];
                         String title = listing[5];
+                        String price = listing[6];
 
-                        advertisements.add(new Advertisement(title, null, new String[]{image}, null, ID, null, userID, username, null, type, null, null));
+                        advertisements.add(new Advertisement(title, null, new String[]{image}, price, ID, null, userID, username, null, type, null, null));
                     }
 
                     loading(false, view);
@@ -393,6 +473,3 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
     }
 
 }
-
-
-

@@ -14,14 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cankutboratuncer.alicisindan.R;
-import com.cankutboratuncer.alicisindan.activities.data.database.CategoryTest;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.CategoryInterface;
-import com.cankutboratuncer.alicisindan.activities.ui.main.home.filter.FilterSubCategoryFragment;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
 import com.cankutboratuncer.alicisindan.activities.utilities.Category;
+import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,8 +68,8 @@ public class CategoryFragment extends Fragment implements CategoryInterface {
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
 
         RecyclerView recyclerViewForCategories = view.findViewById(R.id.categoryFragment_recyclerView_categories);
-        categories = new ArrayList<>(CategoryTest.categories);
-        searchResultCategories = new ArrayList<>(CategoryTest.categories);
+        categories = new ArrayList<>(Constants.categories);
+        searchResultCategories = new ArrayList<>(Constants.categories);
         categoryAdapter = new CategoryExpandedAdapter(searchResultCategories, this);
         recyclerViewForCategories.setAdapter(categoryAdapter);
         LinearLayoutManager horizontalRecyclerViewLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);

@@ -40,6 +40,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.mainActivity_bottomNavigationBar_main);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        Constants.categories = Constants.createCategories();
         Fragment fragment;
         if (comingFromPostAdd) {
             fragment = HomeFragment.newInstance(type, category, condition, location, price);

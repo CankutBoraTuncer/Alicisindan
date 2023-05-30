@@ -29,7 +29,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.cankutboratuncer.alicisindan.R;
-import com.cankutboratuncer.alicisindan.activities.data.database.CategoryTest;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementAdapter;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementInterface;
@@ -39,7 +38,6 @@ import com.cankutboratuncer.alicisindan.activities.ui.main.home.category.Categor
 import com.cankutboratuncer.alicisindan.activities.ui.main.home.category.CategoryFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.home.filter.FilterCategoryFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.home.filter.FilterFragment;
-import com.cankutboratuncer.alicisindan.activities.ui.main.home.filter.FilterSubCategoryFragment;
 import com.cankutboratuncer.alicisindan.activities.utilities.Advertisement;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
 import com.cankutboratuncer.alicisindan.activities.utilities.Category;
@@ -177,7 +175,7 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
                 return true;
             }
         };
-        categories = CategoryTest.categories;
+        categories = Constants.categories;
         CategoryAdapter categoryAdapter = new CategoryAdapter(categories, this);
         recyclerViewForCategories.setAdapter(categoryAdapter);
         recyclerViewForCategories.setLayoutManager(horizontalRecyclerViewLayoutManager);

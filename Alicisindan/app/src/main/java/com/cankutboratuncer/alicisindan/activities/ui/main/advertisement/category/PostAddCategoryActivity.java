@@ -2,17 +2,13 @@ package com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.catego
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
-import com.cankutboratuncer.alicisindan.activities.data.database.CategoryTest;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
-import com.cankutboratuncer.alicisindan.activities.utilities.Category;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
-import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 import com.cankutboratuncer.alicisindan.databinding.ActivityPostAddCategoryBinding;
 
 import java.util.List;
@@ -35,7 +31,7 @@ public class PostAddCategoryActivity extends AppCompatActivity implements Catego
             type = bundle.getString("type");
         }
         binding.topPanel.setText("I want to " + type);
-        categories = CategoryTest.categories;
+        categories = Constants.createCategories();
         loadCategories();
     }
 

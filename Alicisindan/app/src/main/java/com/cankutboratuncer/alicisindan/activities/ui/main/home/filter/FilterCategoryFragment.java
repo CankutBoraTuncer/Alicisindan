@@ -13,11 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cankutboratuncer.alicisindan.R;
-import com.cankutboratuncer.alicisindan.activities.data.database.CategoryTest;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.CategoryListener;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostCategoryAdapter;
-import com.cankutboratuncer.alicisindan.activities.ui.main.home.pages.BuyFragment;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
+import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 
 import java.util.List;
 
@@ -114,7 +113,7 @@ public class FilterCategoryFragment extends Fragment implements CategoryListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_filter_category, container, false);
-        List<AllCategories> categories = CategoryTest.categories;
+        List<AllCategories> categories = Constants.categories;
         PostCategoryAdapter usersAdapter = new PostCategoryAdapter(categories, this);
         RecyclerView categoriesRecyclerView = view.findViewById(R.id.filterCategoryFragment_categoriesRecyclerView);
         categoriesRecyclerView.setAdapter(usersAdapter);

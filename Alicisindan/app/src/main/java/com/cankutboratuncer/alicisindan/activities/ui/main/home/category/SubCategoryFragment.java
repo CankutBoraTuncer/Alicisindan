@@ -13,16 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cankutboratuncer.alicisindan.R;
-import com.cankutboratuncer.alicisindan.activities.data.database.CategoryTest;
-import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.CategoryInterface;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.CategoryListener;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostCategoryAdapter;
-import com.cankutboratuncer.alicisindan.activities.ui.main.home.filter.FilterFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.home.pages.BuyFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.home.pages.HomeFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.home.pages.SellFragment;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
-import com.cankutboratuncer.alicisindan.activities.utilities.Category;
+import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 
 import java.util.List;
 
@@ -78,7 +75,7 @@ public class SubCategoryFragment extends Fragment implements CategoryListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_filter_sub_category, container, false);
-        List<AllCategories> subCategories = CategoryTest.createSubCategories(category);
+        List<AllCategories> subCategories = Constants.createSubCategories(category);
         PostCategoryAdapter usersAdapter = new PostCategoryAdapter(subCategories, this);
         RecyclerView categoriesRecyclerView = view.findViewById(R.id.filterSubCategoryFragment_subCategoriesRecyclerView);
         categoriesRecyclerView.setAdapter(usersAdapter);

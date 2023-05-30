@@ -1,6 +1,5 @@
 package com.cankutboratuncer.alicisindan.activities.ui.main.home.filter;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,12 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cankutboratuncer.alicisindan.R;
-import com.cankutboratuncer.alicisindan.activities.data.database.CategoryTest;
-import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.PostEditActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.CategoryListener;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostCategoryAdapter;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
-import com.cankutboratuncer.alicisindan.activities.utilities.Category;
+import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 
 import java.util.List;
 
@@ -118,7 +115,7 @@ public class FilterSubCategoryFragment extends Fragment implements CategoryListe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_filter_sub_category, container, false);
-        List<AllCategories> subCategories = CategoryTest.createSubCategories(categoryForFilter);
+        List<AllCategories> subCategories = Constants.createSubCategories(categoryForFilter);
         PostCategoryAdapter usersAdapter = new PostCategoryAdapter(subCategories, this);
         RecyclerView categoriesRecyclerView = view.findViewById(R.id.filterSubCategoryFragment_subCategoriesRecyclerView);
         categoriesRecyclerView.setAdapter(usersAdapter);
