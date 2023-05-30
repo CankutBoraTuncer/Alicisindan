@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -53,14 +54,25 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
     // Give TAGS to the variables used for filtering
     private static final String ARG_FILTER_CATEGORY = "filter_category";
     private static final String ARG_FILTER_SUBCATEGORY = "filter_subCategory";
-    private static final String ARG_FILTER_BRAND = "filter_brand";
     private static final String ARG_FILTER_CONDITION = "filter_condition";
+    private static final String ARG_SORTING_METHOD = "filter_sortingMethod";
+    private static final String ARG_COUNTRY = "filter_country";
+    private static final String ARG_CITY = "filter_city";
+    private static final String ARG_MIN_PRICE = "filter_minPrice";
+    private static final String ARG_MAX_PRICE = "filter_maxPrice";
+    private static final String ARG_REFRESH = "refresh?";
 
     // Strings to be used in filtering
     String categoryForFilter;
     String subCategoryForFilter;
-    String brandForFilter;
     String conditionForFilter;
+    String sortingMethodForFilter;
+    String countryForFilter;
+    String cityForFilter;
+    String minPriceForFilter;
+    String maxPriceForFilter;
+    boolean willRefresh;
+    String searchQuery;
     ArrayList<Advertisement> advertisements;
     View view;
     ArrayList<AllCategories> categories;
@@ -77,13 +89,18 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
     public SellFragment() {
     }
 
-    public static SellFragment newInstance(String categoryForFilter, String subCategoryForFilter, String brandForFilter, String conditionForFilter) {
+    public static SellFragment newInstance(String categoryForFilter, String subCategoryForFilter, String conditionForFilter, String sortingMethodForFilter, String countryForFilter, String cityForFilter, String minPriceForFilter, String maxPriceForFilter, boolean willRefresh) {
         SellFragment fragment = new SellFragment();
         Bundle args = new Bundle();
         args.putString(ARG_FILTER_CATEGORY, categoryForFilter);
         args.putString(ARG_FILTER_SUBCATEGORY, subCategoryForFilter);
-        args.putString(ARG_FILTER_BRAND, brandForFilter);
         args.putString(ARG_FILTER_CONDITION, conditionForFilter);
+        args.putString(ARG_SORTING_METHOD, sortingMethodForFilter);
+        args.putString(ARG_COUNTRY, countryForFilter);
+        args.putString(ARG_CITY, cityForFilter);
+        args.putString(ARG_MIN_PRICE, minPriceForFilter);
+        args.putString(ARG_MAX_PRICE, maxPriceForFilter);
+        args.putBoolean(ARG_REFRESH, willRefresh);
         fragment.setArguments(args);
         return fragment;
     }
@@ -104,15 +121,42 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
                 subCategoryForFilter = null;
             }
             try {
-                brandForFilter = getArguments().getString(ARG_FILTER_BRAND);
-            } catch (Exception e) {
-                brandForFilter = null;
-            }
-            try {
                 conditionForFilter = getArguments().getString(ARG_FILTER_CONDITION);
             } catch (Exception e) {
                 conditionForFilter = null;
             }
+            try {
+                sortingMethodForFilter = getArguments().getString(ARG_SORTING_METHOD);
+            } catch (Exception e) {
+                sortingMethodForFilter = "NewestFirst";
+            }
+            try {
+                countryForFilter = getArguments().getString(ARG_COUNTRY);
+            } catch (Exception e) {
+                countryForFilter = null;
+            }
+            try {
+                cityForFilter = getArguments().getString(ARG_CITY);
+            } catch (Exception e) {
+                cityForFilter = null;
+            }
+            try {
+                minPriceForFilter = getArguments().getString(ARG_MIN_PRICE);
+            } catch (Exception e) {
+                minPriceForFilter = null;
+            }
+            try {
+                maxPriceForFilter = getArguments().getString(ARG_MAX_PRICE);
+            } catch (Exception e) {
+                maxPriceForFilter = null;
+            }
+            try {
+                willRefresh = getArguments().getBoolean(ARG_REFRESH);
+            } catch (Exception e) {
+                willRefresh = true;
+            }
+        } else {
+            sortingMethodForFilter = "NewestFirst";
         }
     }
 
@@ -148,12 +192,34 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loading(true, view);
-        if(viewModelAdvertisement.getAdvertisements_sell() != null){
+        initSearchBar();
+        if(viewModelAdvertisement.getAdvertisements_sell() != null && !willRefresh){
             advertisements = viewModelAdvertisement.getAdvertisements_sell();
             initUI(advertisements);
         } else {
             refreshList();
         }
+    }
+
+    public void initSearchBar() {
+        SearchView searchView = view.findViewById(R.id.sellFragment_searchBar);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchQuery = query;
+                refreshList();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.equals("")) {
+                    searchQuery = null;
+                    refreshList();
+                }
+                return false;
+            }
+        });
     }
 
     public void initUI(ArrayList<Advertisement> advertisements) {
@@ -185,10 +251,10 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
         textView_filter.setOnClickListener(view -> {
             Fragment fragment;
             if (categoryForFilter == null) {
-                fragment = FilterCategoryFragment.newInstance();
+                fragment = FilterCategoryFragment.newInstance("sell", null, null, null, null, null ,null, null);
                 Log.d("Category", "null");
             } else {
-                fragment = FilterFragment.newInstance(categoryForFilter, subCategoryForFilter);
+                fragment = FilterFragment.newInstance(categoryForFilter, subCategoryForFilter, "sell", conditionForFilter, sortingMethodForFilter, countryForFilter, cityForFilter, minPriceForFilter, maxPriceForFilter);
                 Log.d("Category", "non-null");
             }
             loadFragment(fragment);
@@ -212,8 +278,15 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
     @Override
     public void onCategoryClick(int position) {
         Category category = (Category) categories.get(position);
-        Fragment fragment = FilterSubCategoryFragment.newInstance(category.getName());
-        loadFragment(fragment);
+        categoryForFilter = category.getName();
+        subCategoryForFilter = null;
+        conditionForFilter = null;
+        sortingMethodForFilter = "NewestFirst";
+        countryForFilter = null;
+        cityForFilter = null;
+        minPriceForFilter = null;
+        maxPriceForFilter = null;
+        refreshList();
     }
 
     @Override
@@ -251,7 +324,7 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
             // Simulate the database retrieval process
             Log.d("Data", "Fetching Data: start");
             advertisements = new ArrayList<>();
-            fetchDataFromDatabase(categoryForFilter, subCategoryForFilter, brandForFilter, conditionForFilter);
+            fetchDataFromDatabase(categoryForFilter, subCategoryForFilter, conditionForFilter, sortingMethodForFilter, countryForFilter, cityForFilter, minPriceForFilter, maxPriceForFilter, searchQuery);
             Log.d("Data", "Fetching Data: complete. Ad count: " + advertisements.size());
             return "Done";
         }
@@ -278,14 +351,16 @@ public class SellFragment extends Fragment implements AdvertisementInterface, Ca
          * Pulls only the necessary data and creates a new Advertisement object with them.
          * Other parameters of the object will be null.
          */
-        private void fetchDataFromDatabase(String categoryForFilter, String subCategoryForFilter, String brandForFilter, String conditionForFilter) {
+        private void fetchDataFromDatabase(String categoryForFilter, String subCategoryForFilter, String conditionForFilter, String sortingMethodForFilter, String countryForFilter, String cityForFilter, String minPriceForFilter, String maxPriceForFilter, String searchQuery) {
             String[][] listings;
             try {
                 Log.d("Data:Server", "findListingShowcases:begin. " + categoryForFilter + "/" + subCategoryForFilter);
                 if (categoryForFilter == null) {
-                    listings = Listing.findListingShowcases(null, null, null, null, "sell", conditionForFilter, null, null, null, null, null, "50");
+                    listings = Listing.findListingShowcases(null, null, null, searchQuery, "sell", conditionForFilter, minPriceForFilter, maxPriceForFilter, null, sortingMethodForFilter, null, "100");
+                } else if (subCategoryForFilter == null) {
+                    listings = Listing.findListingShowcases(null, categoryForFilter + "%", null, searchQuery, "sell", conditionForFilter, minPriceForFilter, maxPriceForFilter, null, sortingMethodForFilter, null, "100");
                 } else {
-                    listings = Listing.findListingShowcases(null, categoryForFilter + "/" + subCategoryForFilter, null, null, null, conditionForFilter, null, null, null, null, null, "50");
+                    listings = Listing.findListingShowcases(null, categoryForFilter + "/" + subCategoryForFilter, null, searchQuery, "sell", conditionForFilter, minPriceForFilter, maxPriceForFilter, null, sortingMethodForFilter, null, "100");
                 }
                 Log.d("Data:Server", "findListing:end. Pulled " + listings.length + " listings");
                 advertisements.clear();

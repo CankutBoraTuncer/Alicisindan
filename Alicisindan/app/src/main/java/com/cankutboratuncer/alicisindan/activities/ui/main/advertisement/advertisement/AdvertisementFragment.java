@@ -33,13 +33,14 @@ import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import Alicisindan.Listing;
 
 public class AdvertisementFragment extends Fragment implements AdvertisementInterface {
 
     private static final String ADVERTISEMENT_ID = "Advertisement ID";
-    ArrayList<com.cankutboratuncer.alicisindan.activities.utilities.Advertisement> advertisements;
+    ArrayList<Advertisement> advertisements;
 
     private View view;
     private ViewPager2 imageSlider;
@@ -139,7 +140,7 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                     advertisement = new Advertisement(advertisementTitle, advertisementDescription, advertisementImages, advertisementPrice, advertisementID, advertisementLocation, advertisementOwnerID, advertisementUsername, advertisementBrand, advertisementType, advertisementCategory, advertisementCondition);
                     loading(false, view);
                 } catch (Exception e) {
-                    showToast("Advertisement couldn't loaded");
+                    requireActivity().runOnUiThread(() -> showToast("Advertisement couldn't loaded"));
                 }
             }
         }
@@ -168,14 +169,22 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                 advertisement = new Advertisement(advertisementTitle, advertisementDescription, advertisementImages, advertisementPrice, advertisementID, advertisementLocation, advertisementOwnerID, advertisementUsername, advertisementBrand, advertisementType, advertisementCategory, advertisementCondition);
                 loading(false, view);
             } catch (Exception e) {
-                showToast("Advertisement couldn't loaded");
+                requireActivity().runOnUiThread(() -> showToast("Advertisement couldn't loaded"));
             }
         }
     }
 
     public void initUI() {
-        if (advertisement.getUserID().equals(localSave.getString(Constants.KEY_USER_ID))) {
+        String userID = localSave.getString(Constants.KEY_USER_ID);
+        if (userID == null) {
             view.findViewById(R.id.layoutMessage).setVisibility(View.GONE);
+            view.findViewById(R.id.layoutEdit).setVisibility(View.GONE);
+        } else if (advertisement.getUserID().equals(userID)) {
+            view.findViewById(R.id.layoutMessage).setVisibility(View.GONE);
+            view.findViewById(R.id.layoutEdit).setVisibility(View.VISIBLE);
+        } else {
+            view.findViewById(R.id.layoutMessage).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.layoutEdit).setVisibility(View.GONE);
         }
 
         TextView productTitle = view.findViewById(R.id.productTitle);
@@ -184,9 +193,14 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
         productPrice.setText(advertisement.getPrice());
         TextView productDetails = view.findViewById(R.id.productDetails);
         productDetails.setText(advertisement.getDescription());
-        TextView productLocation = view.findViewById(R.id.location);
+        TextView productLocation = view.findViewById(R.id.productLocation);
         productLocation.setText(advertisement.getLocation());
-
+        TextView productCategory = view.findViewById(R.id.productCategory);
+        productCategory.setText(advertisement.getCategory());
+        TextView productBrand = view.findViewById(R.id.productBrand);
+        productBrand.setText(advertisement.getBrand());
+        TextView productCondition = view.findViewById(R.id.productCondition);
+        productCondition.setText(advertisement.getCondition());
 //        TextView category = view.findViewById(R.id.productCategory);
         username = view.findViewById(R.id.username);
         username.setText(advertisement.getUsername());
@@ -240,6 +254,10 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                 localSave.putBoolean(Constants.KEY_IS_USER_SKIP, false);
                 startActivity(new Intent(getContext(), SignInActivity.class));
             }
+        });
+        view.findViewById(R.id.buttonEdit).setOnClickListener(v25 -> {
+            Fragment fragment = new ExistingPostEditFragment(advertisement);
+            loadFragment(fragment);
         });
         username.setOnClickListener(view20 -> {
             Fragment profile = new OtherProfileFragment(advertisement.getUserID());

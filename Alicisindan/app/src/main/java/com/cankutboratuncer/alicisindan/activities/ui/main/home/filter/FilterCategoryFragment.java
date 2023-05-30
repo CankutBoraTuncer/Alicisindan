@@ -16,6 +16,7 @@ import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.data.database.CategoryTest;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.CategoryListener;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostCategoryAdapter;
+import com.cankutboratuncer.alicisindan.activities.ui.main.home.pages.BuyFragment;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
 
 import java.util.List;
@@ -26,6 +27,23 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class FilterCategoryFragment extends Fragment implements CategoryListener {
+    private static final String ARG_FILTER_SUBCATEGORY = "filter_subCategory";
+    private static final String ARG_FILTER_CONDITION = "filter_condition";
+    private static final String ARG_SORTING_METHOD = "filter_sortingMethod";
+    private static final String ARG_COUNTRY = "filter_country";
+    private static final String ARG_CITY = "filter_city";
+    private static final String ARG_MIN_PRICE = "filter_minPrice";
+    private static final String ARG_MAX_PRICE = "filter_maxPrice";
+    private static final String ARG_TYPE = "type";
+
+    String subCategoryForFilter;
+    String conditionForFilter;
+    String sortingMethodForFilter;
+    String countryForFilter;
+    String cityForFilter;
+    String minPriceForFilter;
+    String maxPriceForFilter;
+    String type;
 
     public FilterCategoryFragment() {
         // Required empty public constructor
@@ -37,9 +55,17 @@ public class FilterCategoryFragment extends Fragment implements CategoryListener
      *
      * @return A new instance of fragment FilterCategoryFragment.
      */
-    public static FilterCategoryFragment newInstance() {
+    public static FilterCategoryFragment newInstance(String type, String subCategoryForFilter, String conditionForFilter, String sortingMethodForFilter, String countryForFilter, String cityForFilter, String minPriceForFilter, String maxPriceForFilter) {
         FilterCategoryFragment fragment = new FilterCategoryFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_TYPE, type);
+        args.putString(ARG_FILTER_SUBCATEGORY, subCategoryForFilter);
+        args.putString(ARG_FILTER_CONDITION, conditionForFilter);
+        args.putString(ARG_SORTING_METHOD, sortingMethodForFilter);
+        args.putString(ARG_COUNTRY, countryForFilter);
+        args.putString(ARG_CITY, cityForFilter);
+        args.putString(ARG_MIN_PRICE, minPriceForFilter);
+        args.putString(ARG_MAX_PRICE, maxPriceForFilter);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,6 +74,46 @@ public class FilterCategoryFragment extends Fragment implements CategoryListener
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            try {
+                type = getArguments().getString(ARG_TYPE);
+            } catch (Exception e) {
+                type = null;
+            }
+            try {
+                subCategoryForFilter = getArguments().getString(ARG_FILTER_SUBCATEGORY);
+            } catch (Exception e) {
+                subCategoryForFilter = null;
+            }
+            try {
+                conditionForFilter = getArguments().getString(ARG_FILTER_CONDITION);
+            } catch (Exception e) {
+                conditionForFilter = null;
+            }
+            try {
+                sortingMethodForFilter = getArguments().getString(ARG_SORTING_METHOD);
+            } catch (Exception e) {
+                sortingMethodForFilter = null;
+            }
+            try {
+                countryForFilter = getArguments().getString(ARG_COUNTRY);
+            } catch (Exception e) {
+                countryForFilter = null;
+            }
+            try {
+                cityForFilter = getArguments().getString(ARG_CITY);
+            } catch (Exception e) {
+                cityForFilter = null;
+            }
+            try {
+                minPriceForFilter = getArguments().getString(ARG_MIN_PRICE);
+            } catch (Exception e) {
+                minPriceForFilter = null;
+            }
+            try {
+                maxPriceForFilter = getArguments().getString(ARG_MAX_PRICE);
+            } catch (Exception e) {
+                maxPriceForFilter = null;
+            }
         }
     }
 
@@ -67,7 +133,7 @@ public class FilterCategoryFragment extends Fragment implements CategoryListener
     }
 
     public void onUserClicked(String category) {
-        Fragment fragment = FilterSubCategoryFragment.newInstance(category);
+        Fragment fragment = FilterSubCategoryFragment.newInstance(type, category, conditionForFilter, sortingMethodForFilter, countryForFilter, cityForFilter, minPriceForFilter, maxPriceForFilter);
         loadFragment(fragment);
     }
 
