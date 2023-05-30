@@ -1,171 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
-    android:fitsSystemWindows="true"
     android:paddingBottom="@dimen/_20sdp"
     tools:context=".activities.ui.main.forum.forum.ForumChatActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topPanel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/_90sdp"
+        android:background="@drawable/background_main_gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/topPanel"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_90sdp"
-            android:background="@drawable/background_main_gradient"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lato"
-                android:text="Chat Post"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16ssp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/forumPost"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:background="@drawable/background_message_card"
-            android:paddingHorizontal="@dimen/_12sdp"
-            android:paddingVertical="@dimen/_12sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topPanel">
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/forumPostImage"
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_70sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:background="@drawable/background_edit_text_add_post"
-                android:clipToOutline="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/product_image"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/forumPostTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:ellipsize="end"
-                android:fontFamily="@font/lato_bold"
-                android:maxLines="2"
-                android:text="Astylish Women Open Front Long Sleeve Chunky Knit Cardigan"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_16ssp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/forumPostImage"
-                app:layout_constraintTop_toTopOf="@id/forumPostImage" />
-
-            <TextView
-                android:id="@+id/forumPostUser"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:ellipsize="end"
-                android:fontFamily="@font/lato"
-                android:maxLines="2"
-                android:text="by Cankut Bora Tuncer"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_10ssp"
-                app:layout_constraintBottom_toBottomOf="@id/forumPostImage"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/forumPostImage"
-                app:layout_constraintTop_toBottomOf="@id/forumPostTitle" />
-
-            <TextView
-                android:id="@+id/forumPostDescription"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:fontFamily="@font/lato"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id dolor ipsum. Curabitur auctor vehicula augue. Duis nec commodo nisi. Vivamus eget ultricies velit. Phasellus volutpat libero tempor blandit semper. Mauris ante nisl, sagittis et gravida eu, dignissim eu sem. Aliquam laoreet congue molestie."
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_13ssp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/forumPostImage"
-                app:layout_constraintTop_toBottomOf="@id/forumPostImage" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <EditText
-            android:id="@+id/comment"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:background="@drawable/background_edit_text_add_post"
             android:fontFamily="@font/lato"
-            android:gravity="top"
-            android:imeOptions="actionNext"
-            android:importantForAutofill="no"
-            android:inputType="textMultiLine"
-            android:maxLines="4"
-            android:paddingHorizontal="@dimen/_16sdp"
-            android:paddingVertical="@dimen/_10sdp"
-            android:textColor="@color/primary_text"
-            android:textCursorDrawable="@null"
-            app:layout_constraintEnd_toEndOf="@id/forumPost"
-            app:layout_constraintStart_toStartOf="@id/forumPost"
-            app:layout_constraintTop_toBottomOf="@id/forumPost"
-            tools:text="aksdjljasldkjsadlksaj" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonComment"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_45sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:background="@drawable/background_main_button"
-            android:fontFamily="@font/lato_bold"
-            android:text="Add a comment"
-            android:textAllCaps="false"
+            android:text="Chat Post"
             android:textColor="@color/white"
             android:textSize="@dimen/_16ssp"
-            app:layout_constraintEnd_toEndOf="@id/forumPost"
-            app:layout_constraintStart_toStartOf="@id/forumPost"
-            app:layout_constraintTop_toBottomOf="@id/comment" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chatRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:overScrollMode="never"
-            android:padding="@dimen/_20sdp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintStart_toStartOf="@id/buttonComment"
-            app:layout_constraintTop_toBottomOf="@id/buttonComment" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            app:layout_constraintBottom_toBottomOf="@id/chatRecyclerView"
-            app:layout_constraintEnd_toEndOf="@id/chatRecyclerView"
-            app:layout_constraintStart_toStartOf="@id/chatRecyclerView"
-            app:layout_constraintTop_toTopOf="@id/chatRecyclerView" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/forumPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/background_message_card"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topPanel">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/forumPostImage"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/background_edit_text_add_post"
+            android:clipToOutline="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/product_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/forumPostTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/lato_bold"
+            android:maxLines="2"
+            android:text="Astylish Women Open Front Long Sleeve Chunky Knit Cardigan"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/forumPostImage"
+            app:layout_constraintTop_toTopOf="@id/forumPostImage" />
+
+        <TextView
+            android:id="@+id/forumPostUser"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/lato"
+            android:maxLines="2"
+            android:text="by Cankut Bora Tuncer"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/forumPostImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/forumPostImage"
+            app:layout_constraintTop_toBottomOf="@id/forumPostTitle" />
+
+        <TextView
+            android:id="@+id/forumPostDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/lato"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id dolor ipsum. Curabitur auctor vehicula augue. Duis nec commodo nisi. Vivamus eget ultricies velit. Phasellus volutpat libero tempor blandit semper. Mauris ante nisl, sagittis et gravida eu, dignissim eu sem. Aliquam laoreet congue molestie."
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/forumPostImage"
+            app:layout_constraintTop_toBottomOf="@id/forumPostImage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:overScrollMode="never"
+        android:padding="@dimen/_20sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/comment"
+        app:layout_constraintStart_toStartOf="@id/forumPost"
+        app:layout_constraintTop_toBottomOf="@id/forumPost" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        app:layout_constraintBottom_toBottomOf="@id/chatRecyclerView"
+        app:layout_constraintEnd_toEndOf="@id/chatRecyclerView"
+        app:layout_constraintStart_toStartOf="@id/chatRecyclerView"
+        app:layout_constraintTop_toTopOf="@id/chatRecyclerView" />
+
+    <EditText
+        android:id="@+id/comment"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:background="@drawable/background_edit_text"
+        android:hint="@string/type_a_message"
+        android:imeOptions="actionDone"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_16sdp"
+        android:textColor="@color/primary_text"
+        android:textColorHint="@color/primary_text"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/buttonComment"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:background="@drawable/background_message_send_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/comment"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/ic_send"
+            app:tint="@color/white" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
 

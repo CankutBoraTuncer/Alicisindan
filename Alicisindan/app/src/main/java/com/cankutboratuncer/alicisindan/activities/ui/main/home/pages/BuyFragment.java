@@ -409,4 +409,74 @@ public class BuyFragment extends Fragment implements AdvertisementInterface, Cat
     private void showToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
+
+    //    public void createSearchBar(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_home, container, false);
+//        RecyclerView recyclerViewForAdvertisements = view.findViewById(R.id.homeFragment_recyclerView_advertisements);
+//        searchView = view.findViewById(R.id.homeFragment_searchBar);
+//        searchView.clearFocus();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+//        {
+//            @Override
+//            public boolean onQueryTextSubmit(String query)
+//            {
+//                findFromList(query, inflater, container, savedInstanceState);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText)
+//            {
+//                findFromList(newText, inflater, container, savedInstanceState);
+//                return true;
+//            }
+//        });
+//    }
+
+//    public void findFromList(String searchedText, LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        try {
+//            View view = inflater.inflate(R.layout.fragment_home, container, false);
+//            RecyclerView recyclerViewForAdvertisements = view.findViewById(R.id.homeFragment_recyclerView_advertisements);
+//            String text = searchedText;
+//            Listing[] listings;
+//            ArrayList<Advertisement> newAdvertisements = new ArrayList<Advertisement>();
+//            String title;
+//            String description;
+//            String image;
+//            String price;
+//            String ID;
+//            String location;
+//            String userID;
+//            String username;
+//            String brand;
+//            listings = Listing.findListings("", "", "", text, "", "", "", "", "", "", "", "10");
+//            for (int i = 0; i < listings.length; i++) {
+//                Listing listing = listings[i];
+//                title = listing.getTitle();
+//                description = listing.getDescription();
+//                image = "0";
+//                price = listing.getPrice();
+//                location = listing.getLocation();
+//                ID = listing.getID();
+//                userID = listing.getOwnerID();
+//                brand = listing.getBrand();
+//                try {
+//                    User user = User.getUser(userID);
+//                    username = user.getUsername();
+//                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//                newAdvertisements.add(new Advertisement(title, description, image, price, ID, location, userID, username, brand));
+//            }
+//            recyclerViewForAdvertisements.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+//            AdvertisementAdapter advertisementAdapter = new AdvertisementAdapter(newAdvertisements, this);
+//            recyclerViewForAdvertisements.setAdapter(advertisementAdapter);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+
+
 }
