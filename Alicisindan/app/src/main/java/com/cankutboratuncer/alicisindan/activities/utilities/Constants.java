@@ -18,6 +18,7 @@ public class Constants {
     public static final String KEY_USER_PHONE = "userPhone";
     public static final String KEY_USER_EMAIL = "email";
     public static final String KEY_PASSWORD = "password";
+    public static final String KEY_USER_IMAGE = "userImage";
     public static final String KEY_PREFERENCE_NAME = "chatAppPreference";
     public static final String KEY_IS_SIGNED_IN = "isSignedIn";
     public static final String KEY_IS_USER_SKIP = "isSkip";
