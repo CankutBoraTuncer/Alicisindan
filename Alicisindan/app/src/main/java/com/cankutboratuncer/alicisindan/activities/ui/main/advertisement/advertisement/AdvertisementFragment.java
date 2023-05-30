@@ -180,14 +180,14 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
     public void initUI() {
         String userID = localSave.getString(Constants.KEY_USER_ID);
         if (userID == null) {
-            view.findViewById(R.id.layoutMessage).setVisibility(View.GONE);
-            view.findViewById(R.id.layoutEdit).setVisibility(View.GONE);
+            view.findViewById(R.id.buttonMessage).setVisibility(View.GONE);
+            view.findViewById(R.id.buttonEdit).setVisibility(View.GONE);
         } else if (advertisement.getUserID().equals(userID)) {
-            view.findViewById(R.id.layoutMessage).setVisibility(View.GONE);
-            view.findViewById(R.id.layoutEdit).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.buttonMessage).setVisibility(View.GONE);
+            view.findViewById(R.id.buttonEdit).setVisibility(View.VISIBLE);
         } else {
-            view.findViewById(R.id.layoutMessage).setVisibility(View.VISIBLE);
-            view.findViewById(R.id.layoutEdit).setVisibility(View.GONE);
+            view.findViewById(R.id.buttonMessage).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.buttonEdit).setVisibility(View.GONE);
         }
 
         TextView productTitle = view.findViewById(R.id.productTitle);
