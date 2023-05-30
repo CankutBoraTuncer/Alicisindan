@@ -1,14 +1,22 @@
 package com.cankutboratuncer.alicisindan.activities.ui.messaging.firebase;
+import android.Manifest;
+import static androidx.core.app.ActivityCompat.requestPermissions;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -54,9 +62,11 @@ public class MessagingService extends FirebaseMessagingService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId);
-        builder.setSmallIcon(R.drawable.ic_notification);
+        builder.setSmallIcon(R.drawable.ic_message);
         builder.setContentTitle(advertisement.getUsername());
         builder.setContentText(remoteMessage.getData().get(Constants.KEY_MESSAGE));
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        builder.setSound(alarmSound);
         builder.setStyle(new NotificationCompat.BigTextStyle().bigText(
                 remoteMessage.getData().get(Constants.KEY_MESSAGE)
         ));
@@ -73,7 +83,6 @@ public class MessagingService extends FirebaseMessagingService {
             channel.setDescription(channelDescription);
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
             notificationManager.createNotificationChannel(channel);
-            Log.d("Meeessss", "1312312");
         }
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);

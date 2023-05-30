@@ -418,4 +418,5 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
     private void showToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
+
 }
