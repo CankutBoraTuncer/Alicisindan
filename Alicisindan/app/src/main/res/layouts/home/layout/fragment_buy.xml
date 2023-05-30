@@ -11,10 +11,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buyFragment_layout_top"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_84sdp"
         android:background="@drawable/background_main_gradient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.14"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -61,7 +60,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginVertical="@dimen/_8sdp"
+        android:layout_marginVertical="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buyFragment_searchBar">
@@ -98,6 +97,7 @@
         android:id="@+id/buyFragment_recyclerView_categories"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,6 +109,7 @@
         android:id="@+id/buyFragment_layout_featuredTop"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_12sdp"
         android:layout_marginHorizontal="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -146,6 +147,7 @@
         android:id="@+id/buyFragment_recyclerView_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -155,12 +157,14 @@
             android:id="@+id/buyFragment_recyclerView_advertisements"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_8sdp"
             android:scrollbars="none"
+            android:layout_marginTop="@dimen/_8sdp"
             android:visibility="invisible"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+             />
 
         <View
             android:layout_width="0dp"

@@ -11,10 +11,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/homeFragment_layout_top"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_84sdp"
         android:background="@drawable/background_main_gradient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.14"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -159,19 +158,21 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/homeFragment_recyclerView_advertisements"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:scrollbars="none"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:visibility="invisible"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -189,9 +190,9 @@
         android:padding="@dimen/_16sdp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/homeFragment_recyclerView_container"
+        app:layout_constraintEnd_toEndOf="@id/homeFragment_recyclerView_container"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFragment_layout_featuredTop">
+        app:layout_constraintTop_toBottomOf="@id/homeFragment_layout_featuredTop">
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"

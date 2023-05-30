@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/filterFragment_topPanel"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_84sdp"
         android:background="@drawable/background_main_gradient"
         android:fontFamily="@font/lato"
         android:gravity="center"
@@ -18,7 +18,6 @@
         android:textColor="@color/white"
         android:textSize="@dimen/_16ssp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.14"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
