@@ -1,6 +1,9 @@
 package com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement;
 
 
+import static com.cankutboratuncer.alicisindan.activities.utilities.Util.decodeImage;
+import static com.cankutboratuncer.alicisindan.activities.utilities.Util.showToast;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -140,7 +143,7 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                     advertisement = new Advertisement(advertisementTitle, advertisementDescription, advertisementImages, advertisementPrice, advertisementID, advertisementLocation, advertisementOwnerID, advertisementUsername, advertisementBrand, advertisementType, advertisementCategory, advertisementCondition);
                     loading(false, view);
                 } catch (Exception e) {
-                    requireActivity().runOnUiThread(() -> showToast("Advertisement couldn't loaded"));
+                    requireActivity().runOnUiThread(() -> showToast("Advertisement couldn't loaded", getContext()));
                 }
             }
         }
@@ -169,7 +172,7 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                 advertisement = new Advertisement(advertisementTitle, advertisementDescription, advertisementImages, advertisementPrice, advertisementID, advertisementLocation, advertisementOwnerID, advertisementUsername, advertisementBrand, advertisementType, advertisementCategory, advertisementCondition);
                 loading(false, view);
             } catch (Exception e) {
-                requireActivity().runOnUiThread(() -> showToast("Advertisement couldn't loaded"));
+                requireActivity().runOnUiThread(() -> showToast("Advertisement couldn't loaded", getContext()));
             }
         }
     }
@@ -250,7 +253,7 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                 intent.putExtras(args);
                 startActivity(intent);
             } else {
-                showToast("You have to sign in first");
+                showToast("You have to sign in first", getContext());
                 localSave.putBoolean(Constants.KEY_IS_USER_SKIP, false);
                 startActivity(new Intent(getContext(), SignInActivity.class));
             }
@@ -274,20 +277,6 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
     public void onAdvertisementClick(int position) {
         Fragment fragment = AdvertisementFragment.newInstance(advertisements.get(position).getAdvertisementID());
         loadFragment(fragment);
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    public Bitmap decodeImage(String encodedImage) {
-        try {
-            byte[] imageBytes = Base64.decode(encodedImage, Base64.DEFAULT);
-            return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private void loading(boolean isLoading, View view) {
