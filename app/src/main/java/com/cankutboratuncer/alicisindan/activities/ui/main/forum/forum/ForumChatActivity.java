@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -182,11 +181,6 @@ public class ForumChatActivity extends AppCompatActivity {
         }
     };
 
-
-
-
-
-
     private Bitmap getBitmapFromEncodedString(String encodedImage) {
         if (encodedImage != null) {
             byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
@@ -217,7 +211,6 @@ public class ForumChatActivity extends AppCompatActivity {
             forum.setForumImage(args.getString(Constants.KEY_FORUM_IMAGE));
         }
     }
-
 }
 
 

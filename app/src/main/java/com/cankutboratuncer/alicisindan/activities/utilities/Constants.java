@@ -20,10 +20,12 @@ public class Constants {
     public static final String KEY_USER_ADDRESS = "userAddress";
     public static final String KEY_USER_PHONE = "userPhone";
     public static final String KEY_USER_EMAIL = "email";
+    public static final String KEY_USER_IMAGE = "userImage";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_PREFERENCE_NAME = "chatAppPreference";
     public static final String KEY_IS_SIGNED_IN = "isSignedIn";
     public static final String KEY_IS_USER_SKIP = "isSkip";
+    public static final String KEY_IS_NOTIFICATION_NOTIFIED = "isNotified";
     public static final String KEY_ADVERTISEMENT = "advertisement";
     public static final String KEY_ADVERTISEMENT_TITLE = "advertisement_title";
     public static final String KEY_ADVERTISEMENT_USERID = "advertisement_userid";

@@ -49,7 +49,6 @@ import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import Alicisindan.Listing;
 
@@ -249,8 +248,8 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
                 return true;
             }
         };
-        categories = Constants.createCategories();
-        CategoryAdapter categoryAdapter = new CategoryAdapter((ArrayList<AllCategories>) categories, this);
+        categories = Constants.categories;
+        CategoryAdapter categoryAdapter = new CategoryAdapter(categories, this);
         recyclerViewForCategories.setAdapter(categoryAdapter);
         recyclerViewForCategories.setLayoutManager(horizontalRecyclerViewLayoutManager);
     }
@@ -496,10 +495,37 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
                 String minPrice = Integer.toString(Integer.parseInt(price.substring(1)) / 2);
                 String maxPrice = Integer.toString(Integer.parseInt(price.substring(1)) * 2);
                 if (postType.equals("buy")) {
-                    listings = Listing.findListingShowcases(null, category, null, null, "sell", null, null, null, null, null, null, "4");
+                    try {
+                        listings = Listing.findListingShowcases(null, category, null, null, "sell", condition, minPrice, maxPrice, location, null, null, "4");
+                        if (listings.length < 4) {
+                            listings = Listing.findListingShowcases(null, category, null, null, "sell", condition, minPrice, maxPrice, null, null, null, "4");
+                        }
+                        if (listings.length < 4) {
+                            listings = Listing.findListingShowcases(null, category, null, null, "sell", condition, null, null, null, null, null, "4");
+                        }
+                        if (listings.length < 4) {
+                            listings = Listing.findListingShowcases(null, category, null, null, "sell", null, null, null, null, null, null, "4");
+                        }
+                    } catch (Exception e) {
+                        listings = null;
+                    }
                 } else {
-                    listings = Listing.findListingShowcases(null, category, null, null, "buy", null, null, null, null, null, null, "4");
+                    try {
+                        listings = Listing.findListingShowcases(null, category, null, null, "buy", condition, minPrice, maxPrice, location, null, null, "4");
+                        if (listings.length < 4) {
+                            listings = Listing.findListingShowcases(null, category, null, null, "buy", condition, minPrice, maxPrice, null, null, null, "4");
+                        }
+                        if (listings.length < 4) {
+                            listings = Listing.findListingShowcases(null, category, null, null, "buy", condition, null, null, null, null, null, "4");
+                        }
+                        if (listings.length < 4) {
+                            listings = Listing.findListingShowcases(null, category, null, null, "buy", null, null, null, null, null, null, "4");
+                        }
+                    } catch (Exception e) {
+                        listings = null;
+                    }
                 }
+                assert listings != null;
                 Log.d("Data:Server", "fetchSimilar:end. Pulled " + listings.length + " listings");
                 similarAdvertisements.clear();
 
@@ -544,4 +570,5 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
     private void showToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
+
 }

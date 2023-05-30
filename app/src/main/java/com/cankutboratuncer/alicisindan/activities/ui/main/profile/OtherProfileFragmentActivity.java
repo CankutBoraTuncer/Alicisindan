@@ -1,7 +1,6 @@
 package com.cankutboratuncer.alicisindan.activities.ui.main.profile;
 
 import android.os.Bundle;
-import android.view.WindowManager;
 
 import androidx.fragment.app.FragmentActivity;
 

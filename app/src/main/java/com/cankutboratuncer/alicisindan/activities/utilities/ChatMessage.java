@@ -7,7 +7,7 @@ import android.util.Base64;
 import java.util.Date;
 
 public class ChatMessage {
-    public String senderId, senderName, receiverId, message, dateTime, forumId;
+    public String senderId, senderName, senderImage, receiverId, receiverImage, message, dateTime, forumId;
     public Date dateObject;
     public String conversionId, conversionName, conversionImage;
     public String productTitle, productDescription, userId, userName, productId, location, price, image, brand, type, category, condition;
@@ -76,6 +76,22 @@ public class ChatMessage {
 
     public String getProductTitle() {
         return productTitle;
+    }
+
+    public String getSenderImage() {
+        return senderImage;
+    }
+
+    public void setSenderImage(String senderImage) {
+        this.senderImage = senderImage;
+    }
+
+    public String getReceiverImage() {
+        return receiverImage;
+    }
+
+    public void setReceiverImage(String receiverImage) {
+        this.receiverImage = receiverImage;
     }
 
     public String getProductDescription() {

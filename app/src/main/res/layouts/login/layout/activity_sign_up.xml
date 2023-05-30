@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:fitsSystemWindows="true"
     android:overScrollMode="never"
     android:paddingBottom="@dimen/_20sdp"
     android:scrollbars="none"
@@ -104,14 +103,14 @@
             android:textColor="@color/primary_text" />
 
         <EditText
-            android:id="@+id/signUpActivity_editText_emailOrPhoneNumber"
+            android:id="@+id/signUpActivity_editText_email"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_24sdp"
             android:background="@drawable/background_edit_text"
             android:fontFamily="@font/lato"
-            android:hint="@string/email_or_phone_number"
+            android:hint="@string/email"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="text"

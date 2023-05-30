@@ -2,6 +2,7 @@ package com.cankutboratuncer.alicisindan.activities.ui.main.forum.forum;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cankutboratuncer.alicisindan.R;
-import com.cankutboratuncer.alicisindan.activities.data.database.ForumTest;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostAddCategoryActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.forum.category.ForumAddCategoryActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.messaging.activities.ChatActivity;

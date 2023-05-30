@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -15,14 +14,13 @@ import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 import com.cankutboratuncer.alicisindan.databinding.ActivityPostAddCategoryBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PostAddCategoryActivity extends AppCompatActivity implements CategoryListener {
 
     private ActivityPostAddCategoryBinding binding;
     private String type;
-    private ArrayList<AllCategories> categories;
+    private List<AllCategories> categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +34,7 @@ public class PostAddCategoryActivity extends AppCompatActivity implements Catego
             type = bundle.getString("type");
         }
         binding.topPanel.setText("I want to " + type);
-        categories = Constants.categories;
+        categories = Constants.createCategories();
         loadCategories();
     }
 

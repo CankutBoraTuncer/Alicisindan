@@ -3,7 +3,6 @@ package com.cankutboratuncer.alicisindan.activities.ui.main.forum.category;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;

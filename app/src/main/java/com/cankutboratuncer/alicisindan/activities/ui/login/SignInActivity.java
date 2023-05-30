@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,6 +15,7 @@ import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.ui.main.MainActivity;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
+import com.cankutboratuncer.alicisindan.activities.utilities.Util;
 import com.cankutboratuncer.alicisindan.databinding.ActivitySignInBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -93,6 +92,12 @@ public class SignInActivity extends AppCompatActivity {
         try {
             User user = User.getUser(userID);
             localSave.saveUser(user.getID(), user.getEmail(), user.getPhone(), user.getUsername(), password, user.getName(), user.getSurname(), user.getAddress(), token);
+            if(user.getUserImage() != null){
+                localSave.putString(Constants.KEY_USER_IMAGE, user.getUserImage());
+            } else {
+                String image = Util.drawableToString(getResources(), R.drawable.default_user_img);
+                localSave.putString(Constants.KEY_USER_IMAGE, image);
+            }
         } catch (Exception e) {
             localSave.clear();
             showToast("An error occurred while trying to save user information.");

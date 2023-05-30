@@ -1,4 +1,4 @@
-package com.cankutboratuncer.alicisindan.activities.ui.main.profile.recycleview_necessities.myposts;
+package com.cankutboratuncer.alicisindan.activities.ui.main.profile;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,6 +8,7 @@ import android.media.Image;
 import android.util.Base64;
 
 import com.cankutboratuncer.alicisindan.R;
+import com.cankutboratuncer.alicisindan.activities.ui.main.profile.recycleview_necessities.myposts._MyPosts;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
@@ -69,7 +70,7 @@ public class _OtherUserPosts {
             try {
                 //Bitmap bitmap = getBitmapFromEncodedString(listings[i].getListingsFirstImage());
                 //user_posts.add(new _MyPosts(listings[i].getType(), listings[i].getTitle(), bitmap));
-                user_posts.add(new _MyPosts(listings[i][4], listings[i][5], getBitmapFromEncodedString(listings[i][3])));
+                user_posts.add(new _MyPosts(listings[i][4], listings[i][5], getBitmapFromEncodedString(listings[i][3]), listings[i][2]));
             }
             catch (Exception e) {
                 System.out.println(e);

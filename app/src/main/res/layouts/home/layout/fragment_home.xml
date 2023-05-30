@@ -14,39 +14,24 @@
         android:layout_height="0dp"
         android:background="@drawable/background_main_gradient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.14"
+        app:layout_constraintHeight_percent="0.16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/homeFragment_textView_appName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lato_bold"
-            android:gravity="center"
-            android:text="@string/alicisindan"
-            android:textColor="@color/yellow"
-            android:textSize="@dimen/_24ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.4"
-            app:layout_constraintWidth_percent="0.6" />
-
-        <ImageView
-            android:id="@+id/homeFragment_imageView_notifications"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:contentDescription="@string/notification_icon"
-            android:src="@drawable/ic_notification"
-            app:layout_constraintBottom_toBottomOf="@+id/homeFragment_textView_appName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/homeFragment_textView_appName"
-            app:tint="@color/white" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/homeFragment_textView_appName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato_bold"
+        android:gravity="center"
+        android:text="@string/alicisindan"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/_24ssp"
+        app:layout_constraintBottom_toTopOf="@+id/homeFragment_searchBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.6" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/homeFragment_searchBar"
@@ -56,13 +41,12 @@
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:iconifiedByDefault="false"
-        app:layout_constraintBottom_toBottomOf="@+id/homeFragment_layout_top"
+        app:layout_constraintBottom_toBottomOf="@id/homeFragment_layout_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFragment_layout_top"
+        app:layout_constraintTop_toBottomOf="@id/homeFragment_layout_top"
         app:layout_constraintWidth_percent="0.9"
         app:queryBackground="@android:color/transparent"
-
         app:queryHint="@string/what_are_you_looking_for">
 
 
@@ -73,7 +57,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginVertical="@dimen/_8sdp"
+        android:layout_marginVertical="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/homeFragment_searchBar">
@@ -110,6 +94,7 @@
         android:id="@+id/homeFragment_recyclerView_categories"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,6 +106,7 @@
         android:id="@+id/homeFragment_layout_featuredTop"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_12sdp"
         android:layout_marginHorizontal="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -180,6 +166,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:visibility="invisible"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"

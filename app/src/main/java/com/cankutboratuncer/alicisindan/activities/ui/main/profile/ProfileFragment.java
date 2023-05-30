@@ -27,6 +27,7 @@ import com.cankutboratuncer.alicisindan.activities.ui.login.SignInActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.MainActivity;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
+import com.cankutboratuncer.alicisindan.activities.utilities.Util;
 import com.cankutboratuncer.alicisindan.databinding.ActivityPostEditBinding;
 import com.cankutboratuncer.alicisindan.databinding.FragmentProfileBinding;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -61,12 +62,6 @@ public class ProfileFragment extends Fragment {
     private ShapeableImageView profilePic;
     private AppCompatImageButton[][] imageButtons;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-
-    private FragmentProfileBinding binding;
     private String encodeImage(Bitmap bitmap) {
         int previewWidth = 300;
         int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
@@ -89,6 +84,7 @@ public class ProfileFragment extends Fragment {
                     try {
                         Alicisindan.User user = Alicisindan.User.getUser(localSave.getString(Constants.KEY_USER_ID));
                         user.setImage(localSave.getString(Constants.KEY_PASSWORD), encodedImage);
+                        localSave.putString(Constants.KEY_USER_IMAGE, encodedImage);
                     } catch (AlicisindanException e)
                     {
                         e.printStackTrace();
@@ -124,6 +120,7 @@ public class ProfileFragment extends Fragment {
         CardView cardView_help = view.findViewById(R.id.profileFragment_cardView_help);
         CardView cardView_logOut = view.findViewById(R.id.profileFragment_cardView_logOut);
         CardView cardView_reviews = view.findViewById(R.id.profileFragment_cardView_reviews);
+        CardView cardView_reviews2 = view.findViewById(R.id.profileFragment_cardView_reviews2);
         profilePic = view.findViewById(R.id.profileFragment_imageView_profilePicture);
         TextView privacyPolicy = view.findViewById(R.id.privacyPolicy);
         String userID = localSave.getString(Constants.KEY_USER_ID);
@@ -163,6 +160,10 @@ public class ProfileFragment extends Fragment {
                 Fragment fragment = new MyReviewsFragment();
                 loadFragment(fragment);
             });
+            cardView_reviews2.setOnClickListener(view26 -> {
+                Fragment fragment = new ReviewsIHaveWrittenFragment();
+                loadFragment(fragment);
+            });
             profilePic.setOnClickListener(view17 -> {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -170,8 +171,15 @@ public class ProfileFragment extends Fragment {
             });
             try {
                 Alicisindan.User user;
-                user = Alicisindan.User.getUser(localSave.getString(Constants.KEY_USER_ID));
-                profilePic.setImageBitmap( decodeImage(user.getUserImage()));
+
+                String image = localSave.getString(Constants.KEY_USER_IMAGE);
+                if(image != null){
+                    profilePic.setImageBitmap( Util.decodeImage(image));
+                } else {
+                    image = Util.drawableToString(getResources(), R.drawable.default_user_img);
+                }
+                profilePic.setImageBitmap(Util.decodeImage(image));
+
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -185,6 +193,7 @@ public class ProfileFragment extends Fragment {
             cardView_messages.setVisibility(View.GONE);
             cardView_myPosts.setVisibility(View.GONE);
             cardView_reviews.setVisibility(View.GONE);
+            cardView_reviews2.setVisibility(View.GONE);
             cardView_help.setOnClickListener(view15 -> {
                 Fragment fragment = new HelpFragment();
                 loadFragment(fragment);
@@ -206,26 +215,11 @@ public class ProfileFragment extends Fragment {
             TextView email = view.findViewById(R.id.profileFragment_textView_email);
             email.setVisibility(View.GONE);
         }
-
         return view;
     }
 
     public void loadFragment(Fragment fragment) {
         //to attach fragment
         getParentFragmentManager().beginTransaction().replace(R.id.mainActivity_frameLayout_main, fragment).addToBackStack(null).commit();
-    }
-
-    public static Bitmap decodeImage(String encodedImage) {
-        try {
-            byte[] imageBytes = Base64.decode(encodedImage, Base64.DEFAULT);
-            return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

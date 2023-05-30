@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class Favorites_Adapter extends RecyclerView.Adapter<Favorites_Adapter.Favorites_Holder>{
     private ArrayList<_Favorites> _favorites;
     private Context _context;
+    private OnItemClickListener listener;
 
     public Favorites_Adapter(ArrayList<_Favorites> _favorites, Context _context) {
         this._favorites = _favorites;
@@ -47,7 +48,7 @@ public class Favorites_Adapter extends RecyclerView.Adapter<Favorites_Adapter.Fa
 
     class Favorites_Holder extends RecyclerView.ViewHolder {
         TextView title, description, order;
-        ImageView image, star;
+        ImageView image;
 
         public Favorites_Holder(@NonNull View itemView) {
             super(itemView);
@@ -56,14 +57,23 @@ public class Favorites_Adapter extends RecyclerView.Adapter<Favorites_Adapter.Fa
             description = (TextView) itemView.findViewById(R.id.itemAdvertisement_textView_title);
             order = (TextView) itemView.findViewById(R.id.itemAdvertisement_textView_tag);
             image = (ImageView) itemView.findViewById(R.id.itemAdvertisement_imageView_image);
-            star = (ImageView) itemView.findViewById(R.id.itemAdvertisement_imageView_favorite);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.OnItemClick(_favorites.get(position), position);
+                    }
+                }
+            });
         }
 
         public void setData(_Favorites _favorites) {
             title.setText(_favorites.getTitle());
             description.setText(_favorites.getDescription());
             image.setImageBitmap(_favorites.getBitmap());
-            star.setImageResource(_favorites.getFavorite());
 
             switch (_favorites.getOrder().toLowerCase()) {
                 case ("sell"):
@@ -76,5 +86,13 @@ public class Favorites_Adapter extends RecyclerView.Adapter<Favorites_Adapter.Fa
                     break;
             }
         }
+    }
+
+    public interface OnItemClickListener {
+        void OnItemClick(_Favorites favorites, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

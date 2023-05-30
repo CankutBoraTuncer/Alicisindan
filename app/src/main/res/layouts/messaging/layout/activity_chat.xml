@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
-    android:fitsSystemWindows="true"
     android:paddingBottom="@dimen/_20sdp"
     tools:context=".activities.ui.messaging.activities.ChatActivity">
 
@@ -62,10 +61,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@id/productCard_image"
+            app:layout_constraintTop_toTopOf="@id/productCard_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/productCard_image"
-            app:layout_constraintTop_toTopOf="@id/productCard_image">
-
+            app:layout_constraintStart_toEndOf="@id/productCard_image">
             <TextView
                 android:id="@+id/productCard_title"
                 android:layout_width="wrap_content"
@@ -108,9 +106,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:ellipsize="end"
-                android:fontFamily="@font/lato_light"
                 android:maxLength="14"
                 android:maxLines="1"
+                android:fontFamily="@font/lato_light"
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_12ssp"
                 tools:text="Lorem Ipsum" />
@@ -131,6 +129,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/forumPost" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:padding="@dimen/_20sdp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="@id/messageScreen"
+        app:layout_constraintTop_toTopOf="@id/messageScreen"
+        app:stackFromEnd="true" />
 
     <EditText
         android:id="@+id/messageInputField"
@@ -174,19 +186,7 @@
             app:tint="@color/white" />
     </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chatRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        android:overScrollMode="never"
-        android:padding="@dimen/_20sdp"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="@id/messageScreen"
-        app:layout_constraintTop_toTopOf="@id/messageScreen"
-        app:stackFromEnd="true" />
+
 
     <ProgressBar
         android:id="@+id/progressBar"

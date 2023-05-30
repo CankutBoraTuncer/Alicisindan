@@ -3,7 +3,6 @@ package com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.catego
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.PostEditActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.forum.category.ForumEditActivity;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
+import com.cankutboratuncer.alicisindan.activities.utilities.Category;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.Subcategory;
 import com.cankutboratuncer.alicisindan.databinding.ActivityPostAddSubCategoryBinding;

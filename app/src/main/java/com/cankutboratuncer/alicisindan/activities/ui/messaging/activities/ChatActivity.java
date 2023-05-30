@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.ui.BaseActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.profile.OtherProfileFragmentActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.messaging.adapters.ChatAdapter;
@@ -20,6 +21,7 @@ import com.cankutboratuncer.alicisindan.activities.utilities.Advertisement;
 import com.cankutboratuncer.alicisindan.activities.utilities.ChatMessage;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
+import com.cankutboratuncer.alicisindan.activities.utilities.Util;
 import com.cankutboratuncer.alicisindan.databinding.ActivityChatBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.DocumentChange;
@@ -110,8 +112,6 @@ public class ChatActivity extends BaseActivity {
                 conversion.put(Constants.KEY_ADVERTISEMENT_CATEGORY, chatMessage.getCategory());
                 conversion.put(Constants.KEY_ADVERTISEMENT_CONDITION, chatMessage.getCondition());
 
-//            conversion.put(Constants.KEY_SENDER_IMAGE, localSave.getString(Constants.KEY_IMAGE));
-//            conversion.put(Constants.KEY_RECEIVER_IMAGE, advertisement.image);
                 conversion.put(Constants.KEY_LAST_MESSAGE, userMessage);
                 conversion.put(Constants.KEY_TIMESTAMP, new Date());
                 addConversion(conversion);
@@ -223,14 +223,6 @@ public class ChatActivity extends BaseActivity {
         }
     };
 
-    private Bitmap getBitmapFromEncodedString(String encodedImage) {
-        if (encodedImage != null) {
-            byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
-            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        } else {
-            return null;
-        }
-    }
 
     private void loadReceiverDetails() {
 
