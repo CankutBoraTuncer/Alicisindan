@@ -126,11 +126,22 @@ public class ProfileFragment extends Fragment {
         CardView cardView_reviews2 = view.findViewById(R.id.profileFragment_cardView_reviews2);
         profilePic = view.findViewById(R.id.profileFragment_imageView_profilePicture);
         TextView privacyPolicy = view.findViewById(R.id.privacyPolicy);
-
+        TextView username = view.findViewById(R.id.profileFragment_textView_fullName);
+        TextView email = view.findViewById(R.id.profileFragment_textView_email);
         try {
             Alicisindan.User user;
             user = Alicisindan.User.getUser(localSave.getString(Constants.KEY_USER_ID));
             profilePic.setImageBitmap( decodeImage(user.getUserImage()));
+            if (localSave.getString(Constants.KEY_USER_ID) == null)
+            {
+                username.setText("Guest");
+                email.setText("Log in to access more features");
+            } else
+            {
+                username.setText(localSave.getString(Constants.KEY_USER_NAME));
+                email.setText(localSave.getString(Constants.KEY_USER_EMAIL));
+            }
+
         } catch (AlicisindanException e) {
             e.printStackTrace();
             showToast("Profile picture cannot be shown at the moment.");
@@ -183,10 +194,7 @@ public class ProfileFragment extends Fragment {
             Fragment fragment = new ReviewsIHaveWrittenFragment();
             loadFragment(fragment);
         });
-        TextView username = view.findViewById(R.id.profileFragment_textView_fullName);
-        username.setText(localSave.getString(Constants.KEY_USER_NAME));
-        TextView email = view.findViewById(R.id.profileFragment_textView_email);
-        email.setText(localSave.getString(Constants.KEY_USER_EMAIL));
+
         return view;
     }
 
