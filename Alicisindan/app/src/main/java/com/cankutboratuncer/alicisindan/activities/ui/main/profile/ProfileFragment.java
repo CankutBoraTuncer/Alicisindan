@@ -131,8 +131,13 @@ public class ProfileFragment extends Fragment {
             Alicisindan.User user;
             user = Alicisindan.User.getUser(localSave.getString(Constants.KEY_USER_ID));
             profilePic.setImageBitmap( decodeImage(user.getUserImage()));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (AlicisindanException e) {
+            e.printStackTrace();
+            showToast("Profile picture cannot be shown at the moment.");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            showToast("Profile picture cannot be shown at the moment.");
         }
 
         cardView_myPosts.setOnClickListener(view11 -> {
@@ -198,5 +203,8 @@ public class ProfileFragment extends Fragment {
             e.printStackTrace();
         }
         return null;
+    }
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

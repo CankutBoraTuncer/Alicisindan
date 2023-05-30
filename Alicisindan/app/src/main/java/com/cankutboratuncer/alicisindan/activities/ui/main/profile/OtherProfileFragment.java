@@ -49,6 +49,13 @@ public class OtherProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_other_profile, container, false);
+
+        return view;
+    }
+
+    public void onViewCreated(View view, Bundle savedInstanceState)
+    {
+        super.onViewCreated(view, savedInstanceState);
         LocalSave localSave = new LocalSave(getContext());
         TextView userName = view.findViewById(R.id.otherProfileFragment_textView_fullName);
         TextView userUsername = view.findViewById(R.id.otherProfileFragment_textView_username);
@@ -98,7 +105,6 @@ public class OtherProfileFragment extends Fragment {
             loadFragment(fragment);
         });
 
-        return view;
     }
 
     private String encodeImage(Bitmap bitmap) {

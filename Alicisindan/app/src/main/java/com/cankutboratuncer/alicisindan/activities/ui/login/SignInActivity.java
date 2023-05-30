@@ -24,6 +24,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import Alicisindan.AlicisindanException;
 import Alicisindan.Password;
 import Alicisindan.User;
 
@@ -47,37 +48,53 @@ public class SignInActivity extends AppCompatActivity {
         setListeners();
     }
 
-    private void signIn() throws Exception {
-        loading(true);
-        String userID = Password.emailToID(binding.signInActivityEditTextEmailOrPhoneNumber.getText().toString());
-        String userPassword = get_SHA_256_SecurePassword(binding.signInActivityEditTextPassword.getText().toString(), "salt");
-        Log.d("PasswordCheck", "UserId: " + userID + "\nPassword: "+ userPassword);
-        if (Password.isCorrectPassword(userID, userPassword)) {
-            String token = FirebaseMessaging.getInstance().getToken().toString();
-            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-                @Override
-                public void onComplete(@NonNull Task<String> task) {
-                    if (!task.isSuccessful()) {
-                        Log.d("Tokenoo", "Failed");
-                        return;
+    private void signIn() {
+        try{
+            loading(true);
+            String userID = Password.emailToID(binding.signInActivityEditTextEmailOrPhoneNumber.getText().toString());
+            String userPassword = get_SHA_256_SecurePassword(binding.signInActivityEditTextPassword.getText().toString(), "salt");
+            Log.d("PasswordCheck", "UserId: " + userID + "\nPassword: "+ userPassword);
+            if (Password.isCorrectPassword(userID, userPassword)) {
+                String token = FirebaseMessaging.getInstance().getToken().toString();
+                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.d("Tokenoo", "Failed");
+                            return;
+                        }
+                        String token = task.getResult();
+                        Log.d("Tokenoo", token);
+                        try {
+                            User.setUserToken(userID, userPassword, token);
+                        } catch (AlicisindanException e) {
+                            e.printStackTrace();
+                            showToast("Cannot get notifications.");
+                        }catch (Exception e) {
+                            e.printStackTrace();
+                            showToast("Cannot get notifications.");
+                        }
                     }
-                    String token = task.getResult();
-                    Log.d("Tokenoo", token);
-                    try {
-                        User.setUserToken(userID, userPassword, token);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
+                });
 
-            registerUser(userID, userPassword, token);
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        } else {
-            loading(false);
-            showToast("Incorrect username or password!");
+                registerUser(userID, userPassword, token);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else {
+                loading(false);
+                showToast("Incorrect username or password!");
+            }
+        }
+        catch (AlicisindanException e)
+        {
+            e.printStackTrace();
+            showToast("Sign in failed.");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            showToast("Sign in failed.");
         }
     }
 

@@ -69,6 +69,12 @@
                         android:scaleY="0.6"
                         android:src="@drawable/ic_star" />
                     <ImageView
+                        android:id="@+id/empty"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:scaleX="0.6"
+                        android:scaleY="0.6" />
+                    <ImageView
                         android:id="@+id/delete"
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_35sdp"

@@ -29,6 +29,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activities.ui.login.PrivacyPolicyActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activities.ui.main.advertisement.advertisement.CheckNewPostActivity"
             android:configChanges="orientation"
             android:exported="false"

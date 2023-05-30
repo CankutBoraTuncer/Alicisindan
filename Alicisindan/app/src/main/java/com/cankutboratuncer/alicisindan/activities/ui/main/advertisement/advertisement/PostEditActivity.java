@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import Alicisindan.AlicisindanException;
 import Alicisindan.Listing;
 
 public class PostEditActivity extends AppCompatActivity {
@@ -166,32 +167,44 @@ public class PostEditActivity extends AppCompatActivity {
         });
     }
 
-    private void postAdd() throws Exception {
-        String userID = localSave.getString(Constants.KEY_USER_ID);
-        // When user is not logged in:
-        if (userID == null) {
-            showToast("You have to log in first.");
-            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+    private void postAdd() {
+        try {
+            String userID = localSave.getString(Constants.KEY_USER_ID);
+            // When user is not logged in:
+            if (userID == null) {
+                showToast("You have to log in first.");
+                startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+                finish();
+            }
+            String password = localSave.getString(Constants.KEY_PASSWORD);
+            String productTitle = binding.productTitle.getText().toString();
+            String details = binding.details.getText().toString();
+            String price = binding.price.getText().toString();
+            String location = binding.location.getText().toString();
+            //TODO: conditions shouldn't be editable?
+            String condition = binding.condition.getText().toString();
+            String brand = binding.brand.getText().toString();
+            Listing listing = new Listing(userID, type, productTitle, details, price, condition, location, condition, brand);
+            listing.addListing(userID, password);
+            String[] images = new String[pointer];
+            for (int i = 0; i < images.length; i++) {
+                images[i] = encodedImages.get(i);
+            }
+            listing.setListingImages(userID, password, images);
+            showToast("Add successfully posted.");
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }
-        String password = localSave.getString(Constants.KEY_PASSWORD);
-        String productTitle = binding.productTitle.getText().toString();
-        String details = binding.details.getText().toString();
-        String price = binding.price.getText().toString();
-        String location = binding.location.getText().toString();
-        //TODO: conditions shouldn't be editable?
-        String condition = binding.condition.getText().toString();
-        String brand = binding.brand.getText().toString();
-        Listing listing = new Listing(userID, type, productTitle, details, price, condition, location, condition, brand);
-        listing.addListing(userID, password);
-        String[] images = new String[pointer];
-        for (int i = 0; i < images.length; i++) {
-            images[i] = encodedImages.get(i);
+        catch (AlicisindanException e)
+        {
+            e.printStackTrace();
+            showToast("Adding post failed.");
         }
-        listing.setListingImages(userID, password, images);
-        showToast("Add successfully posted.");
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        finish();
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            showToast("Adding post failed.");
+        }
     }
 
     private void listenerFunction() {

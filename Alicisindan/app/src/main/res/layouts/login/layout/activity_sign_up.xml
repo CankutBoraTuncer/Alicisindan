@@ -216,15 +216,25 @@
             android:textColor="@color/yellow"
             android:textSize="@dimen/_11ssp" />
 
-        <CheckBox
-            android:id="@+id/signUpActivity_checkBox_termsAndServices"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:buttonTint="@color/primary"
-            android:text="@string/i_have_read_and_acknowledged_the_terms_services"
-            android:textSize="@dimen/_11ssp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <CheckBox
+                android:id="@+id/signUpActivity_checkBox_termsAndServices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+
+                android:buttonTint="@color/primary"
+                android:textSize="@dimen/_11ssp" />
+            <TextView
+                android:id="@+id/privacyPolicySignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I have read and accepted the Privacy Policy."
+                android:textSize="@dimen/_11sdp"
+                android:fontFamily="@font/lato"/>
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"

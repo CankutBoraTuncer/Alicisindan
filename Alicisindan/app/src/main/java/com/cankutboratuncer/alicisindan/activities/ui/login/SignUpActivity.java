@@ -21,6 +21,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import Alicisindan.AlicisindanException;
 import Alicisindan.User;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -51,6 +52,10 @@ public class SignUpActivity extends AppCompatActivity {
         binding.activitySignUpImageViewCloseIcon.setOnClickListener(v -> {
                     localSave.putBoolean(Constants.KEY_IS_USER_SKIP, true);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+        );
+        binding.privacyPolicySignUp.setOnClickListener(v -> {
+                    startActivity(new Intent(getApplicationContext(), PrivacyPolicyActivity.class));
                 }
         );
 
@@ -98,8 +103,13 @@ public class SignUpActivity extends AppCompatActivity {
                                 loading(false);
                                 showToast("The user already exists");
                             }
+                        } catch (AlicisindanException e)
+                        {
+                            e.printStackTrace();
+                            showToast("You cannot be registered at the moment.");
                         } catch (Exception e) {
-                            throw new RuntimeException(e);
+                            e.printStackTrace();
+                            showToast("You cannot be registered at the moment.");
                         }
                     }
                 });
