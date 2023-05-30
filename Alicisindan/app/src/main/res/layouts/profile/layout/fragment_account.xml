@@ -5,26 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
+    android:fitsSystemWindows="true"
     tools:context=".activities.ui.main.profile.AccountFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/accountFragment_layout_top"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_84sdp"
         android:background="@drawable/background_main_gradient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:text="Account"
             android:textColor="@color/white"
-            android:gravity="center"
-            android:textSize="@dimen/_16ssp"/>
+            android:textSize="@dimen/_16ssp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -63,7 +63,6 @@
         </androidx.cardview.widget.CardView>
 
 
-
         <androidx.cardview.widget.CardView
             android:id="@+id/accountFragment_cardView_changePassword"
             android:layout_width="0dp"
@@ -87,6 +86,7 @@
                 app:drawableStartCompat="@drawable/ic_lock"
                 app:drawableTint="@color/primary" />
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/accountFragment_cardView_deleteAccount"
             android:layout_width="0dp"

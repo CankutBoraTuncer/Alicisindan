@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
     android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     android:overScrollMode="never"
     android:paddingBottom="@dimen/_20sdp"
     android:scrollbars="none"
@@ -22,7 +22,7 @@
         <TextView
             android:id="@+id/topPanel"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_90sdp"
+            android:layout_height="@dimen/_84sdp"
             android:background="@drawable/background_main_gradient"
             android:fontFamily="@font/lato"
             android:gravity="center"
@@ -43,10 +43,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topPanel">
+
             <LinearLayout
+                android:id="@+id/username"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/username">
+                android:layout_height="match_parent">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -56,12 +58,13 @@
                     android:textSize="@dimen/_16ssp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
-                    android:paddingHorizontal="@dimen/_7sdp"
                     android:id="@+id/user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
+                    android:paddingHorizontal="@dimen/_7sdp"
                     android:text="username"
                     android:textColor="@color/text_dark"
                     android:textSize="@dimen/_16ssp"
@@ -73,10 +76,10 @@
 
             <TextView
                 android:id="@+id/title"
-                android:layout_marginTop="11dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="11dp"
                 android:fontFamily="@font/lato_bold"
                 android:text="Give a numerical rating out of 5"
                 android:textColor="@color/text_dark"
@@ -84,12 +87,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/username"
                 tools:layout_editor_absoluteY="127dp" />
+
             <LinearLayout
+                android:id="@+id/stars"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/stars"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/title">
+
                 <ImageView
                     android:id="@+id/star1"
                     android:layout_width="@dimen/_45sdp"
@@ -97,6 +101,7 @@
                     android:scaleX="0.6"
                     android:scaleY="0.6"
                     android:src="@drawable/ic_star" />
+
                 <ImageView
                     android:id="@+id/star2"
                     android:layout_width="@dimen/_45sdp"
@@ -104,6 +109,7 @@
                     android:scaleX="0.6"
                     android:scaleY="0.6"
                     android:src="@drawable/ic_star" />
+
                 <ImageView
                     android:id="@+id/star3"
                     android:layout_width="@dimen/_45sdp"
@@ -111,6 +117,7 @@
                     android:scaleX="0.6"
                     android:scaleY="0.6"
                     android:src="@drawable/ic_star" />
+
                 <ImageView
                     android:id="@+id/star4"
                     android:layout_width="@dimen/_45sdp"
@@ -118,6 +125,7 @@
                     android:scaleX="0.6"
                     android:scaleY="0.6"
                     android:src="@drawable/ic_star" />
+
                 <ImageView
                     android:id="@+id/star5"
                     android:layout_width="@dimen/_45sdp"

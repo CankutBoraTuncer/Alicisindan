@@ -14,7 +14,7 @@ public class Advertisement {
         this.description = description;
         this.price = price;
         this.images = images;
-        if (images != null) {
+        if (images != null && images.length != 0) {
             this.previewImage = images[0];
         } else {
             this.previewImage = null;

@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
-    tools:context=".activities.ui.main.buy.BuyFragment">
+    android:fitsSystemWindows="true"
+    tools:context=".activities.ui.main.home.pages.BuyFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buyFragment_layout_top"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_84sdp"
         android:background="@drawable/background_main_gradient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.14"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -33,36 +33,24 @@
             app:layout_constraintVertical_bias="0.4"
             app:layout_constraintWidth_percent="0.6" />
 
-        <ImageView
-            android:id="@+id/buyFragment_imageView_notifications"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:contentDescription="@string/notification_icon"
-            android:src="@drawable/ic_notification"
-            app:layout_constraintBottom_toBottomOf="@+id/buyFragment_textView_appName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buyFragment_textView_appName"
-            app:tint="@color/white" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/buyFragment_searchBar"
-        android:background="@drawable/background_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:queryHint="@string/what_are_you_looking_for"
-        app:queryBackground="@android:color/transparent"
+        android:background="@drawable/background_search"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
+        app:iconifiedByDefault="false"
         app:layout_constraintBottom_toBottomOf="@+id/buyFragment_layout_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buyFragment_layout_top"
         app:layout_constraintWidth_percent="0.9"
+        app:queryBackground="@android:color/transparent"
 
-        app:iconifiedByDefault="false">
+        app:queryHint="@string/what_are_you_looking_for">
 
 
     </androidx.appcompat.widget.SearchView>
@@ -72,7 +60,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginVertical="@dimen/_8sdp"
+        android:layout_marginVertical="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buyFragment_searchBar">
@@ -87,8 +75,7 @@
             android:textSize="@dimen/_16ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/buyFragment_textView_seeAll"
@@ -110,6 +97,7 @@
         android:id="@+id/buyFragment_recyclerView_categories"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,6 +109,7 @@
         android:id="@+id/buyFragment_layout_featuredTop"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_12sdp"
         android:layout_marginHorizontal="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -158,7 +147,9 @@
         android:id="@+id/buyFragment_recyclerView_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buyFragment_layout_featuredTop">
 
@@ -166,16 +157,18 @@
             android:id="@+id/buyFragment_recyclerView_advertisements"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:scrollbars="none"
             android:layout_marginTop="@dimen/_8sdp"
             android:visibility="invisible"
-            android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+             />
 
         <View
             android:layout_width="0dp"
-            android:layout_height="@dimen/_40sdp"/>
+            android:layout_height="@dimen/_40sdp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -185,22 +178,22 @@
         android:layout_gravity="end"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_plus"
-        app:tint="@color/white"
         android:backgroundTint="@color/primary"
+        android:src="@drawable/ic_plus"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 
     <ProgressBar
         android:id="@+id/buyFragment_progressBar"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
         android:layout_gravity="center"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/buyFragment_recyclerView_container"
-        app:layout_constraintTop_toTopOf="@id/buyFragment_recyclerView_container"
         app:layout_constraintEnd_toEndOf="@id/buyFragment_recyclerView_container"
         app:layout_constraintStart_toStartOf="@id/buyFragment_recyclerView_container"
-        android:visibility="invisible" />
+        app:layout_constraintTop_toTopOf="@id/buyFragment_recyclerView_container" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

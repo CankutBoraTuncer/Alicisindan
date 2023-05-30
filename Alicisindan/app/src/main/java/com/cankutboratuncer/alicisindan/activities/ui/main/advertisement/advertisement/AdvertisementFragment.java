@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,10 +18,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.cankutboratuncer.alicisindan.R;
@@ -31,29 +36,42 @@ import com.cankutboratuncer.alicisindan.activities.utilities.Advertisement;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import Alicisindan.Listing;
+import Alicisindan.User;
 
 public class AdvertisementFragment extends Fragment implements AdvertisementInterface {
 
     private static final String ADVERTISEMENT_ID = "Advertisement ID";
-    ArrayList<com.cankutboratuncer.alicisindan.activities.utilities.Advertisement> advertisements;
+    ArrayList<Advertisement> advertisements;
+    private Advertisement advertisement;
 
     private View view;
     private ViewPager2 imageSlider;
     ArrayList<ImageItem> imageItemArrayList;
     TextView username;
-    private Advertisement advertisement;
     private String advertisementID;
     private LocalSave localSave;
+    private ImageView add_remove_favorite;
+
+    //
+    private static User user = null;
+    private static String password = null;
+    private static String[] favorites = null;
+
+    public static Alicisindan.User getUser_Advertisementfragment() {return user;}
+    public static String getPassword() {return password;}
+    public static String[] getFavorites_AdvertisementFragment() {return favorites;}
+    public static void setFavorites_AdvertisementFragment(String[] favorites) {AdvertisementFragment.favorites = favorites;}
+    //
     BackgroundTask backgroundTask;
     Handler handler;
 
     public AdvertisementFragment() {
     }
-
 
 
     public static AdvertisementFragment newInstance(String advertisementID) {
@@ -68,6 +86,20 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         localSave = new LocalSave(getContext());
+
+        try {
+            user = Alicisindan.User.getUser(localSave.getString(Constants.KEY_USER_ID));
+            password = localSave.getString(Constants.KEY_PASSWORD);
+            favorites = user.getFavorites();
+            if (favorites == null) {
+                favorites = new String[]{"e"};
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (favorites == null) {
+                favorites = new String[]{"e"};
+            }
+        }
     }
 
     @Override
@@ -81,71 +113,11 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loading(true, view);
+        advertisements = new ArrayList<>();
         handler = new Handler(Looper.getMainLooper());
         backgroundTask = new BackgroundTask(getContext());
         backgroundTask.execute();
     }
-
-    private class BackgroundTask extends AsyncTask<Void, Void, String> {
-        Context context;
-
-        public BackgroundTask(Context context) {
-            Log.d("BackgroundTask", "Initialized");
-            this.context = context;
-        }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            // Simulate the database retrieval process
-            Log.d("Data", "Fetching Data: start");
-            fetchDataFromDatabase();
-            Log.d("Data", "Fetching Data: complete ");
-            return "Done";
-        }
-
-        @Override
-        protected void onPostExecute(final String data) {
-            Log.d("onPostExecute", "begin");
-            Activity activity = getActivity();
-            if (activity != null) {
-                handler.post(() -> ((Activity) context).runOnUiThread(() -> {
-                    initUI();
-                    initListeners();
-                    Log.d("Adverts", "update");
-                    loading(false, view);
-                    Log.d("onPostExecute", "end");
-                }));
-            }
-        }
-
-        private void fetchDataFromDatabase() {
-            Bundle args = getArguments();
-            if (args != null) {
-                advertisementID = args.getString(Constants.KEY_ADVERTISEMENT_ID);
-                String advertisementUsername = args.getString(Constants.KEY_ADVERTISEMENT_USERNAME);
-                try {
-
-                    Listing clickedListing = Listing.getListing(advertisementID);
-                    String advertisementTitle = clickedListing.getTitle();
-                    String advertisementDescription = clickedListing.getDescription();
-                    String advertisementPrice = "$" + clickedListing.getPrice();
-                    String advertisementLocation = clickedListing.getLocation();
-                    String advertisementBrand = clickedListing.getBrand();
-                    String[] advertisementImages = clickedListing.getListingImages();
-                    String advertisementCategory = clickedListing.getCategory();
-                    String advertisementCondition = clickedListing.getCondition();
-                    String advertisementOwnerID = clickedListing.getOwnerID();
-                    String advertisementType = clickedListing.getType();
-
-                    advertisement = new Advertisement(advertisementTitle, advertisementDescription, advertisementImages, advertisementPrice, advertisementID, advertisementLocation, advertisementOwnerID, advertisementUsername, advertisementBrand, advertisementType, advertisementCategory, advertisementCondition);
-                    loading(false, view);
-                } catch (Exception e) {
-                    showToast("Advertisement couldn't loaded");
-                }
-            }
-        }
-    }
-
 
     public void loadAdvertisement() {
         Bundle args = getArguments();
@@ -169,20 +141,22 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                 advertisement = new Advertisement(advertisementTitle, advertisementDescription, advertisementImages, advertisementPrice, advertisementID, advertisementLocation, advertisementOwnerID, advertisementUsername, advertisementBrand, advertisementType, advertisementCategory, advertisementCondition);
                 loading(false, view);
             } catch (Exception e) {
-                showToast("Advertisement couldn't loaded");
+                requireActivity().runOnUiThread(() -> showToast("Couldn't load advertisement"));
             }
         }
     }
 
     public void initUI() {
-        if (advertisement.getUserID().equals(localSave.getString(Constants.KEY_USER_ID))) {
-            view.findViewById(R.id.layoutMessage).setVisibility(View.GONE);
-            view.findViewById(R.id.layoutEdit).setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            view.findViewById(R.id.layoutMessage).setVisibility(View.VISIBLE);
-            view.findViewById(R.id.layoutEdit).setVisibility(View.GONE);
+        String userID = localSave.getString(Constants.KEY_USER_ID);
+        if (userID == null) {
+            view.findViewById(R.id.buttonMessage).setVisibility(View.GONE);
+            view.findViewById(R.id.buttonEdit).setVisibility(View.GONE);
+        } else if (advertisement.getUserID().equals(userID)) {
+            view.findViewById(R.id.buttonMessage).setVisibility(View.GONE);
+            view.findViewById(R.id.buttonEdit).setVisibility(View.VISIBLE);
+        } else {
+            view.findViewById(R.id.buttonMessage).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.buttonEdit).setVisibility(View.GONE);
         }
 
         TextView productTitle = view.findViewById(R.id.productTitle);
@@ -191,7 +165,7 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
         productPrice.setText(advertisement.getPrice());
         TextView productDetails = view.findViewById(R.id.productDetails);
         productDetails.setText(advertisement.getDescription());
-        TextView productLocation = view.findViewById(R.id.location);
+        TextView productLocation = view.findViewById(R.id.productLocation);
         productLocation.setText(advertisement.getLocation());
         TextView productCategory = view.findViewById(R.id.productCategory);
         productCategory.setText(advertisement.getCategory());
@@ -199,8 +173,28 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
         productBrand.setText(advertisement.getBrand());
         TextView productCondition = view.findViewById(R.id.productCondition);
         productCondition.setText(advertisement.getCondition());
+//        TextView category = view.findViewById(R.id.productCategory);
         username = view.findViewById(R.id.username);
         username.setText(advertisement.getUsername());
+
+        // favorite button - text
+        add_remove_favorite = (ImageView) view.findViewById(R.id.itemAdvertisement_imageView_favorite);
+
+        boolean inFavorites = false;
+        for (String id : favorites) {
+            if (advertisement.getAdvertisementID().equals(id)) {
+                inFavorites = true;
+
+                break;
+            }
+        }
+
+        if (!inFavorites) {
+            add_remove_favorite.setImageResource(R.drawable.ic_star);
+        }
+        else {
+            add_remove_favorite.setImageResource(R.drawable.ic_star_full);
+        }
 
         initImgSlider();
     }
@@ -257,9 +251,41 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
             loadFragment(fragment);
         });
         username.setOnClickListener(view20 -> {
-            Fragment fragment = new OtherProfileFragment(advertisement.getUserID());
-            loadFragment(fragment);
+            Fragment profile = new OtherProfileFragment(advertisement.getUserID());
+            loadFragment(profile);
         });
+
+        // favorite text - button click listener
+        view.findViewById(R.id.itemAdvertisement_imageView_favorite).setOnClickListener(fav -> {
+            boolean inFavorites = false;
+            for (String id : favorites) {
+                if (advertisement.getAdvertisementID().equals(id)) {
+                    inFavorites = true;
+
+                    break;
+                }
+            }
+
+            if (!inFavorites) {
+                try {
+                    user.addFavorite(localSave.getString(Constants.KEY_PASSWORD) ,advertisement.getAdvertisementID());
+                    add_remove_favorite.setImageResource(R.drawable.ic_star_full);
+                    favorites = user.getFavorites();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                try {
+                    user.removeFavorite(localSave.getString(Constants.KEY_PASSWORD) ,advertisement.getAdvertisementID());
+                    add_remove_favorite.setImageResource(R.drawable.ic_star);
+                    favorites = user.getFavorites();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     void loadFragment(Fragment fragment) {
@@ -269,7 +295,12 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
 
     @Override
     public void onAdvertisementClick(int position) {
+        Bundle args = new Bundle();
         Fragment fragment = AdvertisementFragment.newInstance(advertisements.get(position).getAdvertisementID());
+        Advertisement advertisement = advertisements.get(position);
+        args.putString(Constants.KEY_ADVERTISEMENT_ID, advertisement.getAdvertisementID());
+        args.putString(Constants.KEY_ADVERTISEMENT_USERNAME, advertisement.getUsername());
+        fragment.setArguments(args);
         loadFragment(fragment);
     }
 
@@ -294,47 +325,151 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
             view.findViewById(R.id.advertisementFragment_progressBar).setVisibility(View.INVISIBLE);
         }
     }
+
+    private void initSimilar() {
+        LinearLayoutManager horizontalRecyclerViewLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false) {
+            @Override
+            public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
+                // force height of viewHolder here, this will override layout_height from xml
+                lp.width = (int) (getWidth() / 2.5);
+                return true;
+            }
+        };
+
+        RecyclerView recyclerViewForAdvertisements = view.findViewById(R.id.relatedProducts);
+        recyclerViewForAdvertisements.setLayoutManager(horizontalRecyclerViewLayoutManager);
+        AdvertisementAdapter advertisementAdapter = new AdvertisementAdapter(advertisements, this);
+        recyclerViewForAdvertisements.setAdapter(advertisementAdapter);
+    }
+
+    private class BackgroundTask extends AsyncTask<Void, Void, String> {
+        Context context;
+
+        public BackgroundTask(Context context) {
+            Log.d("BackgroundTask", "Initialized");
+            this.context = context;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            // Simulate the database retrieval process
+            Log.d("Data", "Fetching Data: start");
+            fetchDataFromDatabase();
+            Log.d("Data", "Fetching Data: complete ");
+            return "Done";
+        }
+
+        @Override
+        protected void onPostExecute(final String data) {
+            Log.d("onPostExecute", "begin");
+            Activity activity = getActivity();
+            if (activity != null) {
+                handler.post(() -> ((Activity) context).runOnUiThread(() -> {
+                    initUI();
+                    initListeners();
+                    initSimilar();
+                    Log.d("Adverts", "update");
+                    loading(false, view);
+                    Log.d("onPostExecute", "end");
+                }));
+            }
+        }
+
+        private void fetchDataFromDatabase() {
+            Bundle args = getArguments();
+            if (args != null) {
+                String[][] listings;
+                advertisementID = args.getString(Constants.KEY_ADVERTISEMENT_ID);
+                String advertisementUsername = args.getString(Constants.KEY_ADVERTISEMENT_USERNAME);
+                Listing clickedListing = null;
+                String advertisementTitle = null;
+                String advertisementDescription = null;
+                String advertisementPrice = null;
+                String advertisementLocation = null;
+                String advertisementBrand = null;
+                String[] advertisementImages = null;
+                String advertisementCategory = null;
+                String advertisementCondition = null;
+                String advertisementOwnerID = null;
+                String advertisementType = null;
+                try {
+                    clickedListing = Listing.getListing(advertisementID);
+                    advertisementTitle = clickedListing.getTitle();
+                    advertisementDescription = clickedListing.getDescription();
+                    advertisementPrice = "$" + clickedListing.getPrice();
+                    advertisementLocation = clickedListing.getLocation();
+                    advertisementBrand = clickedListing.getBrand();
+                    advertisementImages = clickedListing.getListingImages();
+                    advertisementCategory = clickedListing.getCategory();
+                    advertisementCondition = clickedListing.getCondition();
+                    advertisementOwnerID = clickedListing.getOwnerID();
+                    advertisementType = clickedListing.getType();
+                    advertisement = new Advertisement(advertisementTitle, advertisementDescription, advertisementImages, advertisementPrice, advertisementID, advertisementLocation, advertisementOwnerID, advertisementUsername, advertisementBrand, advertisementType, advertisementCategory, advertisementCondition);
+                } catch (Exception e) {
+                    showToast("Error while loading advertisement details!");
+                    e.printStackTrace();
+                    advertisement = null;
+                }
+                try {
+                    listings = Listing.findListingShowcases(null, advertisementCategory, null, null, advertisementType, advertisementCondition, Integer.toString(Integer.parseInt(advertisementPrice.substring(1)) / 2), Integer.toString(Integer.parseInt(advertisementPrice.substring(1)) * 2), null, null, null, "10");
+                    if (listings.length < 4) {
+                        listings = Listing.findListingShowcases(null, advertisementCategory, null, null, advertisementType, advertisementCondition, null, null, null, null, null, "10");
+                    }
+                    if (listings.length < 4) {
+                        listings = Listing.findListingShowcases(null, advertisementCategory, null, null, advertisementType, null, null, null, null, null, null, "10");
+                    }
+                    if (listings.length < 4) {
+                        String newCategory;
+                        try {
+                            String[] parts = advertisementCategory.split("/");
+                            newCategory = parts[0] + "%";
+                            listings = Listing.findListingShowcases(null, newCategory, null, null, advertisementType, null, null, null, null, null, null, "10");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    advertisements.clear();
+
+                    for (String[] listing : listings) {
+                        if (listing[0] == null) {
+                            continue;
+                        }
+
+                        String userID = listing[0];
+                        String username = listing[1];
+                        String ID = listing[2];
+                        String image = listing[3];
+                        if (image == null) {
+                            Bitmap icon = ((BitmapDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.img_baby, null)).getBitmap();
+                            image = encodeImage(icon);
+                        }
+                        String type = listing[4];
+                        String title = listing[5];
+                        String price = listing[6];
+
+                        advertisements.add(new Advertisement(title, null, new String[]{image}, price, ID, null, userID, username, null, type, null, null));
+                    }
+
+                    loading(false, view);
+                } catch (Exception e) {
+                    requireActivity().runOnUiThread(() -> {
+                        e.printStackTrace();
+                        showToast("Server Error" + e.getMessage());
+                    });
+                }
+            }
+        }
+    }
+
+    private String encodeImage(Bitmap bitmap) {
+        int previewWidth = 150;
+        int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
+        Bitmap previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
+    }
+
 }
-
-//        LinearLayoutManager horizontalRecyclerViewLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false) {
-//            @Override
-//            public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
-//                // force height of viewHolder here, this will override layout_height from xml
-//                lp.width = (int) (getWidth() / 2.5);
-//                return true;
-//            }
-//        };
-//
-//        advertisements = AdvertisementTest.advertisements;
-//        RecyclerView recyclerViewForAdvertisements = view.findViewById(R.id.relatedProducts);
-//        recyclerViewForAdvertisements.setLayoutManager(horizontalRecyclerViewLayoutManager);
-//        AdvertisementAdapter advertisementAdapter = new AdvertisementAdapter(advertisements, this);
-//        recyclerViewForAdvertisements.setAdapter(advertisementAdapter);
-
-//        ViewPager2 advertisement_viewPager2 = view.findViewById(R.id.advertisementFragment_viewPager);
-//        images.add(R.drawable.ic_launcher_background);
-//        images.add(R.drawable.ic_launcher_foreground);
-//        images.add(R.drawable.ic_launcher_background);
-//        images.add(R.drawable.ic_launcher_foreground);
-//        AdvertisementImageSliderAdapter MyAdapter = new AdvertisementImageSliderAdapter(this.getContext(), images);
-//
-//        advertisement_viewPager2.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-//
-//        advertisement_viewPager2.setAdapter(MyAdapter);
-//        advertisement_viewPager2.setOffscreenPageLimit(3);
-//
-//        float pageMargin = getResources().getDimensionPixelOffset(com.intuit.sdp.R.dimen._24sdp);
-//        float pageOffset = getResources().getDimensionPixelOffset(com.intuit.sdp.R.dimen._24sdp);
-//
-//        advertisement_viewPager2.setPageTransformer((page, position) -> {
-//            float myOffset = position * -(2 * pageOffset + pageMargin);
-//            if (advertisement_viewPager2.getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL) {
-//                if (ViewCompat.getLayoutDirection(advertisement_viewPager2) == ViewCompat.LAYOUT_DIRECTION_RTL) {
-//                    page.setTranslationX(-myOffset);
-//                } else {
-//                    page.setTranslationX(myOffset);
-//                }
-//            } else {
-//                page.setTranslationY(myOffset);
-//            }
-//        });

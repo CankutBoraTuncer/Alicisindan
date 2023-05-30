@@ -1,7 +1,9 @@
 <resources>
     <style name="Theme.Alicisindan" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
     <style name="ImageView.Round" parent="">
         <item name="cornerSize">50%</item>

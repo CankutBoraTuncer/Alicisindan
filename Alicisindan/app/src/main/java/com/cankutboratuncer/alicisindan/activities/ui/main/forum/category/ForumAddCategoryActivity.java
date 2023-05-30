@@ -5,15 +5,12 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
-import com.cankutboratuncer.alicisindan.activities.data.database.CategoryTest;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.CategoryListener;
-import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostAddSubCategoryActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostCategoryAdapter;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.databinding.ActivityForumAddCategoryBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ForumAddCategoryActivity extends AppCompatActivity implements CategoryListener {
@@ -26,7 +23,7 @@ public class ForumAddCategoryActivity extends AppCompatActivity implements Categ
         super.onCreate(savedInstanceState);
         binding = ActivityForumAddCategoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        categories = CategoryTest.categories;
+        categories = Constants.createCategories();
         loadCategories();
     }
 

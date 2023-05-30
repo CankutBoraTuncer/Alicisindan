@@ -19,7 +19,7 @@
         <TextView
             android:id="@+id/topPanelText"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_90sdp"
+            android:layout_height="@dimen/_84sdp"
             android:background="@drawable/background_main_gradient"
             android:fontFamily="@font/lato_bold"
             android:gravity="center"
@@ -29,18 +29,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/homeFragment_imageView_notifications"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:contentDescription="@string/notification_icon"
-            android:src="@drawable/ic_notification"
-            app:layout_constraintBottom_toBottomOf="@id/topPanelText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/searchBar"
@@ -65,6 +53,7 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewForum"
         android:layout_width="match_parent"
@@ -72,10 +61,10 @@
         android:layout_marginTop="@dimen/_16sdp"
         android:scrollbars="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topPanel"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/topPanel" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonCreateForumPost"

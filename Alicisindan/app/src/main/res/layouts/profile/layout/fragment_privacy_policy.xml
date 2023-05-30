@@ -5,26 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
+    android:fitsSystemWindows="true"
     tools:context=".activities.ui.main.profile.PrivacyFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/accountFragment_layout_top"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_84sdp"
         android:background="@drawable/background_main_gradient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:text="Privacy Policy"
             android:textColor="@color/white"
-            android:gravity="center"
-            android:textSize="@dimen/_16ssp"/>
+            android:textSize="@dimen/_16ssp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -48,16 +48,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="1">
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
-                android:drawablePadding="@dimen/_8sdp"
-                android:fontFamily="@font/lato"
-                android:text="Privacy Policy for Alicisindan E-Commerce App
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:fontFamily="@font/lato"
+                    android:text="Privacy Policy for Alicisindan E-Commerce App
 
 \n\nEffective Date: May 26, 2023
 
@@ -112,10 +114,10 @@
 \nIf you have any questions, concerns, or feedback regarding this Privacy Policy or our privacy practices, please contact us at [contact email]. We will endeavor to address your inquiries promptly.
 
 \n\nThank you for trusting Alicisindan with your personal information. \n"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_16ssp"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_16ssp"
 
-                app:drawableTint="@color/primary" />
+                    app:drawableTint="@color/primary" />
             </ScrollView>
         </androidx.cardview.widget.CardView>
 

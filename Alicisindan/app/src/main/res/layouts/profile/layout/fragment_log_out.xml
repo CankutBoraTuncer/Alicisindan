@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activities.ui.main.profile.LogOutFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -26,8 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:textSize="@dimen/_10ssp"
             android:text="@string/text_alert"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintTop_toBottomOf="@+id/logOutFragment_textView_DELETE_THIS1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

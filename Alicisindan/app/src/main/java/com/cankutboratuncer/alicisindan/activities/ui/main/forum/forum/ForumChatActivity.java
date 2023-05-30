@@ -48,14 +48,14 @@ public class ForumChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityForumChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setListeners();
         init();
+        setListeners();
         loadReceiverDetails();
         listenMessages();
     }
 
     private void init() {
-        localSave = new LocalSave(getApplicationContext());
+        localSave = new LocalSave(this);
         chatMessages = new ArrayList<>();
         forumChatAdapter = new ForumChatAdapter(chatMessages, "getBitmapFromEncodedString(advertisement.image)", Constants.KEY_SENDER_ID);
         binding.chatRecyclerView.setAdapter(forumChatAdapter);
@@ -133,7 +133,14 @@ public class ForumChatActivity extends AppCompatActivity {
 
     private void setListeners() {
         //binding.imageBack.setOnClickListener(v -> onBackPressed());
-        binding.buttonComment.setOnClickListener(v -> sendMessage());
+        String userID = localSave.getString(Constants.KEY_USER_ID);
+        binding.buttonComment.setOnClickListener(v -> {
+            if (userID == null) {
+                showToast("Login to add comment!");
+            } else {
+                sendMessage();
+            }
+        });
     }
 
     private void showToast(String message) {
@@ -174,11 +181,6 @@ public class ForumChatActivity extends AppCompatActivity {
         }
     };
 
-
-
-
-
-
     private Bitmap getBitmapFromEncodedString(String encodedImage) {
         if (encodedImage != null) {
             byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
@@ -209,7 +211,6 @@ public class ForumChatActivity extends AppCompatActivity {
             forum.setForumImage(args.getString(Constants.KEY_FORUM_IMAGE));
         }
     }
-
 }
 
 

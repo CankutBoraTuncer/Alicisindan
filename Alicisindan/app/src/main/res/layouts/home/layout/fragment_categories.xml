@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
+    android:fitsSystemWindows="true"
     tools:context=".activities.ui.main.home.category.CategoryFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/categoryFragment_layout_top"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_84sdp"
         android:background="@drawable/background_main_gradient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.18"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -34,26 +34,25 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/categoryFragment_editText_searchBar"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/categoryFragment_searchBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/what_are_you_looking_for"
+        android:background="@drawable/background_search"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/categoryFragment_layout_top"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toBottomOf="@+id/categoryFragment_layout_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/categoryFragment_layout_top"
+        app:layout_constraintTop_toBottomOf="@+id/categoryFragment_layout_top"
         app:layout_constraintWidth_percent="0.9"
-        app:startIconDrawable="@drawable/ic_search">
+        app:queryBackground="@android:color/transparent"
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_search" />
+        app:queryHint="@string/what_are_you_looking_for">
 
-    </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.appcompat.widget.SearchView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoryFragment_recyclerView_categories"
@@ -64,6 +63,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/categoryFragment_editText_searchBar" />
+        app:layout_constraintTop_toBottomOf="@id/categoryFragment_searchBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

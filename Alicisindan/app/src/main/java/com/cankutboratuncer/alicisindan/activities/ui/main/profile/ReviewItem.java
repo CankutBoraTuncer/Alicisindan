@@ -40,4 +40,6 @@ public class ReviewItem {
     }
     public String getUserID(){ return userID; }
 
+    public String getUserID(){ return userID; }
+
 }

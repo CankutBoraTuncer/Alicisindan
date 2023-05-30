@@ -59,7 +59,6 @@
     <string name="home">Home</string>
     <string name="send_verification_code">Send Verification Code</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_splash">SplashActivity</string>
 
     <string name="first_fragment_label">First Fragment</string>
@@ -67,7 +66,6 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="text_alert">IMPORTANT! PLEASE READ!\n\nPlease continue using the given id convention: For any item on your XML file, do:\n android:id = +@+id/activityName_viewType_nameOfView\nFor example, an EditText in HomeFragment that will hold the app\'s name should have an id like \"@+id/homeFragment_editText_appName\". \nSimilarly, \"@+id/homeFragment_layout_top\" is the id of the Layout(constraint) on top of HomeFragment.\n\nAlso, continue using this convention in your Java files as well: For example, do something like \nViewType viewType_viewName\nwhen naming views. For example, something like\nEditText editText_appName\nwould work for the previous example. All this is because when you call findViewById(R.id.) function, android studio lists ALL views on the ENTIRE project. Everything gets mixed up if we don\'t use a naming convention that uses descriptive names.\n\nAlso, adding functionality to a Fragment is similar to an Activity. In summary, instead of Activity OnCreate method, you write your code in Fragment onCreateView method. Instead of creating an Intent and startActivity method to change into another screen, you use loadFragment method. Refer to implemented fragments to see this method. There are more things to discuss here, but see HomeFragment and ProfileFragment as working examples of Fragments and for further information. If there are functionalities you wish to add to a fragment, you can ask me about them.\n GL\n\n NullPointerException xd</string>
     <string name="name">Name</string>
     <string name="username">Username</string>
     <string name="surname">Surname</string>

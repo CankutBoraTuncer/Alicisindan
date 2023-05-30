@@ -1,6 +1,5 @@
 package com.cankutboratuncer.alicisindan.activities.ui.main.home.filter;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,12 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cankutboratuncer.alicisindan.R;
-import com.cankutboratuncer.alicisindan.activities.data.database.CategoryTest;
-import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.PostEditActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.CategoryListener;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostCategoryAdapter;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
-import com.cankutboratuncer.alicisindan.activities.utilities.Category;
+import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 
 import java.util.List;
 
@@ -29,9 +26,22 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class FilterSubCategoryFragment extends Fragment implements CategoryListener {
-    private static final String ARG_CATEGORY = "category";
+    private static final String ARG_FILTER_CATEGORY = "filter_category";
+    private static final String ARG_FILTER_CONDITION = "filter_condition";
+    private static final String ARG_SORTING_METHOD = "filter_sortingMethod";
+    private static final String ARG_LOCATION = "filter_location";
+    private static final String ARG_MIN_PRICE = "filter_minPrice";
+    private static final String ARG_MAX_PRICE = "filter_maxPrice";
+    private static final String ARG_TYPE = "type";
 
-    private String category;
+    String categoryForFilter;
+    String conditionForFilter;
+    String sortingMethodForFilter;
+    String locationForFilter;
+    String minPriceForFilter;
+    String maxPriceForFilter;
+    String type;
+
 
     public FilterSubCategoryFragment() {
         // Required empty public constructor
@@ -41,13 +51,19 @@ public class FilterSubCategoryFragment extends Fragment implements CategoryListe
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param category Parameter 1.
+     * @param categoryForFilter Parameter 1.
      * @return A new instance of fragment FilterSubCategoryFragment.
      */
-    public static FilterSubCategoryFragment newInstance(String category) {
+    public static FilterSubCategoryFragment newInstance(String type, String categoryForFilter, String conditionForFilter, String sortingMethodForFilter, String locationForFilter, String minPriceForFilter, String maxPriceForFilter) {
         FilterSubCategoryFragment fragment = new FilterSubCategoryFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_CATEGORY, category);
+        args.putString(ARG_TYPE, type);
+        args.putString(ARG_FILTER_CATEGORY, categoryForFilter);
+        args.putString(ARG_FILTER_CONDITION, conditionForFilter);
+        args.putString(ARG_SORTING_METHOD, sortingMethodForFilter);
+        args.putString(ARG_LOCATION, locationForFilter);
+        args.putString(ARG_MIN_PRICE, minPriceForFilter);
+        args.putString(ARG_MAX_PRICE, maxPriceForFilter);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,7 +72,41 @@ public class FilterSubCategoryFragment extends Fragment implements CategoryListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            category = getArguments().getString(ARG_CATEGORY);
+            try {
+                type = getArguments().getString(ARG_TYPE);
+            } catch (Exception e) {
+                type = null;
+            }
+            try {
+                categoryForFilter = getArguments().getString(ARG_FILTER_CATEGORY);
+            } catch (Exception e) {
+                categoryForFilter = null;
+            }
+            try {
+                conditionForFilter = getArguments().getString(ARG_FILTER_CONDITION);
+            } catch (Exception e) {
+                conditionForFilter = null;
+            }
+            try {
+                sortingMethodForFilter = getArguments().getString(ARG_SORTING_METHOD);
+            } catch (Exception e) {
+                sortingMethodForFilter = null;
+            }
+            try {
+                locationForFilter = getArguments().getString(ARG_LOCATION);
+            } catch (Exception e) {
+                locationForFilter = null;
+            }
+            try {
+                minPriceForFilter = getArguments().getString(ARG_MIN_PRICE);
+            } catch (Exception e) {
+                minPriceForFilter = null;
+            }
+            try {
+                maxPriceForFilter = getArguments().getString(ARG_MAX_PRICE);
+            } catch (Exception e) {
+                maxPriceForFilter = null;
+            }
         }
     }
 
@@ -65,7 +115,7 @@ public class FilterSubCategoryFragment extends Fragment implements CategoryListe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_filter_sub_category, container, false);
-        List<AllCategories> subCategories = CategoryTest.createSubCategories(category);
+        List<AllCategories> subCategories = Constants.createSubCategories(categoryForFilter);
         PostCategoryAdapter usersAdapter = new PostCategoryAdapter(subCategories, this);
         RecyclerView categoriesRecyclerView = view.findViewById(R.id.filterSubCategoryFragment_subCategoriesRecyclerView);
         categoriesRecyclerView.setAdapter(usersAdapter);
@@ -77,7 +127,7 @@ public class FilterSubCategoryFragment extends Fragment implements CategoryListe
     @Override
     public void onUserClicked(String subCategory) {
         Bundle args = new Bundle();
-        Fragment fragment = FilterFragment.newInstance(category, subCategory);
+        Fragment fragment = FilterFragment.newInstance(categoryForFilter, subCategory, type, conditionForFilter, sortingMethodForFilter, locationForFilter, minPriceForFilter, maxPriceForFilter);
         loadFragment(fragment);
     }
 
