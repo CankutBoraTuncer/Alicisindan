@@ -49,20 +49,20 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/sellFragment_searchBar"
-        android:background="@drawable/background_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:queryHint="@string/what_are_you_looking_for"
-        app:queryBackground="@android:color/transparent"
+        android:background="@drawable/background_search"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
+        app:iconifiedByDefault="false"
         app:layout_constraintBottom_toBottomOf="@+id/sellFragment_layout_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sellFragment_layout_top"
         app:layout_constraintWidth_percent="0.9"
+        app:queryBackground="@android:color/transparent"
 
-        app:iconifiedByDefault="false">
+        app:queryHint="@string/what_are_you_looking_for">
 
 
     </androidx.appcompat.widget.SearchView>
@@ -87,8 +87,7 @@
             android:textSize="@dimen/_16ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/sellFragment_textView_seeAll"
@@ -186,22 +185,22 @@
         android:layout_gravity="end"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_plus"
-        app:tint="@color/white"
         android:backgroundTint="@color/primary"
+        android:src="@drawable/ic_plus"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 
     <ProgressBar
         android:id="@+id/sellFragment_progressBar"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
         android:layout_gravity="center"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/sellFragment_recyclerView_container"
-        app:layout_constraintTop_toTopOf="@id/sellFragment_recyclerView_container"
         app:layout_constraintEnd_toEndOf="@id/sellFragment_recyclerView_container"
         app:layout_constraintStart_toStartOf="@id/sellFragment_recyclerView_container"
-        android:visibility="invisible" />
+        app:layout_constraintTop_toTopOf="@id/sellFragment_recyclerView_container" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

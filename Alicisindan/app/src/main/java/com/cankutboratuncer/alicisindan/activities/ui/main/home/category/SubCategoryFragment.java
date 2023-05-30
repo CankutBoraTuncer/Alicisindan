@@ -92,11 +92,11 @@ public class SubCategoryFragment extends Fragment implements CategoryListener {
         Bundle args = new Bundle();
         Fragment fragment;
         if (type == "buy") {
-            fragment = BuyFragment.newInstance(category, subCategory, null, null, null, null, null, null, true);
+            fragment = BuyFragment.newInstance(category, subCategory, null, null, null, null, null, true);
         } else if (type == "sell") {
-            fragment = SellFragment.newInstance(category, subCategory, null, null, null, null, null, null, true);
+            fragment = SellFragment.newInstance(category, subCategory, null, null, null, null, null, true);
         } else {
-            fragment = HomeFragment.newInstance(category, subCategory, null, null, null, null, null, null, true);
+            fragment = HomeFragment.newInstance(category, subCategory, null, null, null, null, null, true);
         }
         loadFragment(fragment);
     }

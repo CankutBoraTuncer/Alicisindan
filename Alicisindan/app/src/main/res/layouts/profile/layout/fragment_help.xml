@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
+    android:fitsSystemWindows="true"
     tools:context=".activities.ui.main.profile.HelpFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -17,14 +18,15 @@
         app:layout_constraintHeight_percent="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Help"
             android:fontFamily="@font/lato"
-            android:textColor="@color/white"
             android:gravity="center"
-            android:textSize="@dimen/_16ssp"/>
+            android:text="Help"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -152,9 +154,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
-                    android:textColor="@color/primary_text"
                     android:fontFamily="@font/lato"
-                    android:text="@string/help4" />
+                    android:text="@string/help4"
+                    android:textColor="@color/primary_text" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -171,10 +173,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
-                    android:textColor="@color/primary_text"
                     android:fontFamily="@font/lato"
-                    android:text="@string/help6"/>
+                    android:text="@string/help6"
+                    android:textColor="@color/primary_text" />
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/helpFragment_cardView_example7"
                 android:layout_width="match_parent"
@@ -189,9 +192,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
-                    android:textColor="@color/primary_text"
                     android:fontFamily="@font/lato"
-                    android:text="@string/help7"/>
+                    android:text="@string/help7"
+                    android:textColor="@color/primary_text" />
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

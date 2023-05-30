@@ -212,7 +212,7 @@
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:fontFamily="@font/lato"
-            android:text="@string/have_already_an_account"
+            android:text="Have an account?"
             android:textColor="@color/yellow"
             android:textSize="@dimen/_11ssp" />
 

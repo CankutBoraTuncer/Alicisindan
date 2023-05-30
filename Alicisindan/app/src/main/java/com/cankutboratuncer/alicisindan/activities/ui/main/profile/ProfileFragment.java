@@ -197,11 +197,6 @@ public class ProfileFragment extends Fragment {
                 Intent intent = new Intent(getContext(), SignInActivity.class);
                 startActivity(intent);
             });
-            profilePic.setOnClickListener(view17 -> {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                pickImage.launch(intent);
-            });
             privacyPolicy.setOnClickListener(view22 -> {
                 Fragment fragment = new PrivacyFragment();
                 loadFragment(fragment);

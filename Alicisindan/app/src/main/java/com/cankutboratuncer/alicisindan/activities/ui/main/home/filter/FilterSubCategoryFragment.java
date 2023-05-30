@@ -32,8 +32,7 @@ public class FilterSubCategoryFragment extends Fragment implements CategoryListe
     private static final String ARG_FILTER_CATEGORY = "filter_category";
     private static final String ARG_FILTER_CONDITION = "filter_condition";
     private static final String ARG_SORTING_METHOD = "filter_sortingMethod";
-    private static final String ARG_COUNTRY = "filter_country";
-    private static final String ARG_CITY = "filter_city";
+    private static final String ARG_LOCATION = "filter_location";
     private static final String ARG_MIN_PRICE = "filter_minPrice";
     private static final String ARG_MAX_PRICE = "filter_maxPrice";
     private static final String ARG_TYPE = "type";
@@ -41,8 +40,7 @@ public class FilterSubCategoryFragment extends Fragment implements CategoryListe
     String categoryForFilter;
     String conditionForFilter;
     String sortingMethodForFilter;
-    String countryForFilter;
-    String cityForFilter;
+    String locationForFilter;
     String minPriceForFilter;
     String maxPriceForFilter;
     String type;
@@ -59,15 +57,14 @@ public class FilterSubCategoryFragment extends Fragment implements CategoryListe
      * @param categoryForFilter Parameter 1.
      * @return A new instance of fragment FilterSubCategoryFragment.
      */
-    public static FilterSubCategoryFragment newInstance(String type, String categoryForFilter, String conditionForFilter, String sortingMethodForFilter, String countryForFilter, String cityForFilter, String minPriceForFilter, String maxPriceForFilter) {
+    public static FilterSubCategoryFragment newInstance(String type, String categoryForFilter, String conditionForFilter, String sortingMethodForFilter, String locationForFilter, String minPriceForFilter, String maxPriceForFilter) {
         FilterSubCategoryFragment fragment = new FilterSubCategoryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_TYPE, type);
         args.putString(ARG_FILTER_CATEGORY, categoryForFilter);
         args.putString(ARG_FILTER_CONDITION, conditionForFilter);
         args.putString(ARG_SORTING_METHOD, sortingMethodForFilter);
-        args.putString(ARG_COUNTRY, countryForFilter);
-        args.putString(ARG_CITY, cityForFilter);
+        args.putString(ARG_LOCATION, locationForFilter);
         args.putString(ARG_MIN_PRICE, minPriceForFilter);
         args.putString(ARG_MAX_PRICE, maxPriceForFilter);
         fragment.setArguments(args);
@@ -99,14 +96,9 @@ public class FilterSubCategoryFragment extends Fragment implements CategoryListe
                 sortingMethodForFilter = null;
             }
             try {
-                countryForFilter = getArguments().getString(ARG_COUNTRY);
+                locationForFilter = getArguments().getString(ARG_LOCATION);
             } catch (Exception e) {
-                countryForFilter = null;
-            }
-            try {
-                cityForFilter = getArguments().getString(ARG_CITY);
-            } catch (Exception e) {
-                cityForFilter = null;
+                locationForFilter = null;
             }
             try {
                 minPriceForFilter = getArguments().getString(ARG_MIN_PRICE);
@@ -138,7 +130,7 @@ public class FilterSubCategoryFragment extends Fragment implements CategoryListe
     @Override
     public void onUserClicked(String subCategory) {
         Bundle args = new Bundle();
-        Fragment fragment = FilterFragment.newInstance(categoryForFilter, subCategory, type, conditionForFilter, sortingMethodForFilter, countryForFilter, cityForFilter, minPriceForFilter, maxPriceForFilter);
+        Fragment fragment = FilterFragment.newInstance(categoryForFilter, subCategory, type, conditionForFilter, sortingMethodForFilter, locationForFilter, minPriceForFilter, maxPriceForFilter);
         loadFragment(fragment);
     }
 

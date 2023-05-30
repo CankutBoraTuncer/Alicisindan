@@ -46,14 +46,14 @@ public class SignUpActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     showToast("Registration failed.");
                 }
+                loading(false);
             }
         });
         binding.activitySignUpImageViewCloseIcon.setOnClickListener(v -> {
-                    localSave.putBoolean(Constants.KEY_IS_USER_SKIP, true);
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
+                localSave.putBoolean(Constants.KEY_IS_USER_SKIP, true);
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
         );
-
     }
 
 

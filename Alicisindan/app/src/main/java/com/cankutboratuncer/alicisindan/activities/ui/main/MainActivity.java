@@ -3,6 +3,8 @@ package com.cankutboratuncer.alicisindan.activities.ui.main;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,6 +20,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
+    public static String type;
+    public static String category;
+    public static String condition;
+    public static String location;
+    public static String price;
+    public static boolean comingFromPostAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +33,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.mainActivity_bottomNavigationBar_main);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        loadFragment(new HomeFragment());
+        Fragment fragment;
+        if (comingFromPostAdd) {
+            fragment = HomeFragment.newInstance(type, category, condition, location, price);
+        } else {
+            fragment = new HomeFragment();
+        }
+        loadFragment(fragment);
     }
 
     @Override
@@ -55,8 +69,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     }
 
     void loadFragment(Fragment fragment) {
+        MainActivity.type = null;
+        MainActivity.category = null;
+        MainActivity.condition = null;
+        MainActivity.location = null;
+        MainActivity.price = null;
+        MainActivity.comingFromPostAdd = false;
         //to attach fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_frameLayout_main, fragment).addToBackStack(null).commit();
     }
-
 }

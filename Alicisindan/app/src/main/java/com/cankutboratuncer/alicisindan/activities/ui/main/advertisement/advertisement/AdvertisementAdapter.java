@@ -47,7 +47,7 @@ public class AdvertisementAdapter extends RecyclerView.Adapter<AdvertisementAdap
 
     static class AdvertisementViewHolder extends RecyclerView.ViewHolder {
 
-        TextView advertisementTitle, advertisementIntent, advertisementTag;
+        TextView advertisementTitle, advertisementIntent, advertisementTag, advertisementPrice;
         ImageView advertisementImage, favoriteButton;
         Advertisement clickedAdvertisement;
         boolean isFavorited;
@@ -58,6 +58,7 @@ public class AdvertisementAdapter extends RecyclerView.Adapter<AdvertisementAdap
             this.advertisementImage = itemView.findViewById(R.id.itemAdvertisement_imageView_image);
             this.advertisementIntent = itemView.findViewById(R.id.itemAdvertisement_textView_intent);
             this.advertisementTag = itemView.findViewById(R.id.itemAdvertisement_textView_tag);
+            this.advertisementPrice = itemView.findViewById(R.id.itemAdvertisement_textView_price);
             this.favoriteButton = itemView.findViewById(R.id.itemAdvertisement_imageView_favorite);
             this.isFavorited = false;
             itemView.setOnClickListener(view -> {
@@ -96,10 +97,9 @@ public class AdvertisementAdapter extends RecyclerView.Adapter<AdvertisementAdap
             } else if(advertisement.getType().equals("buy")){
                 this.advertisementTag.setText("Buy");
                 this.advertisementTag.setBackgroundResource(R.drawable.background_buy_tag);
-                this.advertisementIntent.setText("The user ");
                 this.advertisementIntent.setText((advertisement.getUsername() + " wants to buy"));
             }
-
+            this.advertisementPrice.setText("$" + advertisement.getPrice());
         }
 
         private Bitmap getBitmapFromEncodedString(String encodedImage) {
