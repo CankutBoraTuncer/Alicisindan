@@ -76,7 +76,6 @@ public class MyPostsFragment extends Fragment {
                 fragment.setArguments(args);
                 loadFragment(fragment);
 
-
                 Log.d(Integer.toString(position), "MyPost clicked");
             }
         });

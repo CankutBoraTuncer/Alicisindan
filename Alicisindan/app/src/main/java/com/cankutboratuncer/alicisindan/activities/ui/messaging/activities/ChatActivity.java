@@ -81,7 +81,7 @@ public class ChatActivity extends BaseActivity {
     }
 
     private void sendMessage() {
-        if (binding.messageInputField.getText() != null && binding.messageInputField.getText().toString().length() != 0) {
+        if (binding.messageInputField.getText() != null && binding.messageInputField.getText().toString().length() != 0 && binding.messageInputField.getText().toString().trim().length() != 0) {
             String userMessage = binding.messageInputField.getText().toString().trim();
             HashMap<String, Object> message = new HashMap<>();
             message.put(Constants.KEY_SENDER_ID, localSave.getString(Constants.KEY_USER_ID));
