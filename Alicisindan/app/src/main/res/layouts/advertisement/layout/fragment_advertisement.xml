@@ -7,11 +7,13 @@
     tools:context=".activities.ui.main.advertisement.advertisement.AdvertisementFragment">
 
     <ScrollView
+        android:id="@+id/advertisementFragment_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/main_background"
         android:clipToPadding="false"
         android:overScrollMode="never"
+        android:visibility="visible"
         android:paddingBottom="@dimen/_20sdp"
         android:scrollbars="none">
 
@@ -46,10 +48,9 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/itemAdvertisement_imageView_image"
                     app:layout_constraintDimensionRatio="H,1:1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/itemAdvertisement_imageView_image"
+                    app:layout_constraintTop_toTopOf="@+id/advertisementFragment_imageSlider"
                     app:layout_constraintWidth_percent="0.2">
 
                     <ImageView
@@ -76,6 +77,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <TextView
                     android:id="@+id/productTitle"
                     android:layout_width="0dp"
@@ -361,20 +363,16 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ProgressBar
-                android:id="@+id/advertisementFragment_progressBar"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/advertisementFragment_progressBar"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonMessage"
@@ -387,10 +385,10 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/primary"
         android:src="@drawable/ic_chat"
+        android:visibility="invisible"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="invisible"
         app:tint="@color/white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -401,14 +399,15 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="end"
         android:layout_marginEnd="16dp"
-        android:visibility="invisible"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/primary"
         android:src="@drawable/ic_settings"
+        android:visibility="invisible"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />
+
 </RelativeLayout>
 
 

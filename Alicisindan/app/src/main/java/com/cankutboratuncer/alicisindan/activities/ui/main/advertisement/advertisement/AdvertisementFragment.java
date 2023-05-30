@@ -320,8 +320,10 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
 
     private void loading(boolean isLoading, View view) {
         if (isLoading) {
+            view.findViewById(R.id.advertisementFragment_page).setVisibility(View.INVISIBLE);
             view.findViewById(R.id.advertisementFragment_progressBar).setVisibility(View.VISIBLE);
         } else {
+            view.findViewById(R.id.advertisementFragment_page).setVisibility(View.VISIBLE);
             view.findViewById(R.id.advertisementFragment_progressBar).setVisibility(View.INVISIBLE);
         }
     }
@@ -411,19 +413,19 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                     advertisement = null;
                 }
                 try {
-                    listings = Listing.findListingShowcases(null, advertisementCategory, null, null, advertisementType, advertisementCondition, Integer.toString(Integer.parseInt(advertisementPrice.substring(1)) / 2), Integer.toString(Integer.parseInt(advertisementPrice.substring(1)) * 2), null, null, null, "10");
-                    if (listings.length < 4) {
-                        listings = Listing.findListingShowcases(null, advertisementCategory, null, null, advertisementType, advertisementCondition, null, null, null, null, null, "10");
+                    listings = Listing.findListingShowcases(null, advertisementCategory, null, null, null, advertisementCondition, Integer.toString(Integer.parseInt(advertisementPrice.substring(1)) / 2), Integer.toString(Integer.parseInt(advertisementPrice.substring(1)) * 2), null, null, null, "10");
+                    if (listings.length < 6) {
+                        listings = Listing.findListingShowcases(null, advertisementCategory, null, null, null, advertisementCondition, null, null, null, null, null, "10");
                     }
-                    if (listings.length < 4) {
-                        listings = Listing.findListingShowcases(null, advertisementCategory, null, null, advertisementType, null, null, null, null, null, null, "10");
+                    if (listings.length < 6) {
+                        listings = Listing.findListingShowcases(null, advertisementCategory, null, null, null, null, null, null, null, null, null, "10");
                     }
-                    if (listings.length < 4) {
+                    if (listings.length < 6) {
                         String newCategory;
                         try {
                             String[] parts = advertisementCategory.split("/");
                             newCategory = parts[0] + "%";
-                            listings = Listing.findListingShowcases(null, newCategory, null, null, advertisementType, null, null, null, null, null, null, "10");
+                            listings = Listing.findListingShowcases(null, newCategory, null, null, null, null, null, null, null, null, null, "10");
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -448,10 +450,10 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                         String title = listing[5];
                         String price = listing[6];
 
-                        advertisements.add(new Advertisement(title, null, new String[]{image}, price, ID, null, userID, username, null, type, null, null));
+                        if (!ID.equals(advertisementID)) {
+                            advertisements.add(new Advertisement(title, null, new String[]{image}, price, ID, null, userID, username, null, type, null, null));
+                        }
                     }
-
-                    loading(false, view);
                 } catch (Exception e) {
                     requireActivity().runOnUiThread(() -> {
                         e.printStackTrace();
@@ -473,3 +475,6 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
     }
 
 }
+
+
+
