@@ -175,12 +175,14 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
     }
 
     public void initUI() {
-        if (advertisement.getUserID().equals(localSave.getString(Constants.KEY_USER_ID))) {
+        String userID = localSave.getString(Constants.KEY_USER_ID);
+        if (userID == null) {
+            view.findViewById(R.id.layoutMessage).setVisibility(View.GONE);
+            view.findViewById(R.id.layoutEdit).setVisibility(View.GONE);
+        } else if (advertisement.getUserID().equals(userID)) {
             view.findViewById(R.id.layoutMessage).setVisibility(View.GONE);
             view.findViewById(R.id.layoutEdit).setVisibility(View.VISIBLE);
-        }
-        else
-        {
+        } else {
             view.findViewById(R.id.layoutMessage).setVisibility(View.VISIBLE);
             view.findViewById(R.id.layoutEdit).setVisibility(View.GONE);
         }

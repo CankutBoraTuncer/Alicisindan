@@ -44,6 +44,7 @@ import com.cankutboratuncer.alicisindan.activities.utilities.Advertisement;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
 import com.cankutboratuncer.alicisindan.activities.utilities.Category;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
+import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -73,6 +74,8 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
     String maxPriceForFilter;
     boolean willRefresh;
     String searchQuery;
+    private LocalSave localSave;
+    private Alicisindan.User user;
     ArrayList<Advertisement> advertisements;
     View view;
     ArrayList<AllCategories> categories;
@@ -164,6 +167,7 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
+        localSave =  new LocalSave(getContext());
         advertisements = new ArrayList<>();
         recyclerViewForAdvertisements = view.findViewById(R.id.homeFragment_recyclerView_advertisements);
         recyclerViewForCategories = view.findViewById(R.id.homeFragment_recyclerView_categories);
@@ -240,7 +244,13 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
     public void initListeners() {
         Log.d("Listener", "initialize");
         view.findViewById(R.id.homeFragment_buttonCreatePost).setOnClickListener(v -> {
-            startActivity(new Intent(getContext(), PostTypeActivity.class));
+            String userID = localSave.getString(Constants.KEY_USER_ID);
+            // When user is logged in:
+            if (userID != null) {
+                startActivity(new Intent(getContext(), PostTypeActivity.class));
+            } else {
+                showToast("Login to post listings!");
+            }
         });
         TextView textView_seeAll = view.findViewById(R.id.homeFragment_textView_seeAll);
         textView_seeAll.setOnClickListener(view -> {

@@ -148,7 +148,7 @@
                 app:layout_constraintTop_toBottomOf="@id/brand" />
 
             <Spinner
-                android:id="@+id/condition"
+                android:id="@+id/postEditActivity_condition"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_28sdp"
@@ -170,9 +170,9 @@
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:background="@drawable/ic_down_arrow"
-                app:layout_constraintBottom_toBottomOf="@id/condition"
-                app:layout_constraintEnd_toEndOf="@id/condition"
-                app:layout_constraintTop_toTopOf="@id/condition" />
+                app:layout_constraintBottom_toBottomOf="@id/postEditActivity_condition"
+                app:layout_constraintEnd_toEndOf="@id/postEditActivity_condition"
+                app:layout_constraintTop_toTopOf="@id/postEditActivity_condition" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -185,7 +185,7 @@
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/condition" />
+                app:layout_constraintTop_toBottomOf="@id/postEditActivity_condition" />
 
             <EditText
                 android:id="@+id/productTitle"
@@ -203,7 +203,7 @@
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/condition" />
+                app:layout_constraintTop_toBottomOf="@id/postEditActivity_condition" />
 
             <TextView
                 android:layout_width="wrap_content"

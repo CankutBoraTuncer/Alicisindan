@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.ui.login.SignInActivity;
+import com.cankutboratuncer.alicisindan.activities.ui.main.MainActivity;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 import com.cankutboratuncer.alicisindan.databinding.ActivityPostEditBinding;
@@ -125,58 +126,92 @@ public class ProfileFragment extends Fragment {
         CardView cardView_reviews = view.findViewById(R.id.profileFragment_cardView_reviews);
         profilePic = view.findViewById(R.id.profileFragment_imageView_profilePicture);
         TextView privacyPolicy = view.findViewById(R.id.privacyPolicy);
-
-        try {
-            Alicisindan.User user;
-            user = Alicisindan.User.getUser(localSave.getString(Constants.KEY_USER_ID));
-            profilePic.setImageBitmap( decodeImage(user.getUserImage()));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        String userID = localSave.getString(Constants.KEY_USER_ID);
+        // When user is logged in:
+        if (userID != null) {
+            cardView_myPosts.setOnClickListener(view11 -> {
+                Fragment fragment = new MyPostsFragment();
+                loadFragment(fragment);
+            });
+            cardView_messages.setOnClickListener(view12 -> {
+                Fragment fragment = new MessagesFragment();
+                loadFragment(fragment);
+            });
+            cardView_account.setOnClickListener(view13 -> {
+                Fragment fragment = new AccountFragment();
+                loadFragment(fragment);
+            });
+            cardView_favorite.setOnClickListener(view14 -> {
+                Fragment fragment = new FavoritesFragment();
+                loadFragment(fragment);
+            });
+            cardView_help.setOnClickListener(view15 -> {
+                Fragment fragment = new HelpFragment();
+                loadFragment(fragment);
+            });
+            cardView_logOut.setOnClickListener(view16 -> {
+                LocalSave localSave = new LocalSave(getContext());
+                localSave.clear();
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            });
+            privacyPolicy.setOnClickListener(view22 -> {
+                Fragment fragment = new PrivacyFragment();
+                loadFragment(fragment);
+            });
+            cardView_reviews.setOnClickListener(view25 -> {
+                Fragment fragment = new MyReviewsFragment();
+                loadFragment(fragment);
+            });
+            profilePic.setOnClickListener(view17 -> {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                pickImage.launch(intent);
+            });
+            try {
+                Alicisindan.User user;
+                user = Alicisindan.User.getUser(localSave.getString(Constants.KEY_USER_ID));
+                profilePic.setImageBitmap( decodeImage(user.getUserImage()));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            TextView username = view.findViewById(R.id.profileFragment_textView_fullName);
+            username.setText(localSave.getString(Constants.KEY_USER_NAME));
+            TextView email = view.findViewById(R.id.profileFragment_textView_email);
+            email.setText(localSave.getString(Constants.KEY_USER_EMAIL));
+        } else {
+            cardView_account.setVisibility(View.GONE);
+            cardView_favorite.setVisibility(View.GONE);
+            cardView_messages.setVisibility(View.GONE);
+            cardView_myPosts.setVisibility(View.GONE);
+            cardView_reviews.setVisibility(View.GONE);
+            cardView_help.setOnClickListener(view15 -> {
+                Fragment fragment = new HelpFragment();
+                loadFragment(fragment);
+            });
+            TextView logOut_text = view.findViewById(R.id.profileFragment_logOut_text);
+            logOut_text.setText("Login");
+            cardView_logOut.setOnClickListener(view16 -> {
+                LocalSave localSave = new LocalSave(getContext());
+                localSave.clear();
+                Intent intent = new Intent(getContext(), SignInActivity.class);
+                startActivity(intent);
+            });
+            profilePic.setOnClickListener(view17 -> {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                pickImage.launch(intent);
+            });
+            privacyPolicy.setOnClickListener(view22 -> {
+                Fragment fragment = new PrivacyFragment();
+                loadFragment(fragment);
+            });
+            TextView username = view.findViewById(R.id.profileFragment_textView_fullName);
+            username.setVisibility(View.GONE);
+            TextView email = view.findViewById(R.id.profileFragment_textView_email);
+            email.setVisibility(View.GONE);
         }
 
-        cardView_myPosts.setOnClickListener(view11 -> {
-            Fragment fragment = new MyPostsFragment();
-            loadFragment(fragment);
-        });
-        cardView_messages.setOnClickListener(view12 -> {
-            Fragment fragment = new MessagesFragment();
-            loadFragment(fragment);
-        });
-        cardView_account.setOnClickListener(view13 -> {
-            Fragment fragment = new AccountFragment();
-            loadFragment(fragment);
-        });
-        cardView_favorite.setOnClickListener(view14 -> {
-            Fragment fragment = new FavoritesFragment();
-            loadFragment(fragment);
-        });
-        cardView_help.setOnClickListener(view15 -> {
-            Fragment fragment = new HelpFragment();
-            loadFragment(fragment);
-        });
-        cardView_logOut.setOnClickListener(view16 -> {
-            LocalSave localSave = new LocalSave(getContext());
-            localSave.clear();
-            Intent intent = new Intent(getContext(), SignInActivity.class);
-            startActivity(intent);
-        });
-        profilePic.setOnClickListener(view17 -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            pickImage.launch(intent);
-        });
-        privacyPolicy.setOnClickListener(view22 -> {
-            Fragment fragment = new PrivacyFragment();
-            loadFragment(fragment);
-        });
-        cardView_reviews.setOnClickListener(view25 -> {
-            Fragment fragment = new MyReviewsFragment();
-            loadFragment(fragment);
-        });
-        TextView username = view.findViewById(R.id.profileFragment_textView_fullName);
-        username.setText(localSave.getString(Constants.KEY_USER_NAME));
-        TextView email = view.findViewById(R.id.profileFragment_textView_email);
-        email.setText(localSave.getString(Constants.KEY_USER_EMAIL));
         return view;
     }
 
@@ -193,5 +228,9 @@ public class ProfileFragment extends Fragment {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -14,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 
+import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.ui.login.SignInActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.MainActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostAddCategoryActivity;
@@ -39,6 +42,7 @@ public class PostEditActivity extends AppCompatActivity {
     String category;
     String brand;
     String condition;
+    Spinner conditionSpinner;
     private AppCompatImageButton[][] imageButtons;
     String type;
 
@@ -57,9 +61,16 @@ public class PostEditActivity extends AppCompatActivity {
             binding.topPanel.setText("I want to buy...");
         }
         binding.subTitle.setText(category);
+        initUI();
         initImageButton();
         setListeners();
+    }
 
+    private void initUI() {
+        conditionSpinner = findViewById(R.id.postEditActivity_condition);
+        ArrayAdapter conditionAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Constants.CONDITION_POST);
+        conditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        conditionSpinner.setAdapter(conditionAdapter);
     }
 
     private void initImageButton() {
@@ -179,7 +190,7 @@ public class PostEditActivity extends AppCompatActivity {
         String details = binding.details.getText().toString();
         String price = binding.price.getText().toString();
         String location = binding.location.getText().toString();
-        String condition = binding.condition.getSelectedItem().toString();
+        String condition = conditionSpinner.getSelectedItem().toString();
         String brand = binding.brand.getText().toString();
         Listing listing = new Listing(userID, type, productTitle, details, price, condition, location, condition, brand);
         listing.addListing(userID, password);
@@ -215,7 +226,7 @@ public class PostEditActivity extends AppCompatActivity {
         } else if (binding.brand.getText().toString().trim().isEmpty()) {
             showToast("Please select a brand.");
             return false;
-        } else if (binding.condition.getSelectedItem().toString().trim().isEmpty()) {
+        } else if (conditionSpinner.getSelectedItem().toString().trim().isEmpty()) {
             showToast("Please select a condition.");
             return false;
         } else {

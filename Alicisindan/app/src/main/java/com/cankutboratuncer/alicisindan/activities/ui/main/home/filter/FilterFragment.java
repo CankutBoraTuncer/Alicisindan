@@ -101,7 +101,7 @@ public class FilterFragment extends Fragment {
         EditText minPriceEditText = view.findViewById(R.id.filterFragment_minPrice);
         EditText maxPriceEditText = view.findViewById(R.id.filterFragment_maxPrice);
 
-        ArrayAdapter conditionAdapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_spinner_item, Constants.CONDITION);
+        ArrayAdapter conditionAdapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_spinner_item, Constants.CONDITION_FILTER);
         conditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         conditionSpinner.setAdapter(conditionAdapter);
         if (condition != null) {

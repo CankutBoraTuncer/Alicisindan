@@ -89,7 +89,7 @@ public class ExistingPostEditFragment extends Fragment {
         brand.setText(ad.getBrand());
 
         Spinner condition = view.findViewById(R.id.condition);
-        ArrayAdapter conditionAdapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_spinner_item, Constants.CONDITION);
+        ArrayAdapter conditionAdapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_spinner_item, Constants.CONDITION_POST);
         conditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         condition.setAdapter(conditionAdapter);
         if (ad.getCondition() != null) {

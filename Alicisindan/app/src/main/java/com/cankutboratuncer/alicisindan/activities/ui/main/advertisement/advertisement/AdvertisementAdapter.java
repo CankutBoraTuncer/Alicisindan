@@ -60,16 +60,13 @@ public class AdvertisementAdapter extends RecyclerView.Adapter<AdvertisementAdap
             this.advertisementTag = itemView.findViewById(R.id.itemAdvertisement_textView_tag);
             this.favoriteButton = itemView.findViewById(R.id.itemAdvertisement_imageView_favorite);
             this.isFavorited = false;
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (advertisementInterface != null) {
-                        int pos = getAdapterPosition();
-                        clickedAdvertisement = advertisements.get(pos);
+            itemView.setOnClickListener(view -> {
+                if (advertisementInterface != null) {
+                    int pos = getAdapterPosition();
+                    clickedAdvertisement = advertisements.get(pos);
 
-                        if (pos != RecyclerView.NO_POSITION) {
-                            advertisementInterface.onAdvertisementClick(pos);
-                        }
+                    if (pos != RecyclerView.NO_POSITION) {
+                        advertisementInterface.onAdvertisementClick(pos);
                     }
                 }
             });
