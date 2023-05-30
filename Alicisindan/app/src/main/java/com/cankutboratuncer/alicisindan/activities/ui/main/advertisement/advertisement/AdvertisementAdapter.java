@@ -71,17 +71,6 @@ public class AdvertisementAdapter extends RecyclerView.Adapter<AdvertisementAdap
                     }
                 }
             });
-
-            favoriteButton.setOnClickListener(v->{
-                if(isFavorited){
-                    isFavorited = false;
-                    favoriteButton.setBackgroundResource(R.drawable.ic_star);
-                } else {
-                    isFavorited = true;
-                    favoriteButton.setBackgroundResource(R.drawable.ic_star_full);
-                }
-
-            });
         }
 
         public void bind(Advertisement advertisement) {

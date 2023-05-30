@@ -44,13 +44,12 @@
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:iconifiedByDefault="false"
-        app:layout_constraintBottom_toBottomOf="@+id/homeFragment_layout_top"
+        app:layout_constraintBottom_toBottomOf="@id/homeFragment_layout_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFragment_layout_top"
+        app:layout_constraintTop_toBottomOf="@id/homeFragment_layout_top"
         app:layout_constraintWidth_percent="0.9"
         app:queryBackground="@android:color/transparent"
-
         app:queryHint="@string/what_are_you_looking_for">
 
 
@@ -61,7 +60,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginVertical="@dimen/_8sdp"
+        android:layout_marginVertical="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/homeFragment_searchBar">
@@ -98,6 +97,7 @@
         android:id="@+id/homeFragment_recyclerView_categories"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,6 +109,7 @@
         android:id="@+id/homeFragment_layout_featuredTop"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_12sdp"
         android:layout_marginHorizontal="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -168,6 +169,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:visibility="invisible"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
