@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
     android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     android:overScrollMode="never"
     android:paddingBottom="@dimen/_20sdp"
     android:scrollbars="none"
@@ -58,16 +58,17 @@
             <TextView
                 android:id="@+id/subTitle"
                 android:layout_width="0dp"
-                android:layout_marginEnd="@dimen/_16sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:ellipsize="end"
                 android:fontFamily="@font/lato"
+                android:maxLength="25"
+                android:maxLines="1"
                 android:textColor="@color/gray_dark"
                 android:textSize="@dimen/_12ssp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/change"
-                android:ellipsize="end"
-                android:maxLines="1"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 tools:text="Car / Wheel and Tire" />
 
@@ -122,18 +123,18 @@
                 android:layout_marginTop="@dimen/_28sdp"
                 android:background="@drawable/background_edit_text_add_post"
                 android:ellipsize="end"
-                tools:text="ASDJlkjsdlkaj"
                 android:fontFamily="@font/lato"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
-                android:textCursorDrawable="@null"
                 android:inputType="text"
+                android:maxLength="30"
                 android:maxLines="1"
-                android:maxLength="10"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
+                android:textCursorDrawable="@null"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title2" />
+                app:layout_constraintTop_toBottomOf="@id/title2"
+                tools:text="ASDJlkjsdlkaj" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -150,22 +151,22 @@
             <EditText
                 android:id="@+id/details"
                 android:layout_width="match_parent"
-                tools:text="aksdjljasldkjsadlksaj"
-                android:paddingVertical="@dimen/_10sdp"
                 android:layout_height="@dimen/_100sdp"
                 android:layout_marginTop="@dimen/_28sdp"
                 android:background="@drawable/background_edit_text_add_post"
                 android:fontFamily="@font/lato"
+                android:gravity="top"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
-                android:textCursorDrawable="@null"
                 android:inputType="textMultiLine"
-                android:maxLines="4"
-                android:gravity="top"
+                android:maxLines="5"
                 android:paddingHorizontal="@dimen/_16sdp"
+                android:paddingVertical="@dimen/_10sdp"
                 android:textColor="@color/primary_text"
+                android:textCursorDrawable="@null"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/forumTitle" />
+                app:layout_constraintTop_toBottomOf="@id/forumTitle"
+                tools:text="aksdjljasldkjsadlksaj" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -183,14 +184,14 @@
                 android:id="@+id/image"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
-                android:clipToOutline="true"
                 android:layout_marginTop="@dimen/_36sdp"
-                android:scaleType="fitXY"
-                tools:src="@drawable/a_person_image_1"
                 android:background="@drawable/background_edit_text_add_post"
-                app:layout_constraintStart_toStartOf="parent"
+                android:clipToOutline="true"
+                android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/details"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/details"
+                tools:src="@drawable/a_person_image_1" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonPost"

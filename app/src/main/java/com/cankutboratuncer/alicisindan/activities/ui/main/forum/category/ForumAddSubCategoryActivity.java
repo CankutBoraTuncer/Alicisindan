@@ -3,11 +3,11 @@ package com.cankutboratuncer.alicisindan.activities.ui.main.forum.category;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
-import com.cankutboratuncer.alicisindan.activities.data.database.CategoryTest;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.PostEditActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.CategoryListener;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostCategoryAdapter;
@@ -31,7 +31,7 @@ public class ForumAddSubCategoryActivity extends AppCompatActivity implements Ca
         setContentView(binding.getRoot());
         Intent intent = getIntent();
         category = intent.getStringExtra("category");
-        subCategories = CategoryTest.createSubCategories(category);
+        subCategories = Constants.createSubCategories(category);
         loadSubCategories();
     }
 

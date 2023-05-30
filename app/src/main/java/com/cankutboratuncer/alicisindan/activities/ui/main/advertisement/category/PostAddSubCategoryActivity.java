@@ -3,11 +3,11 @@ package com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.catego
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
-import com.cankutboratuncer.alicisindan.activities.data.database.CategoryTest;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.PostEditActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.forum.category.ForumEditActivity;
 import com.cankutboratuncer.alicisindan.activities.utilities.AllCategories;
@@ -32,7 +32,7 @@ public class PostAddSubCategoryActivity extends AppCompatActivity implements Cat
         category = intent.getStringExtra("category");
         type = intent.getStringExtra("type");
         binding.topPanel.setText("I want to " + type);
-        subCategories = CategoryTest.createSubCategories(category);
+        subCategories = Constants.createSubCategories(category);
         loadSubCategories();
 
     }

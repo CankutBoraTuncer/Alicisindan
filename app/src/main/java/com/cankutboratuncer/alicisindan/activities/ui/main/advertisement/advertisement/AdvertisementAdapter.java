@@ -37,7 +37,7 @@ public class AdvertisementAdapter extends RecyclerView.Adapter<AdvertisementAdap
     @Override
     public AdvertisementViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_advertisement, parent, false);
-        return new AdvertisementViewHolder(view, advertisementInterface);
+        return new AdvertisementViewHolder(view, advertisementInterface, advertisements);
     }
 
     @Override
@@ -47,27 +47,27 @@ public class AdvertisementAdapter extends RecyclerView.Adapter<AdvertisementAdap
 
     static class AdvertisementViewHolder extends RecyclerView.ViewHolder {
 
-        TextView advertisementTitle, advertisementIntent, advertisementTag;
+        TextView advertisementTitle, advertisementIntent, advertisementTag, advertisementPrice;
         ImageView advertisementImage, favoriteButton;
+        Advertisement clickedAdvertisement;
         boolean isFavorited;
 
-        public AdvertisementViewHolder(@NonNull View itemView, AdvertisementInterface advertisementInterface) {
+        public AdvertisementViewHolder(@NonNull View itemView, AdvertisementInterface advertisementInterface, ArrayList<Advertisement> advertisements) {
             super(itemView);
             this.advertisementTitle = itemView.findViewById(R.id.itemAdvertisement_textView_title);
             this.advertisementImage = itemView.findViewById(R.id.itemAdvertisement_imageView_image);
             this.advertisementIntent = itemView.findViewById(R.id.itemAdvertisement_textView_intent);
             this.advertisementTag = itemView.findViewById(R.id.itemAdvertisement_textView_tag);
+            this.advertisementPrice = itemView.findViewById(R.id.itemAdvertisement_textView_price);
             this.favoriteButton = itemView.findViewById(R.id.itemAdvertisement_imageView_favorite);
             this.isFavorited = false;
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (advertisementInterface != null) {
-                        int pos = getAdapterPosition();
+            itemView.setOnClickListener(view -> {
+                if (advertisementInterface != null) {
+                    int pos = getAdapterPosition();
+                    clickedAdvertisement = advertisements.get(pos);
 
-                        if (pos != RecyclerView.NO_POSITION) {
-                            advertisementInterface.onAdvertisementClick(pos);
-                        }
+                    if (pos != RecyclerView.NO_POSITION) {
+                        advertisementInterface.onAdvertisementClick(pos);
                     }
                 }
             });
@@ -97,10 +97,9 @@ public class AdvertisementAdapter extends RecyclerView.Adapter<AdvertisementAdap
             } else if(advertisement.getType().equals("buy")){
                 this.advertisementTag.setText("Buy");
                 this.advertisementTag.setBackgroundResource(R.drawable.background_buy_tag);
-                this.advertisementIntent.setText("The user ");
                 this.advertisementIntent.setText((advertisement.getUsername() + " wants to buy"));
             }
-
+            this.advertisementPrice.setText("$" + advertisement.getPrice());
         }
 
         private Bitmap getBitmapFromEncodedString(String encodedImage) {

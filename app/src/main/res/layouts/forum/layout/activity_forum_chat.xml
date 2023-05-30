@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
+    android:fitsSystemWindows="true"
     android:paddingBottom="@dimen/_20sdp"
     tools:context=".activities.ui.main.forum.forum.ForumChatActivity">
 
@@ -111,23 +112,23 @@
         <EditText
             android:id="@+id/comment"
             android:layout_width="0dp"
-            tools:text="aksdjljasldkjsadlksaj"
-            android:paddingVertical="@dimen/_10sdp"
             android:layout_height="@dimen/_100sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:background="@drawable/background_edit_text_add_post"
             android:fontFamily="@font/lato"
+            android:gravity="top"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
-            android:textCursorDrawable="@null"
             android:inputType="textMultiLine"
             android:maxLines="4"
-            android:gravity="top"
             android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_10sdp"
             android:textColor="@color/primary_text"
+            android:textCursorDrawable="@null"
             app:layout_constraintEnd_toEndOf="@id/forumPost"
             app:layout_constraintStart_toStartOf="@id/forumPost"
-            app:layout_constraintTop_toBottomOf="@id/forumPost" />
+            app:layout_constraintTop_toBottomOf="@id/forumPost"
+            tools:text="aksdjljasldkjsadlksaj" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonComment"

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
+    android:fitsSystemWindows="true"
     tools:context=".activities.ui.main.profile.AccountFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -21,10 +22,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:text="Account"
             android:textColor="@color/white"
-            android:gravity="center"
-            android:textSize="@dimen/_16ssp"/>
+            android:textSize="@dimen/_16ssp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -62,8 +63,9 @@
                 app:drawableTint="@color/primary" />
         </androidx.cardview.widget.CardView>
 
+
         <androidx.cardview.widget.CardView
-            android:id="@+id/accountFragment_cardView_addressInfo"
+            android:id="@+id/accountFragment_cardView_changePassword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
@@ -79,60 +81,13 @@
                 android:layout_margin="@dimen/_12sdp"
                 android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/lato_bold"
-                android:text="Address Info"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_16ssp"
-                app:drawableStartCompat="@drawable/ic_location"
-                app:drawableTint="@color/primary" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/accountFragment_cardView_changeMailOrPhone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/accountFragment_cardView_addressInfo"
-            app:layout_constraintWidth_percent="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
-                android:drawablePadding="@dimen/_8sdp"
-                android:fontFamily="@font/lato_bold"
-                android:text="Change E-Mail"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_16ssp"
-                app:drawableStartCompat="@drawable/ic_message"
-                app:drawableTint="@color/primary" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/accountFragment_cardView_changePassword"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/accountFragment_cardView_changeMailOrPhone"
-            app:layout_constraintWidth_percent="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
-                android:drawablePadding="@dimen/_8sdp"
-                android:fontFamily="@font/lato_bold"
                 android:text="Change Password"
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_16ssp"
                 app:drawableStartCompat="@drawable/ic_lock"
                 app:drawableTint="@color/primary" />
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/accountFragment_cardView_deleteAccount"
             android:layout_width="0dp"

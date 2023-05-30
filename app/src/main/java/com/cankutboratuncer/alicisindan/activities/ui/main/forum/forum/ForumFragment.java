@@ -68,9 +68,15 @@ public class ForumFragment extends Fragment implements ForumListener {
     }
 
     private void initListeners() {
+        String userID = localSave.getString(Constants.KEY_USER_ID);
         view.findViewById(R.id.buttonCreateForumPost).setOnClickListener(v -> {
-            startActivity(new Intent(getContext(), ForumAddCategoryActivity.class));
+            if (userID == null) {
+                showToast("Login to post in forum!");
+            } else {
+                startActivity(new Intent(getContext(), ForumAddCategoryActivity.class));
+            }
         });
+
     }
 
     private void init() {

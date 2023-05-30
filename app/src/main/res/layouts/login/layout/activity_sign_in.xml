@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".activities.ui.login.SignInActivity">
 
@@ -39,35 +40,54 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <EditText
-        android:id="@+id/signInActivity_editText_emailOrPhoneNumber"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_45sdp"
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_64sdp"
-        android:background="@drawable/background_edit_text"
         android:fontFamily="@font/lato"
-        android:hint="@string/email_or_phone_number"
+        android:hint="@string/email"
         android:imeOptions="actionNext"
         android:importantForAutofill="no"
-        android:inputType="text"
-        android:paddingHorizontal="@dimen/_16sdp"
-        android:textColor="@color/primary_text" />
+        android:textColor="@color/primary_text"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp">
 
-    <EditText
-        android:id="@+id/signInActivity_editText_password"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signInActivity_editText_emailOrPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_edit_text"
+            android:fontFamily="@font/lato"
+            android:inputType="text"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:textSize="@dimen/_14ssp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_45sdp"
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_24sdp"
-        android:background="@drawable/background_edit_text"
         android:fontFamily="@font/lato"
         android:hint="@string/password"
-        android:imeOptions="actionDone"
+        android:imeOptions="actionNext"
         android:importantForAutofill="no"
-        android:inputType="textPassword"
-        android:paddingHorizontal="@dimen/_16sdp"
-        android:textColor="@color/primary_text" />
+        android:textColor="@color/primary_text"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signInActivity_editText_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_edit_text"
+            android:fontFamily="@font/lato"
+            android:inputType="textPassword"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:textSize="@dimen/_14ssp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/signInActivity_button_signUp"

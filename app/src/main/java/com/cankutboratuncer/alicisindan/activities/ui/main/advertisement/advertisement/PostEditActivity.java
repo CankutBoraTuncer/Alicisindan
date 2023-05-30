@@ -7,33 +7,43 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 
+import com.cankutboratuncer.alicisindan.R;
+import com.cankutboratuncer.alicisindan.activities.ui.login.SignInActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.MainActivity;
 import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.category.PostAddCategoryActivity;
-import com.cankutboratuncer.alicisindan.activities.ui.main.home.pages.HomeFragment;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 import com.cankutboratuncer.alicisindan.databinding.ActivityPostEditBinding;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import Alicisindan.Listing;
 
-public class PostEditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class PostEditActivity extends AppCompatActivity {
 
     private ActivityPostEditBinding binding;
     private ArrayList<String> encodedImages;
@@ -44,6 +54,8 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
     String category;
     String brand;
     String condition;
+    Spinner conditionSpinner;
+    AutoCompleteTextView locationText;
     private AppCompatImageButton[][] imageButtons;
     String type;
 
@@ -56,33 +68,40 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
         Intent intent = getIntent();
         category = intent.getStringExtra("category");
         type = intent.getStringExtra("type");
-        if(type.equals("sell")){
+        if (type.equals("sell")) {
             binding.topPanel.setText("I want to sell...");
-        } else{
+        } else {
             binding.topPanel.setText("I want to buy...");
         }
         binding.subTitle.setText(category);
-        initImageButton();
-        initSpinners();
-        setListeners();
+        locationText = findViewById(R.id.postEditActivity_location);
+        List<String> str = new ArrayList<String>();
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new InputStreamReader(this.getAssets().open("cities.txt")));
+            String line = in.readLine();
+            while (line != null) {
+                str.add(line);
+                line = in.readLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, str);
+        //Getting the instance of AutoCompleteTextView
+        locationText.setThreshold(2);//will start working from first character
+        locationText.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
+        initUI();
+        initImageButton();
+        setListeners();
     }
 
-    private void initSpinners() {
-        Spinner spinnerBrand = binding.brand;
-        Spinner spinnerCondition = binding.condition;
-
-        spinnerBrand.setOnItemSelectedListener(this);
-        spinnerCondition.setOnItemSelectedListener(this);
-
-        ArrayAdapter brandAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Constants.CAR_CAR_BRAND);
-        brandAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerBrand.setAdapter(brandAdapter);
-
-        ArrayAdapter conditionAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Constants.CONDITION);
+    private void initUI() {
+        conditionSpinner = findViewById(R.id.postEditActivity_condition);
+        ArrayAdapter conditionAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Constants.CONDITION_POST);
         conditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCondition.setAdapter(conditionAdapter);
-
+        conditionSpinner.setAdapter(conditionAdapter);
     }
 
     private void initImageButton() {
@@ -118,7 +137,7 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
         int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
         Bitmap previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
         byte[] bytes = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
@@ -153,11 +172,13 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
                     finish();
                 }
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         });
         binding.change.setOnClickListener(v -> {
-            startActivity(new Intent(getApplicationContext(), PostAddCategoryActivity.class));
+            Intent intent = new Intent(getApplicationContext(), PostAddCategoryActivity.class);
+            intent.putExtra("type", type);
+            startActivity(intent);
             finish();
         });
         binding.imagesRow11.setOnClickListener(v -> {
@@ -190,24 +211,36 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
     }
 
     private void postAdd() throws Exception {
-
         String userID = localSave.getString(Constants.KEY_USER_ID);
+        // When user is not logged in:
+        if (userID == null) {
+            showToast("You have to log in first.");
+            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+            finish();
+        }
         String password = localSave.getString(Constants.KEY_PASSWORD);
         String productTitle = binding.productTitle.getText().toString();
         String details = binding.details.getText().toString();
         String price = binding.price.getText().toString();
-        String location = binding.location.getText().toString();
-
-        Listing listing = new Listing(userID, type, productTitle, details, price, category, location, condition, "AKShdj");
+        String location = locationText.getText().toString();
+        String condition = conditionSpinner.getSelectedItem().toString();
+        String brand = binding.brand.getText().toString();
+        Listing listing = new Listing(userID, type, productTitle, details, price, category, location, condition, brand);
         listing.addListing(userID, password);
-        Log.d("şişko", binding.productTitle.getText().toString());
         String[] images = new String[pointer];
         for (int i = 0; i < images.length; i++) {
             images[i] = encodedImages.get(i);
         }
         listing.setListingImages(userID, password, images);
-        showToast("Add successfully posted");
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        showToast("Add successfully posted.");
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        MainActivity.type = type;
+        MainActivity.category = category;
+        MainActivity.condition = condition;
+        MainActivity.location = location;
+        MainActivity.price = price;
+        MainActivity.comingFromPostAdd = true;
+        startActivity(intent);
         finish();
     }
 
@@ -217,41 +250,26 @@ public class PostEditActivity extends AppCompatActivity implements AdapterView.O
         pickImage.launch(intent);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if(adapterView == binding.brand){
-            brand = adapterView.getItemAtPosition(i).toString();
-        } else if (adapterView == binding.condition){
-            condition = adapterView.getItemAtPosition(i).toString();
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
     private Boolean isValidPostDetails() {
         if (encodedImages == null) {
-            showToast("Select at least 1 image");
+            showToast("Select at least 1 image.");
             return false;
         } else if (binding.productTitle.getText().toString().trim().isEmpty()) {
-            showToast("Title cannot be empty");
+            showToast("Title cannot be empty.");
             return false;
         } else if (binding.price.getText().toString().trim().isEmpty()) {
-            showToast("Price cannot be empty");
+            showToast("Price cannot be empty.");
             return false;
-        } else if (binding.location.getText().toString().trim().isEmpty()) {
-            showToast("Location cannot be empty");
+        } else if (locationText.getText().toString().trim().isEmpty()) {
+            showToast("Location cannot be empty.");
             return false;
-        }
-//         else if (binding.brand.getCount() == 0) {
-//            showToast("Please select a brand");
-//            return false;
-//        } else if (binding.condition.getCount() == 0) {
-//            showToast("Please select a condition");
-//            return false;
-        else {
+        } else if (binding.brand.getText().toString().trim().isEmpty()) {
+            showToast("Please select a brand.");
+            return false;
+        } else if (conditionSpinner.getSelectedItem().toString().trim().isEmpty()) {
+            showToast("Please select a condition.");
+            return false;
+        } else {
             return true;
         }
     }

@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.ui.main.MainActivity;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
@@ -49,7 +53,11 @@ public class SignInActivity extends AppCompatActivity {
 
     private void signIn() throws Exception {
         loading(true);
-        String userID = Password.emailToID(binding.signInActivityEditTextEmailOrPhoneNumber.getText().toString());
+        String userID = Password.emailToID(binding.signInActivityEditTextEmailOrPhoneNumber.getText().toString().replaceAll("\\s+",""));
+        if (userID == null) {
+            showToast("Email not found!");
+            return;
+        }
         String userPassword = get_SHA_256_SecurePassword(binding.signInActivityEditTextPassword.getText().toString(), "salt");
         Log.d("PasswordCheck", "UserId: " + userID + "\nPassword: "+ userPassword);
         if (Password.isCorrectPassword(userID, userPassword)) {
@@ -76,9 +84,9 @@ public class SignInActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         } else {
-            loading(false);
-            showToast("Incorrect username or password");
+            showToast("Incorrect email or password!");
         }
+        loading(false);
     }
 
     private void registerUser(String userID, String password, String token) {
@@ -87,7 +95,7 @@ public class SignInActivity extends AppCompatActivity {
             localSave.saveUser(user.getID(), user.getEmail(), user.getPhone(), user.getUsername(), password, user.getName(), user.getSurname(), user.getAddress(), token);
         } catch (Exception e) {
             localSave.clear();
-            showToast("The user couldn't saved to the local");
+            showToast("An error occurred while trying to save user information.");
         }
     }
 
@@ -97,8 +105,11 @@ public class SignInActivity extends AppCompatActivity {
             if (isValidSignInDetails()) {
                 try {
                     signIn();
+                    loading(false);
                 } catch (Exception e) {
-                    showToast("User not found");
+                    e.printStackTrace();
+                    showToast("Incorrect username or password!");
+                    loading(false);
                 }
             }
         });
@@ -109,14 +120,16 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private Boolean isValidSignInDetails() {
+        EditText emailid = (EditText) findViewById(R.id.signInActivity_editText_emailOrPhoneNumber);
+        String getEmailId = emailid.getText().toString().replaceAll("\\s+","");
         if (binding.signInActivityEditTextEmailOrPhoneNumber.getText().toString().trim().isEmpty()) {
-            showToast("Enter email");
+            showToast("Enter your email.");
             return false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.signInActivityEditTextEmailOrPhoneNumber.getText().toString()).matches()) {
-            showToast("Error invalid email");
+        } else if (!isEmailValid(getEmailId)) {
+            showToast("Invalid email.");
             return false;
         } else if (binding.signInActivityEditTextPassword.getText().toString().trim().isEmpty()) {
-            showToast("Enter password");
+            showToast("Enter your password.");;
             return false;
         } else {
             return true;
@@ -154,6 +167,10 @@ public class SignInActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return generatedPassword;
+    }
+
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
 }

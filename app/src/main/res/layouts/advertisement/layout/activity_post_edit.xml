@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
     android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     android:overScrollMode="never"
     android:paddingBottom="@dimen/_20sdp"
     android:scrollbars="none"
@@ -57,12 +57,17 @@
 
             <TextView
                 android:id="@+id/subTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:ellipsize="end"
                 android:fontFamily="@font/lato"
+                android:maxLength="25"
+                android:maxLines="1"
                 android:textColor="@color/gray_dark"
                 android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toStartOf="@id/change"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 tools:text="Car / Wheel and Tire" />
@@ -112,29 +117,23 @@
                 app:layout_constraintTop_toBottomOf="@id/title2" />
 
 
-            <Spinner
+            <EditText
                 android:id="@+id/brand"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_36sdp"
                 android:background="@drawable/background_edit_text_add_post"
+                android:ellipsize="end"
                 android:fontFamily="@font/lato"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="text"
+                android:maxLength="20"
+                android:maxLines="1"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title2" />
-
-            <View
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:background="@drawable/ic_down_arrow"
-                app:layout_constraintBottom_toBottomOf="@id/brand"
-                app:layout_constraintEnd_toEndOf="@id/brand"
-                app:layout_constraintTop_toTopOf="@id/brand" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -149,7 +148,7 @@
                 app:layout_constraintTop_toBottomOf="@id/brand" />
 
             <Spinner
-                android:id="@+id/condition"
+                android:id="@+id/postEditActivity_condition"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_28sdp"
@@ -159,7 +158,7 @@
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:maxLength="10"
+                android:maxLength="20"
                 android:maxLines="1"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
@@ -171,9 +170,9 @@
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:background="@drawable/ic_down_arrow"
-                app:layout_constraintBottom_toBottomOf="@id/condition"
-                app:layout_constraintEnd_toEndOf="@id/condition"
-                app:layout_constraintTop_toTopOf="@id/condition" />
+                app:layout_constraintBottom_toBottomOf="@id/postEditActivity_condition"
+                app:layout_constraintEnd_toEndOf="@id/postEditActivity_condition"
+                app:layout_constraintTop_toTopOf="@id/postEditActivity_condition" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -186,7 +185,7 @@
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/condition" />
+                app:layout_constraintTop_toBottomOf="@id/postEditActivity_condition" />
 
             <EditText
                 android:id="@+id/productTitle"
@@ -199,12 +198,12 @@
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:maxLength="10"
+                android:maxLength="40"
                 android:maxLines="1"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/condition" />
+                app:layout_constraintTop_toBottomOf="@id/postEditActivity_condition" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -230,7 +229,7 @@
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
-                android:maxLines="4"
+                android:maxLines="5"
                 android:padding="@dimen/_12sdp"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
@@ -270,14 +269,15 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="5"
-                android:textCursorDrawable="@null"
                 android:maxLines="1"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
+                android:textCursorDrawable="@null"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/details" />
 
             <View
+                android:id="@+id/view3"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_2sdp"
                 android:layout_marginTop="@dimen/_8sdp"
@@ -295,7 +295,7 @@
                 android:textColor="@color/text_dark"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/price" />
+                app:layout_constraintTop_toBottomOf="@id/postEditActivity_location" />
 
             <LinearLayout
                 android:id="@+id/imagesRow1"
@@ -307,7 +307,7 @@
                 android:orientation="horizontal"
                 android:showDividers="middle"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/price">
+                app:layout_constraintTop_toBottomOf="@id/postEditActivity_location">
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/imagesRow1_1"
@@ -426,43 +426,46 @@
                 app:layout_constraintTop_toBottomOf="@id/imagesRow3" />
 
             <TextView
+                android:id="@+id/textview8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:fontFamily="@font/lato_bold"
                 android:text="Location"
                 android:textColor="@color/text_dark"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imagesRow3" />
+                app:layout_constraintTop_toBottomOf="@+id/view3" />
 
-            <EditText
-                android:id="@+id/location"
+            <AutoCompleteTextView
+                android:id="@+id/postEditActivity_location"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
-                android:textCursorDrawable="@null"
-                android:layout_marginTop="@dimen/_36sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:background="@drawable/background_edit_text_add_post"
                 android:ellipsize="end"
                 android:fontFamily="@font/lato"
+                android:hint="@string/city_country"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:maxLength="10"
+                android:maxLength="20"
                 android:maxLines="1"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text"
+                android:textCursorDrawable="@null"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imagesRow3" />
+                app:layout_constraintTop_toBottomOf="@id/textview8" />
 
             <View
+                android:id="@+id/view4"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_2sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@color/gray_light"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/location" />
+                app:layout_constraintTop_toBottomOf="@id/postEditActivity_location" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonPost"
@@ -476,7 +479,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/location" />
+                app:layout_constraintTop_toBottomOf="@id/imagesRow3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

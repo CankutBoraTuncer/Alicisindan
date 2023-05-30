@@ -15,11 +15,11 @@
         android:paddingTop="@dimen/_8sdp"
         android:paddingEnd="@dimen/_8sdp"
         android:paddingBottom="@dimen/_12sdp"
-        app:layout_constraintWidth_max="wrap"
         android:textColor="@color/white"
         android:textSize="@dimen/_13ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="wrap"
         app:layout_constraintWidth_percent="0.8" />
 
     <TextView

@@ -2,6 +2,8 @@ package com.cankutboratuncer.alicisindan.activities.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
-        } else{
+        } else {
             binding = ActivitySplashBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
             binding.button.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SignInActivity.class)));

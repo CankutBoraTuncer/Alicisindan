@@ -2,12 +2,11 @@ package com.cankutboratuncer.alicisindan.activities.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,7 +35,6 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.signUpActivityEditTextCountry.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Constants.COUNTRIES));
         localSave = new LocalSave(getApplicationContext());
         setListeners();
     }
@@ -48,50 +46,37 @@ public class SignUpActivity extends AppCompatActivity {
                 try {
                     signUp();
                 } catch (Exception e) {
-                    showToast("The register failed.");
-                    throw new RuntimeException(e);
+                    showToast("Registration failed.");
                 }
+                loading(false);
             }
         });
         binding.activitySignUpImageViewCloseIcon.setOnClickListener(v -> {
-                    localSave.putBoolean(Constants.KEY_IS_USER_SKIP, true);
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
+                localSave.putBoolean(Constants.KEY_IS_USER_SKIP, true);
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
         );
-
-        binding.signUpActivityEditTextCountry.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String country = binding.signUpActivityEditTextCountry.getText().toString();
-                if (Constants.COUNTRIES.contains(country)) {
-                    binding.signUpActivityEditTextCity.setAdapter(new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, Constants.CITIES.get(0)));
-                }
-            }
-        });
     }
+
 
     private void signUp() {
         loading(true);
         try {
-            if (!User.emailExists(binding.signUpActivityEditTextEmailOrPhoneNumber.getText().toString())) {
-                String username = binding.signUpActivityEditTextUserName.getText().toString();
-                String email = binding.signUpActivityEditTextEmailOrPhoneNumber.getText().toString();
-                String password = get_SHA_256_SecurePassword(binding.signUpActivityEditTextPassword.getText().toString(), "salt");
-                String name = binding.signUpActivityEditTextName.getText().toString();
-                String surname = binding.signUpActivityEditTextSurname.getText().toString();
-                String phone = binding.signUpActivityEditTextEmailOrPhoneNumber.getText().toString();
-                String address = binding.signUpActivityEditTextCountry.getText().toString() + "/" + binding.signUpActivityEditTextCity.getText().toString();
-                String birthday = "";
+
+            String username = binding.signUpActivityEditTextUserName.getText().toString();
+            String email = binding.signUpActivityEditTextEmailOrPhoneNumber.getText().toString();
+            String password = get_SHA_256_SecurePassword(binding.signUpActivityEditTextPassword.getText().toString(), "salt");
+            String name = binding.signUpActivityEditTextName.getText().toString();
+            String surname = binding.signUpActivityEditTextSurname.getText().toString();
+            String phone = "";
+            String address = binding.signUpActivityEditTextCountry.getText().toString() + "/" + binding.signUpActivityEditTextCity.getText().toString();
+            String birthday = "";
+
+            if (User.emailExists(email)) {
+                showToast("There is already an user with this email.");
+            } else if (User.usernameExists(username)) {
+                showToast("There is already an user with this username.");
+            } else {
                 FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
@@ -120,12 +105,10 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-            } else {
-                showToast("There is already a user with this email.");
             }
         } catch (Exception e) {
             showToast(e.getMessage());
+            showToast("An error occured. Please try again.");
         }
     }
 

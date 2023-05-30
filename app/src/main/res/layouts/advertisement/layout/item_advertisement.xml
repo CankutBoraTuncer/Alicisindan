@@ -9,10 +9,10 @@
         android:id="@+id/itemAdvertisement_imageView_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ImageView.AdvertisementCorner" />
@@ -23,8 +23,11 @@
         android:layout_height="0dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/background_sell_tag"
+        android:fontFamily="@font/lato"
         android:gravity="center"
         android:text="Sell"
+        android:textColor="@color/light_font"
+        android:textStyle="bold"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/itemAdvertisement_imageView_image"
@@ -34,22 +37,48 @@
         android:id="@+id/itemAdvertisement_textView_intent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/lato"
         android:text="user wants to banK"
-        android:textStyle="italic"
         android:textSize="@dimen/_10ssp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toStartOf="@+id/itemAdvertisement_layout_favorite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemAdvertisement_imageView_image" />
 
-    <TextView
-        android:id="@+id/itemAdvertisement_textView_title"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_3sdp"
-        android:text="blablablablablablablablablablablablablablablablablablablabla"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemAdvertisement_textView_intent" />
+        app:layout_constraintTop_toBottomOf="@+id/itemAdvertisement_textView_intent">
+
+        <TextView
+            android:id="@+id/itemAdvertisement_textView_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:text="blablablablablablablablablablablablablablablablablablablabla"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/itemAdvertisement_textView_price"
+            app:layout_constraintHorizontal_bias="0.53"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/itemAdvertisement_textView_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_3sdp"
+            android:fontFamily="@font/lato"
+            android:gravity="center"
+            android:text="@string/n_a"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/itemAdvertisement_textView_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/itemAdvertisement_textView_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/itemAdvertisement_layout_favorite"

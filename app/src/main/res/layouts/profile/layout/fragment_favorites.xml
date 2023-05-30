@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
+    android:fitsSystemWindows="true"
     tools:context=".activities.ui.main.profile.FavoritesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,14 +17,15 @@
         app:layout_constraintHeight_percent="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Favorites"
             android:fontFamily="@font/lato"
-            android:textColor="@color/white"
             android:gravity="center"
-            android:textSize="@dimen/_16ssp"/>
+            android:text="Favorites"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -31,12 +33,12 @@
         android:id="@+id/favoritesFragment_layout_middle"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingHorizontal="@dimen/_16sdp"
-        android:paddingVertical="@dimen/_10sdp"
         android:foregroundGravity="center"
+        android:paddingHorizontal="@dimen/_24sdp"
+        android:paddingVertical="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.101"
+        app:layout_constraintHeight_percent="0.07"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/favoritesFragment_layout_top"
@@ -48,6 +50,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato"
             android:text="selam"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -69,11 +74,11 @@
             android:id="@+id/favoriteFragment_recycleView_favorites"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

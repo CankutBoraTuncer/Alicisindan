@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
+    android:fitsSystemWindows="true"
     android:paddingBottom="@dimen/_20sdp"
     tools:context=".activities.ui.messaging.activities.ChatActivity">
 
@@ -61,9 +62,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@id/productCard_image"
-            app:layout_constraintTop_toTopOf="@id/productCard_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/productCard_image">
+            app:layout_constraintStart_toEndOf="@id/productCard_image"
+            app:layout_constraintTop_toTopOf="@id/productCard_image">
+
             <TextView
                 android:id="@+id/productCard_title"
                 android:layout_width="wrap_content"
@@ -99,86 +101,24 @@
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_16ssp"
                 tools:text="$89.99" />
+
+            <TextView
+                android:id="@+id/productCard_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lato_light"
+                android:maxLength="14"
+                android:maxLines="1"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/_12ssp"
+                tools:text="Lorem Ipsum" />
         </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/userCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:background="@drawable/background_message_card"
-        android:paddingHorizontal="@dimen/_12sdp"
-        android:paddingVertical="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/forumPost">
-
-        <TextView
-            android:id="@+id/userCardName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:ellipsize="end"
-            android:fontFamily="@font/lato"
-            android:maxLength="14"
-            android:maxLines="1"
-            android:textColor="@color/primary_text"
-            android:textSize="@dimen/_14ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Lorem Ipsum" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/userCard_reportButton"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginStart="@dimen/_44sdp"
-            android:background="@drawable/background_message_mini_button"
-            android:fontFamily="@font/lato"
-            android:text="@string/report"
-            android:textAllCaps="false"
-            android:textColor="@color/primary_text"
-            android:textSize="@dimen/_8ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/userCardName"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/userCard_banButton"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:background="@drawable/background_message_mini_button"
-            android:fontFamily="@font/lato"
-            android:text="@string/ban"
-            android:textAllCaps="false"
-            android:textColor="@color/primary_text"
-            android:textSize="@dimen/_8ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/userCard_reportButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/userCard_trashButton"
-            android:layout_width="@dimen/_12sdp"
-            android:layout_height="@dimen/_12sdp"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:background="@drawable/ic_trash"
-            android:fontFamily="@font/lato"
-            android:textAllCaps="false"
-            android:textColor="@color/primary_text"
-            android:textSize="@dimen/_8ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/userCard_banButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/messageScreen"
@@ -190,12 +130,12 @@
         app:layout_constraintBottom_toTopOf="@id/messageInputField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userCard" />
+        app:layout_constraintTop_toBottomOf="@id/forumPost" />
 
     <EditText
         android:id="@+id/messageInputField"
         android:layout_width="@dimen/_220sdp"
-        android:layout_height="@dimen/_32sdp"
+        android:layout_height="@dimen/_40sdp"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
@@ -216,7 +156,7 @@
     <FrameLayout
         android:id="@+id/messageSendButton"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_32sdp"
+        android:layout_height="@dimen/_40sdp"
         android:layout_marginStart="@dimen/_16sdp"
         android:background="@drawable/background_message_send_button"
         app:layout_constraintBottom_toBottomOf="@id/messageInputField"

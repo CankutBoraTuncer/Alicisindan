@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     android:overScrollMode="never"
     android:paddingBottom="@dimen/_20sdp"
     android:scrollbars="none"
@@ -123,7 +124,7 @@
             android:layout_marginTop="@dimen/_24sdp"
             android:orientation="horizontal">
 
-            <AutoCompleteTextView
+            <EditText
                 android:id="@+id/signUpActivity_editText_country"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_45sdp"
@@ -137,7 +138,7 @@
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:textColor="@color/primary_text" />
 
-            <AutoCompleteTextView
+            <EditText
                 android:id="@+id/signUpActivity_editText_city"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_45sdp"
@@ -212,7 +213,7 @@
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:fontFamily="@font/lato"
-            android:text="@string/have_already_an_account"
+            android:text="Have an account?"
             android:textColor="@color/yellow"
             android:textSize="@dimen/_11ssp" />
 
@@ -254,4 +255,3 @@
         </FrameLayout>
     </LinearLayout>
 </ScrollView>
-

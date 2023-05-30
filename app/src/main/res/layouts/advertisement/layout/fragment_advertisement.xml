@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_background"
     android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     android:overScrollMode="never"
     android:paddingBottom="@dimen/_20sdp"
     android:scrollbars="none"
@@ -35,7 +36,25 @@
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/layoutEdit"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:background="@drawable/background_circle"
+                app:layout_constraintBottom_toBottomOf="@id/advertisementFragment_imageSlider"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/buttonEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_8sdp"
+                    android:src="@drawable/ic_settings"
+                    app:tint="@color/white" />
+            </FrameLayout>
 
             <FrameLayout
                 android:id="@+id/layoutMessage"
@@ -57,34 +76,50 @@
 
             <TextView
                 android:id="@+id/productTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lato"
+                android:maxLines="3"
+                android:paddingHorizontal="@dimen/_4sdp"
+                android:text="@string/advertisement_title"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/_18ssp"
+                app:layout_constraintEnd_toStartOf="@+id/productPrice"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/advertisementFragment_imageSlider" />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:ellipsize="end"
                 android:fontFamily="@font/lato"
                 android:maxLines="3"
                 android:paddingHorizontal="@dimen/_4sdp"
                 android:textColor="@color/primary_text"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_14ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/advertisementFragment_imageSlider"
-                android:text="Astylish Women Open Front Long Sleeve Chunky Knit Cardigan" />
+                app:layout_constraintTop_toBottomOf="@id/productTitle" />
 
             <TextView
                 android:id="@+id/productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:ellipsize="end"
                 android:fontFamily="@font/lato_bold"
                 android:maxLines="3"
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_24ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productTitle"
-                android:text="$89.99" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/advertisementFragment_imageSlider" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -112,34 +147,177 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <LinearLayout
+                android:id="@+id/categoryLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/productDetailsTitle">
+
+                <TextView
+                    android:id="@+id/category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato_bold"
+                    android:maxLines="3"
+                    android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/category"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_14ssp" />
+
+                <TextView
+                    android:id="@+id/productCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato"
+                    android:maxLines="3"
+                    android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/category"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_14ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/brandLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/categoryLayout">
+
+                <TextView
+                    android:id="@+id/brand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato_bold"
+                    android:maxLines="3"
+                    android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/brand"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_14ssp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/productBrand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato"
+                    android:maxLines="3"
+                    android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/brand"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_14ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/conditionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/brandLayout">
+
+                <TextView
+                    android:id="@+id/condition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato_bold"
+                    android:maxLines="3"
+                    android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/condition"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_14ssp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/productCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato"
+                    android:maxLines="3"
+                    android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/condition"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_14ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/locationLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@+id/conditionLayout">
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato_bold"
+                    android:maxLines="3"
+                    android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/location"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_14ssp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/productLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato"
+                    android:maxLines="3"
+                    android:paddingHorizontal="@dimen/_4sdp"
+                    android:text="@string/location"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_14ssp" />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/productDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginVertical="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:ellipsize="end"
                 android:fontFamily="@font/lato"
-                android:maxLines="3"
                 android:paddingHorizontal="@dimen/_4sdp"
                 android:textColor="@color/primary_text"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productDetailsTitle"
-                android:text="Women's Casual V-Neck Pullover Sweater Long Sleeved
-Sweater Top with High Low Hemline is going to be the
-newest staple in your wardrobe! Living up to its namesake,
-this sweater is unbelievably soft, li..." />
+                app:layout_constraintTop_toBottomOf="@+id/locationLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/locationCard"
+            android:id="@+id/relatedProductsCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/background_advertisement_card"
             android:paddingHorizontal="@dimen/_12sdp"
             android:paddingVertical="@dimen/_16sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -147,73 +325,41 @@ this sweater is unbelievably soft, li..." />
             app:layout_constraintTop_toBottomOf="@id/productDetailsCard">
 
             <TextView
-                android:id="@+id/locationTitle"
+                android:id="@+id/relatedProductsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:fontFamily="@font/lato"
                 android:paddingHorizontal="@dimen/_4sdp"
-                android:text="@string/location"
+                android:text="@string/products_related_to_this_item"
                 android:textColor="@color/primary_text"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_13ssp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:ellipsize="end"
-                android:fontFamily="@font/lato"
-                android:maxLines="3"
-                android:paddingHorizontal="@dimen/_4sdp"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_14ssp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/relatedProducts"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:scrollbars="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/locationTitle"
-                android:text="Ankara, Çankaya" />
+                app:layout_constraintTop_toBottomOf="@+id/relatedProductsTitle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/relatedProductsCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:paddingHorizontal="@dimen/_12sdp"
-        android:paddingVertical="@dimen/_16sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/locationCard">
-
-        <TextView
-            android:id="@+id/relatedProductsTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:fontFamily="@font/lato"
-            android:paddingHorizontal="@dimen/_4sdp"
-            android:text="@string/products_related_to_this_item"
-            android:textColor="@color/primary_text"
-            android:textSize="@dimen/_13ssp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/relatedProducts"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:scrollbars="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        <ProgressBar
+            android:id="@+id/advertisementFragment_progressBar"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relatedProductsTitle" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
