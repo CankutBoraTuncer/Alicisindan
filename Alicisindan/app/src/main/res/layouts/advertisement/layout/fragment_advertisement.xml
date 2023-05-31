@@ -140,10 +140,10 @@
                     android:text="$200"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/_24ssp"
-                    app:layout_constraintBottom_toTopOf="@+id/username"
 
+                    app:layout_constraintBottom_toBottomOf="@+id/username"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/productTitle" />
+                    app:layout_constraintTop_toTopOf="@+id/productTitle" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
