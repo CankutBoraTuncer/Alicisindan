@@ -431,39 +431,40 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                 }
                 try {
                     String[][] newListings;
-                    String[][] finalListings;
                     listings = Listing.findListingShowcases(null, advertisementCategory, null, null, null, advertisementCondition, Integer.toString(Integer.parseInt(advertisementPrice.substring(1)) / 2), Integer.toString(Integer.parseInt(advertisementPrice.substring(1)) * 2), advertisementLocation, null, null, "10");
+                    int tries = 1;
                     if (listings.length < 6) {
                         newListings = Listing.findListingShowcases(null, advertisementCategory, null, null, null, advertisementCondition, null, null, null, null, null, "10");
                         listings = mergeArray(listings, newListings);
+                        tries++;
                     }
                     if (listings.length < 7) {
                         newListings = Listing.findListingShowcases(null, advertisementCategory, null, null, null, null, null, null, null, null, null, "10");
                         listings = mergeArray(listings, newListings);
-                    }
-                    if (listings.length < 8) {
-                        String newCategory;
-                        try {
-                            String[] parts = advertisementCategory.split("/");
-                            newCategory = parts[0] + "%";
-                            newListings = Listing.findListingShowcases(null, newCategory, null, null, null, null, null, null, null, null, null, "10");
-                            listings = mergeArray(listings, newListings);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        tries++;
                     }
 
                     advertisements.clear();
+                    Set<Integer> invalid = new LinkedHashSet<>();
+                    for (int i = 0; i < listings.length; i++) {
+                        String[] listing = listings[i];
+                        String ID = listing[2];
+                        if (advertisementID.equals(ID)) {
+                            invalid.add(i);
+                        }
+                    }
 
-                    if (8 < listings.length) {
+                    if (5 < listings.length - tries) {
                         Random rng = new Random(); // Ideally just create one instance globally
                         // Note: use LinkedHashSet to maintain insertion order
                         Set<Integer> generated = new LinkedHashSet<>();
-                        while (generated.size() < 8)
+                        while (generated.size() < 5)
                         {
                             Integer next = rng.nextInt(listings.length);
                             // As we're adding to a set, this will automatically do a containment check
-                            generated.add(next);
+                            if (!invalid.contains(next)) {
+                                generated.add(next);
+                            }
                         }
                         for (int gen : generated) {
                             String[] listing = listings[gen];

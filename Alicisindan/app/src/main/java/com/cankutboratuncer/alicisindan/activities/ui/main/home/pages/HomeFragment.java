@@ -494,9 +494,9 @@ public class HomeFragment extends Fragment implements AdvertisementInterface, Ca
                 String minPrice = Integer.toString(Integer.parseInt(price.substring(1)) / 2);
                 String maxPrice = Integer.toString(Integer.parseInt(price.substring(1)) * 2);
                 if (postType.equals("buy")) {
-                    listings = Listing.findListingShowcases(null, category, null, null, "sell", null, null, null, null, null, null, "4");
+                    listings = Listing.findListingShowcases(null, category, null, null, "sell", null, null, maxPrice, null, null, null, "4");
                 } else {
-                    listings = Listing.findListingShowcases(null, category, null, null, "buy", null, null, null, null, null, null, "4");
+                    listings = Listing.findListingShowcases(null, category, null, null, "buy", null, minPrice, null, null, null, null, "4");
                 }
                 Log.d("Data:Server", "fetchSimilar:end. Pulled " + listings.length + " listings");
                 similarAdvertisements.clear();
