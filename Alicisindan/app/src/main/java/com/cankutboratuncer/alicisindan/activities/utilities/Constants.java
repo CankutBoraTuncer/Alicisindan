@@ -91,7 +91,7 @@ public class Constants {
     public static final ArrayList<String> booksCategory = new ArrayList<>(Arrays.asList("University books", "Preschool books", "Other"));
 
     public static final ArrayList<String> categoriesNames = new ArrayList<>(Arrays.asList("Cars","Telephone", "House Appliance", "Electronics", "Motorcycle", "Other Vehicles", "Baby & Children Care", "Sports and Outdoors", "Hobbies and Entertainment", "Clothes and Accessories", "Stationery", "Books and Literature"));
-    public static final ArrayList<Integer> categoryImages = new ArrayList<>(Arrays.asList(R.drawable.img_car, R.drawable.img_phone, R.drawable.img_sofa, R.drawable.img_pc, R.drawable.img_motorcycle, R.drawable.img_truck, R.drawable.img_baby, R.drawable.img_sport, R.drawable.img_music, R.drawable.img_shoe, R.drawable.img_book, R.drawable.img_pen));
+    public static final ArrayList<Integer> categoryImages = new ArrayList<>(Arrays.asList(R.drawable.img_car, R.drawable.img_phone, R.drawable.img_sofa, R.drawable.img_pc, R.drawable.img_motorcycle, R.drawable.img_truck, R.drawable.img_baby, R.drawable.img_sport, R.drawable.img_music, R.drawable.img_shoe, R.drawable.img_pen, R.drawable.img_book));
     public static final String KEY_IS_USER_READ_TOS = "read_tos?";
 
     public static ArrayList<AllCategories> categories = createCategories();

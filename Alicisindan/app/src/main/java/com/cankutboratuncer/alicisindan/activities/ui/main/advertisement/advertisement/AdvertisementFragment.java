@@ -338,9 +338,13 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
 
     private void loading(boolean isLoading, View view) {
         if (isLoading) {
+            view.findViewById(R.id.buttonEdit).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.buttonMessage).setVisibility(View.INVISIBLE);
             view.findViewById(R.id.advertisementFragment_page).setVisibility(View.INVISIBLE);
             view.findViewById(R.id.advertisementFragment_progressBar).setVisibility(View.VISIBLE);
         } else {
+            view.findViewById(R.id.buttonEdit).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.buttonMessage).setVisibility(View.VISIBLE);
             view.findViewById(R.id.advertisementFragment_page).setVisibility(View.VISIBLE);
             view.findViewById(R.id.advertisementFragment_progressBar).setVisibility(View.INVISIBLE);
         }
@@ -385,11 +389,11 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
             Activity activity = getActivity();
             if (activity != null) {
                 handler.post(() -> ((Activity) context).runOnUiThread(() -> {
+                    loading(false, view);
                     initUI();
                     initListeners();
                     initSimilar();
                     Log.d("Adverts", "update");
-                    loading(false, view);
                     Log.d("onPostExecute", "end");
                 }));
             }

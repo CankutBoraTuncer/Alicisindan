@@ -65,7 +65,7 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:fontFamily="@font/lato"
             android:maxLines="2"
-            android:text="the bestest e-commerce of all time"
+            android:text="A brand new shopping experience"
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp" />
 
