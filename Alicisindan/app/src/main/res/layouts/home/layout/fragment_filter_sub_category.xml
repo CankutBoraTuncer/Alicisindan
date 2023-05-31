@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activities.ui.main.home.filter.FilterSubCategoryFragment">
 
     <TextView
         android:id="@+id/filterSubCategoryFragment_topPanel"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_90sdp"
+        android:layout_height="@dimen/_84sdp"
         android:background="@drawable/background_main_gradient"
         android:fontFamily="@font/lato"
         android:gravity="center"

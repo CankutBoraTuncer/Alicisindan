@@ -7,14 +7,19 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cankutboratuncer.alicisindan.R;
+import com.cankutboratuncer.alicisindan.activities.ui.main.advertisement.advertisement.AdvertisementFragment;
 import com.cankutboratuncer.alicisindan.activities.ui.main.profile.recycleview_necessities.favorites.Favorites_Adapter;
 import com.cankutboratuncer.alicisindan.activities.ui.main.profile.recycleview_necessities.favorites._Favorites;
+import com.cankutboratuncer.alicisindan.activities.ui.main.profile.recycleview_necessities.myposts.MyPosts_Adapter;
+import com.cankutboratuncer.alicisindan.activities.ui.main.profile.recycleview_necessities.myposts._MyPosts;
+import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
 import org.w3c.dom.Text;
@@ -52,6 +57,7 @@ public class FavoritesFragment extends Fragment {
 
         // get local save
         localSave = new LocalSave(getContext());
+        _Favorites.local_save = localSave;
 
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
 
@@ -64,8 +70,36 @@ public class FavoritesFragment extends Fragment {
         recyclerView.setAdapter(favorite_adapter);
 
         item_count = (TextView) view.findViewById(R.id.item_count);
-        item_count.setText(Integer.toString(_Favorites.getItemCount()) + " Items");
+        int item_nummer = _Favorites.getItemCount();
+        String item_nummerString = Integer.toString(item_nummer);
+        if (item_nummer == 1) {
+            item_count.setText(item_nummerString + " Item");
+        } else {
+            item_count.setText(item_nummerString + " Items");
+        }
+
+
+        favorite_adapter.setOnItemClickListener(new Favorites_Adapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(_Favorites favorites, int position) {
+                Fragment fragment = AdvertisementFragment.newInstance(favorites.getAdID());
+
+                Bundle args = new Bundle();
+                args.putString(Constants.KEY_ADVERTISEMENT_ID, favorites.getAdID());
+                args.putString(Constants.KEY_ADVERTISEMENT_USERNAME,favorites.getUser());
+                fragment.setArguments(args);
+                loadFragment(fragment);
+
+
+                Log.d(Integer.toString(position), "Favorites clicked");
+            }
+        });
 
         return view;
+    }
+
+    public void loadFragment(Fragment fragment) {
+        //to attach fragment
+        getParentFragmentManager().beginTransaction().replace(R.id.mainActivity_frameLayout_main, fragment).addToBackStack(null).commit();
     }
 }

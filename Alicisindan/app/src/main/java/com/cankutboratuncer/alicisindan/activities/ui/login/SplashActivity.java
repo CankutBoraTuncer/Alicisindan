@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
-        } else{
+        } else {
             binding = ActivitySplashBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
             binding.button.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SignInActivity.class)));

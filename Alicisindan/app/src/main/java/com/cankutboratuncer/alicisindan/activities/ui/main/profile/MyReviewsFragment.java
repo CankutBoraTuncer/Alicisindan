@@ -44,7 +44,7 @@ public class MyReviewsFragment extends Fragment {
                 items.add(new ReviewItem(Integer.parseInt(reviews[i].getRating()), reviews[i].getText(), reviews[i].getAuthorID()));
             }
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setAdapter(new ReviewAdapter(getContext(), items));
+            recyclerView.setAdapter(new ReviewAdapter(getContext(), items, this, localSave.getString(Constants.KEY_USER_ID), false));
         } catch (AlicisindanException e) {
             e.printStackTrace();
         }

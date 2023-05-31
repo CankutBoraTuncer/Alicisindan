@@ -5,26 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
+    android:fitsSystemWindows="true"
     tools:context=".activities.ui.main.profile.UserInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/accountFragment_layout_top"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_84sdp"
         android:background="@drawable/background_main_gradient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:text="User Info"
             android:textColor="@color/white"
-            android:gravity="center"
-            android:textSize="@dimen/_16ssp"/>
+            android:textSize="@dimen/_16ssp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -48,20 +48,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="1">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
-                android:drawablePadding="@dimen/_8sdp"
-                android:fontFamily="@font/lato_bold"
-                android:text="Name"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_16ssp"
-                app:drawableStartCompat="@drawable/ic_person"
-                app:drawableTint="@color/primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="Name"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_16ssp"
+                    app:drawableStartCompat="@drawable/ic_person"
+                    app:drawableTint="@color/primary" />
+
                 <TextView
                     android:id="@+id/usersName"
                     android:layout_width="wrap_content"
@@ -78,7 +81,6 @@
         </androidx.cardview.widget.CardView>
 
 
-
         <androidx.cardview.widget.CardView
             android:id="@+id/accountFragment_cardView_username"
             android:layout_width="0dp"
@@ -89,20 +91,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/accountFragment_cardView_name"
             app:layout_constraintWidth_percent="1">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
-                android:drawablePadding="@dimen/_8sdp"
-                android:fontFamily="@font/lato_bold"
-                android:text="Username"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/_16ssp"
-                app:drawableStartCompat="@drawable/ic_person"
-                app:drawableTint="@color/primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="Username"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_16ssp"
+                    app:drawableStartCompat="@drawable/ic_person"
+                    app:drawableTint="@color/primary" />
 
                 <TextView
                     android:id="@+id/usersUsername"
@@ -129,9 +133,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/accountFragment_cardView_username"
             app:layout_constraintWidth_percent="1">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -143,6 +149,7 @@
                     android:textSize="@dimen/_16ssp"
                     app:drawableStartCompat="@drawable/ic_email"
                     app:drawableTint="@color/primary" />
+
                 <TextView
                     android:id="@+id/usersEmail"
                     android:layout_width="wrap_content"
@@ -168,9 +175,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/accountFragment_cardView_email"
             app:layout_constraintWidth_percent="1">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -182,6 +191,7 @@
                     android:textSize="@dimen/_16ssp"
                     app:drawableStartCompat="@drawable/ic_location"
                     app:drawableTint="@color/primary" />
+
                 <TextView
                     android:id="@+id/location"
                     android:layout_width="wrap_content"
@@ -207,9 +217,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/accountFragment_cardView_location"
             app:layout_constraintWidth_percent="1">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -225,8 +237,6 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
