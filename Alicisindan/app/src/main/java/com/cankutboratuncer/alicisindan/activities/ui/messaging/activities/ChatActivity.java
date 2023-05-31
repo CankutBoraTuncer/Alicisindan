@@ -121,9 +121,9 @@ public class ChatActivity extends BaseActivity {
         }
     }
 
-    private void showToast(String message) {
+    /*private void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
 
     private void sendNotification(String userMessage) {
@@ -152,7 +152,6 @@ public class ChatActivity extends BaseActivity {
                                 JSONArray results = responseJson.getJSONArray("results");
                                 if (responseJson.getInt("failure") == 1) {
                                     JSONObject error = (JSONObject) results.get(0);
-                                    showToast(error.getString("error"));
                                     Log.d("Errrr", responseJson.toString());
                                     return;
                                 }
@@ -160,18 +159,14 @@ public class ChatActivity extends BaseActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    } else {
-                        showToast("Error: " + response.code());
                     }
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-                    showToast(t.getMessage());
                 }
             });
-        } catch (Exception exception) {
-            showToast(exception.getMessage());
+        } catch (Exception ignored) {
         }
     }
 
