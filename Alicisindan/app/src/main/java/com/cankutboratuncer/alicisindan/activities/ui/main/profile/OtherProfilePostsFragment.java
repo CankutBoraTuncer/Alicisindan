@@ -97,11 +97,11 @@ public class OtherProfilePostsFragment extends Fragment {
         myposts_adapter.setOnClickListener(new MyPosts_Adapter.OnItemClickListener() {
             @Override
             public void OnItemClick(_MyPosts _myposts, int position) {
-                Fragment fragment = AdvertisementFragment.newInstance(_MyPosts.manageData().get(position).getPostID());
+                Fragment fragment = AdvertisementFragment.newInstance(user_posts.get(position).getPostID());
 
                 Bundle args = new Bundle();
-                args.putString(Constants.KEY_ADVERTISEMENT_ID, _MyPosts.manageData().get(position).getPostID());
-                args.putString(Constants.KEY_ADVERTISEMENT_USERNAME, _MyPosts.local_save.getString(Constants.KEY_USER_USERNAME));
+                args.putString(Constants.KEY_ADVERTISEMENT_ID, user_posts.get(position).getPostID());
+                args.putString(Constants.KEY_ADVERTISEMENT_USERNAME, username);
                 fragment.setArguments(args);
                 loadFragment(fragment);
 
