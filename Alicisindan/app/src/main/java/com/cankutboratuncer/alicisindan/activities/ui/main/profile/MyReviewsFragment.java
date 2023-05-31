@@ -39,10 +39,28 @@ public class MyReviewsFragment extends Fragment {
             int reviewNum = Review.findReviews(null, localSave.getString(Constants.KEY_USER_ID), "", "", "", "", "NewestFirst", "0","").length;
             Review[] reviews = Review.findReviews(null, localSave.getString(Constants.KEY_USER_ID), "", "", "", "", "NewestFirst", "0","");
             List<ReviewItem> items = new ArrayList<ReviewItem>();
+            int sum = 0;
             for (int i = 0; i < reviewNum; i++)
             {
+                sum += Integer.parseInt(reviews[i].getRating());
                 items.add(new ReviewItem(Integer.parseInt(reviews[i].getRating()), reviews[i].getText(), reviews[i].getAuthorID()));
             }
+            float rating;
+            if (reviews.length != 0) {
+                rating = ((float) sum) / reviews.length;
+            } else {
+                rating = 0.00F;
+            }
+
+            TextView ratingTextview = view.findViewById(R.id.ratingAverage);
+            TextView numOfReviewsTextview = view.findViewById(R.id.numOfReviews);
+            ratingTextview.setText(rating + "/5.00");
+            if (reviews.length != 1) {
+                numOfReviewsTextview.setText("(" + reviews.length + " reviews)");
+            } else {
+                numOfReviewsTextview.setText("(" + reviews.length + " review)");
+            }
+
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setAdapter(new ReviewAdapter(getContext(), items, this, localSave.getString(Constants.KEY_USER_ID), false));
         } catch (AlicisindanException e) {

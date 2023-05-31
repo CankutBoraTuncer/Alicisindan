@@ -208,11 +208,17 @@
                         android:layout_margin="@dimen/_12sdp"
                         android:drawablePadding="@dimen/_8sdp"
                         android:fontFamily="@font/lato_bold"
+                        android:layout_gravity="center_vertical"
                         android:text="Rating"
                         android:textColor="@color/primary_text"
                         android:textSize="@dimen/_13ssp"
 
                         app:drawableTint="@color/primary" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/numOfReviews"
@@ -221,6 +227,7 @@
                         android:layout_margin="@dimen/_12sdp"
                         android:drawablePadding="@dimen/_8sdp"
                         android:fontFamily="@font/lato"
+                        android:layout_gravity="center_vertical"
                         android:text="Number"
                         android:textColor="@color/primary_text"
                         android:textSize="@dimen/_13ssp"

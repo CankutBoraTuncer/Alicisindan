@@ -143,7 +143,7 @@ public class SignUpActivity extends AppCompatActivity {
         } else if (emailEditText.getText().toString().trim().isEmpty()) {
             showToast("Enter Email", getApplicationContext());
             return false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailEditText.getText().toString()).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailEditText.getText().toString().replaceAll("\\s+","")).matches()) {
             showToast("Error invalid email", getApplicationContext());
             return false;
         } else if (binding.signUpActivityEditTextPassword.getText().toString().trim().isEmpty()) {

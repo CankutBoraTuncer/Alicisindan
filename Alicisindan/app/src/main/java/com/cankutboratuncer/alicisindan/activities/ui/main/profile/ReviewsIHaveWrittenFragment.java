@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +33,8 @@ public class ReviewsIHaveWrittenFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_reviews, container, false);
         LocalSave localSave = new LocalSave(getContext());
+        CardView reviewCard = view.findViewById(R.id.myReviewsFragment_cardView_rating);
+        reviewCard.setVisibility(View.GONE);
         RecyclerView recyclerView = view.findViewById(R.id.myReviewsFragment_recycleview);
         try {
             int reviewNum = Review.findReviews(localSave.getString(Constants.KEY_USER_ID),null , "", "", "", "", "NewestFirst", "0","").length;

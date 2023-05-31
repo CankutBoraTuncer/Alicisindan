@@ -191,6 +191,8 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
 //        TextView category = view.findViewById(R.id.productCategory);
         username = view.findViewById(R.id.username);
         username.setText(advertisement.getUsername());
+        TextView productType = view.findViewById(R.id.advertisementFragment_intent);
+        productType.setText(" wants to " + advertisement.getType());
 
         // favorite button - text
         add_remove_favorite = (ImageView) view.findViewById(R.id.itemAdvertisement_imageView_favorite);
@@ -285,6 +287,7 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                     user.addFavorite(localSave.getString(Constants.KEY_PASSWORD), advertisement.getAdvertisementID());
                     add_remove_favorite.setImageResource(R.drawable.ic_star_full);
                     favorites = user.getFavorites();
+                    showToast("Added to Favorites");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -293,6 +296,7 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
                     user.removeFavorite(localSave.getString(Constants.KEY_PASSWORD), advertisement.getAdvertisementID());
                     add_remove_favorite.setImageResource(R.drawable.ic_star);
                     favorites = user.getFavorites();
+                    showToast("Removed from Favorites");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

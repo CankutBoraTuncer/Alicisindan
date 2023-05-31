@@ -114,6 +114,22 @@
                     app:layout_constraintTop_toBottomOf="@id/productTitle" />
 
                 <TextView
+                    android:id="@+id/advertisementFragment_intent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center"
+                    android:maxLines="3"
+                    android:paddingHorizontal="@dimen/_4sdp"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/username"
+                    app:layout_constraintStart_toEndOf="@+id/username"
+                    app:layout_constraintTop_toBottomOf="@id/productTitle" />
+
+                <TextView
                     android:id="@+id/productPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
