@@ -89,8 +89,9 @@ public class OtherProfileFragment extends Fragment {
         userName.setText(name);
         userUsername.setText(username);
         userLocation.setText(location);
+        String finalUsername = username;
         userPosts.setOnClickListener(view21 -> {
-            Fragment fragment = new OtherProfilePostsFragment(this.otherUserId);
+            Fragment fragment = OtherProfilePostsFragment.newInstance(otherUserId, finalUsername);
             loadFragment(fragment);
         } );
         rate.setOnClickListener(view22 -> {

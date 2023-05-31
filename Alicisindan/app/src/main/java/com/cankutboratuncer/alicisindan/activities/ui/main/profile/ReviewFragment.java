@@ -105,7 +105,7 @@ public class ReviewFragment extends Fragment {
             try {
                 if(!(Review.reviewExists(localSave.getString(Constants.KEY_USER_ID), userId)))
                 {
-                    if(!(localSave.getString(Constants.KEY_USER_ID) == userId))
+                    if(!(localSave.getString(Constants.KEY_USER_ID).equals(userId)))
                     {
                         Review review = new Review(localSave.getString(Constants.KEY_USER_ID), userId, rate, "", text );
                         review.addReview(localSave.getString(Constants.KEY_PASSWORD));

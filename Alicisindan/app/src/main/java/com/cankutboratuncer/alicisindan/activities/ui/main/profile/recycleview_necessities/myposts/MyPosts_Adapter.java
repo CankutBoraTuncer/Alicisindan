@@ -26,12 +26,13 @@ public class MyPosts_Adapter extends  RecyclerView.Adapter<MyPosts_Adapter.MyPos
     private ArrayList<_MyPosts> _myposts;
     private Context _context;
     private OnItemClickListener listener;
+    private boolean self;
 
 
-    public MyPosts_Adapter(ArrayList<_MyPosts> _myposts, Context _context) {
-
+    public MyPosts_Adapter(ArrayList<_MyPosts> _myposts, Context _context, boolean self) {
         this._myposts = _myposts;
         this._context = _context;
+        this.self = self;
     }
 
     @NonNull
@@ -80,11 +81,20 @@ public class MyPosts_Adapter extends  RecyclerView.Adapter<MyPosts_Adapter.MyPos
             if (myposts.getOrder().equals("sell")) {
                 this.order.setText("Sell");
                 order.setBackgroundResource(R.drawable.background_sell_tag);
-                this.intent.setText("You want to sell");
+                if (self) {
+                    this.intent.setText("You want to sell");
+                } else {
+                    this.intent.setText("They want to sell");
+                }
+
             } else {
                 this.order.setText("Buy");
                 order.setBackgroundResource(R.drawable.background_buy_tag);
-                this.intent.setText("You want to buy");
+                if (self) {
+                    this.intent.setText("You want to buy");
+                } else {
+                    this.intent.setText("They want to buy");
+                }
             }
 
             this.name.setText(myposts.getName());

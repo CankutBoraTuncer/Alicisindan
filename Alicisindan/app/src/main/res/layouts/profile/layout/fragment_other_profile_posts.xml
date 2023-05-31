@@ -10,7 +10,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/myPostsFragment_layout_top"
+        android:id="@+id/otherProfilePostsFragment_layout_top"
         android:layout_width="0dp"
         android:layout_height="@dimen/_84sdp"
         android:background="@drawable/background_main_gradient"
@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/otherProfilePostsFragment_topText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/lato"
@@ -31,17 +32,17 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/myPostsFragment_layout_main"
+        android:id="@+id/otherProfilePostsFragment_layout_main"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingTop="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myPostsFragment_layout_top">
+        app:layout_constraintTop_toBottomOf="@+id/otherProfilePostsFragment_layout_top">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mypostsFragment_recycleview"
+            android:id="@+id/otherProfilePostsFragment_recycleview"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

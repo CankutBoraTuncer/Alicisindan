@@ -26,8 +26,6 @@ import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
 public class MyPostsFragment extends Fragment {
 
-
-
     public MyPostsFragment() {
         // Required empty public constructor
     }
@@ -59,7 +57,7 @@ public class MyPostsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_posts, container, false);
 
         recyclerView = view.findViewById(R.id.mypostsFragment_recycleview);
-        myposts_adapter = new MyPosts_Adapter(_MyPosts.manageData(), this.getActivity());
+        myposts_adapter = new MyPosts_Adapter(_MyPosts.manageData(), this.getActivity(), true);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new GridLayoutManager(getContext(), 2);
@@ -76,7 +74,6 @@ public class MyPostsFragment extends Fragment {
                 args.putString(Constants.KEY_ADVERTISEMENT_USERNAME, _MyPosts.local_save.getString(Constants.KEY_USER_USERNAME));
                 fragment.setArguments(args);
                 loadFragment(fragment);
-
 
                 Log.d(Integer.toString(position), "MyPost clicked");
             }

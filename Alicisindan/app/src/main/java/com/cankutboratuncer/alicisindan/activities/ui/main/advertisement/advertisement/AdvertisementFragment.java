@@ -267,6 +267,7 @@ public class AdvertisementFragment extends Fragment implements AdvertisementInte
             loadFragment(fragment);
         });
         username.setOnClickListener(view20 -> {
+            loading(true, view);
             Fragment profile = new OtherProfileFragment(advertisement.getUserID());
             loadFragment(profile);
         });
