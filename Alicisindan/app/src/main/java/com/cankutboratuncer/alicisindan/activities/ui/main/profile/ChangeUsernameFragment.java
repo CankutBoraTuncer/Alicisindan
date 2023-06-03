@@ -16,6 +16,7 @@ import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
 import Alicisindan.AlicisindanException;
+import Alicisindan.Listing;
 import Alicisindan.User;
 
 public class ChangeUsernameFragment extends Fragment {
@@ -81,7 +82,7 @@ public class ChangeUsernameFragment extends Fragment {
         return view;
     }
 
-        private void showToast(String message) {
-            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-        }
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
 }
