@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,10 +35,14 @@ import com.cankutboratuncer.alicisindan.activities.utilities.Advertisement;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import Alicisindan.AlicisindanException;
 import Alicisindan.Listing;
@@ -84,7 +89,25 @@ public class ExistingPostEditFragment extends Fragment {
         EditText title = view.findViewById(R.id.productTitle);
         EditText details = view.findViewById(R.id.details);
         EditText price = view.findViewById(R.id.price);
-        EditText location = view.findViewById(R.id.location);
+        AutoCompleteTextView locationText = view.findViewById(R.id.location);
+        List<String> str = new ArrayList<String>();
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new InputStreamReader(requireContext().getAssets().open("cities.txt")));
+            String line = in.readLine();
+            while (line != null) {
+                str.add(line);
+                line = in.readLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, str);
+        //Getting the instance of AutoCompleteTextView
+        locationText.setThreshold(2);//will start working from first character
+        locationText.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
+
         subcategory.setText(this.adCategory);
         brand.setText(ad.getBrand());
 
@@ -104,7 +127,7 @@ public class ExistingPostEditFragment extends Fragment {
         title.setText(ad.getTitle());
         details.setText(ad.getDescription());
         price.setText(ad.getPrice().substring(1));
-        location.setText(ad.getLocation());
+        locationText.setText(ad.getLocation());
         imageCol = 0;
         imageRow = 0;
         imageButtons = new AppCompatImageButton[3][3];
@@ -195,7 +218,7 @@ public class ExistingPostEditFragment extends Fragment {
                 showToast("Title cannot be empty.");
             } else if (price.getText().toString().trim().isEmpty()) {
                 showToast("Price cannot be empty.");
-            } else if (location.getText().toString().trim().isEmpty()) {
+            } else if (locationText.getText().toString().trim().isEmpty()) {
                 showToast("Location cannot be empty.");
             } else if (brand.getText().toString().trim().isEmpty()) {
                 showToast("Please select a brand.");
@@ -212,7 +235,7 @@ public class ExistingPostEditFragment extends Fragment {
                 String productTitle = title.getText().toString();
                 String productDetails = details.getText().toString();
                 String productPrice = price.getText().toString();
-                String productLocation = location.getText().toString();
+                String productLocation = locationText.getText().toString();
                 String productCondition = condition.getSelectedItem().toString();
                 String productBrand = brand.getText().toString();
                 try {
@@ -293,11 +316,11 @@ public class ExistingPostEditFragment extends Fragment {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
     private String encodeImage(Bitmap bitmap) {
-        int previewWidth = 300;
+        int previewWidth = 400;
         int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
         Bitmap previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
+        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 60, byteArrayOutputStream);
         byte[] bytes = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(bytes, Base64.DEFAULT);
     }

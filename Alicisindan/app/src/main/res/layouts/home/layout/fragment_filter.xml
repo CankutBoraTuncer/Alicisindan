@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activities.ui.main.home.filter.FilterFragment">
 
     <TextView
         android:id="@+id/filterFragment_topPanel"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.14"
+        android:layout_height="@dimen/_84sdp"
         android:background="@drawable/background_main_gradient"
         android:fontFamily="@font/lato"
         android:gravity="center"
@@ -29,10 +29,10 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:background="@drawable/background_category"
         android:padding="@dimen/_20sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterFragment_topPanel"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/filterFragment_topPanel">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/filterFragment_mainPanel"
@@ -217,51 +217,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/filterFragment_sortBy" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout_location"
+            <AutoCompleteTextView
+                android:id="@+id/filterFragment_location"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/background_edit_text_add_post"
+                android:ellipsize="end"
+                android:fontFamily="@font/lato"
+                android:hint="@string/city_country"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_16sdp"
+                android:textColor="@color/primary_text"
+                android:textCursorDrawable="@null"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" >
-
-                <EditText
-                    android:id="@+id/filterFragment_editText_country"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginHorizontal="@dimen/_12sdp"
-
-                    app:layout_constraintWidth_percent="0.4"
-                    android:background="@drawable/background_edit_text"
-                    android:fontFamily="@font/lato"
-                    android:hint="@string/country"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:paddingHorizontal="@dimen/_16sdp"
-                    android:textColor="@color/primary_text"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/filterFragment_editText_city"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginHorizontal="@dimen/_12sdp"
-                    app:layout_constraintWidth_percent="0.4"
-                    android:layout_weight="2"
-                    android:background="@drawable/background_edit_text"
-                    android:fontFamily="@font/lato"
-                    android:hint="@string/city"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:paddingHorizontal="@dimen/_16sdp"
-                    android:textColor="@color/primary_text"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toBottomOf="@id/textView4" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -274,48 +248,48 @@
                 android:textColor="@color/text_dark"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout_location" />
+                app:layout_constraintTop_toBottomOf="@+id/filterFragment_location" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6">
 
                 <EditText
                     android:id="@+id/filterFragment_minPrice"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_45sdp"
-                    android:layout_marginHorizontal="@dimen/_12sdp"
-                    app:layout_constraintWidth_percent="0.4"
                     android:background="@drawable/background_edit_text"
                     android:fontFamily="@font/lato"
                     android:hint="@string/min_price"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:paddingHorizontal="@dimen/_16sdp"
                     android:textColor="@color/primary_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.4" />
 
                 <EditText
                     android:id="@+id/filterFragment_maxPrice"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_45sdp"
-                    android:layout_marginHorizontal="@dimen/_12sdp"
-                    app:layout_constraintWidth_percent="0.4"
                     android:background="@drawable/background_edit_text"
                     android:fontFamily="@font/lato"
                     android:hint="@string/max_price"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:paddingHorizontal="@dimen/_16sdp"
                     android:textColor="@color/primary_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.4" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -323,7 +297,7 @@
                 android:id="@+id/filterFragment_buttonPost"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45sdp"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:background="@drawable/background_main_button"
                 android:fontFamily="@font/lato_bold"
                 android:text="Search"

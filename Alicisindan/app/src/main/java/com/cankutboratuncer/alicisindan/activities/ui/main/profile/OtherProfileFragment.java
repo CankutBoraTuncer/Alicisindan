@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cankutboratuncer.alicisindan.R;
+import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
+import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import org.w3c.dom.Text;
@@ -47,6 +49,7 @@ public class OtherProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_other_profile, container, false);
+        LocalSave localSave = new LocalSave(getContext());
         TextView userName = view.findViewById(R.id.otherProfileFragment_textView_fullName);
         TextView userUsername = view.findViewById(R.id.otherProfileFragment_textView_username);
         TextView userLocation = view.findViewById(R.id.otherUserLocation);
@@ -76,7 +79,7 @@ public class OtherProfileFragment extends Fragment {
                 items.add(new ReviewItem(Integer.parseInt(reviews[i].getRating()), reviews[i].getText(), reviews[i].getAuthorID()));
             }
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setAdapter(new ReviewAdapter(getContext(), items));
+            recyclerView.setAdapter(new ReviewAdapter(getContext(), items, this, localSave.getString(Constants.KEY_USER_ID),false));
         } catch (AlicisindanException e) {
             e.printStackTrace();
         }
@@ -86,8 +89,9 @@ public class OtherProfileFragment extends Fragment {
         userName.setText(name);
         userUsername.setText(username);
         userLocation.setText(location);
+        String finalUsername = username;
         userPosts.setOnClickListener(view21 -> {
-            Fragment fragment = new OtherProfilePostsFragment(this.otherUserId);
+            Fragment fragment = OtherProfilePostsFragment.newInstance(otherUserId, finalUsername);
             loadFragment(fragment);
         } );
         rate.setOnClickListener(view22 -> {

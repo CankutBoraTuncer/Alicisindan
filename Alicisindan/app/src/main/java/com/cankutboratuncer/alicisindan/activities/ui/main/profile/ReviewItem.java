@@ -6,10 +6,12 @@ public class ReviewItem {
     private int ratingInt;
     private String text;
     private String username;
+    private String userID;
 
     public ReviewItem(int ratingInt, String text, String userID)
     {
         this.ratingInt = ratingInt;
+        this.userID = userID;
         try {
             this.username = Alicisindan.User.getUser(userID).getUsername();
         } catch (AlicisindanException e) {
@@ -36,5 +38,7 @@ public class ReviewItem {
     {
         return text;
     }
+
+    public String getUserID(){ return userID; }
 
 }

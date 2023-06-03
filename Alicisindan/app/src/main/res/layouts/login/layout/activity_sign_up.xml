@@ -103,14 +103,14 @@
             android:textColor="@color/primary_text" />
 
         <EditText
-            android:id="@+id/signUpActivity_editText_emailOrPhoneNumber"
+            android:id="@+id/signUpActivity_editText_email"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_24sdp"
             android:background="@drawable/background_edit_text"
             android:fontFamily="@font/lato"
-            android:hint="@string/email_or_phone_number"
+            android:hint="@string/email"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="text"
@@ -212,19 +212,46 @@
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:fontFamily="@font/lato"
-            android:text="@string/have_already_an_account"
+            android:text="Have an account?"
             android:textColor="@color/yellow"
             android:textSize="@dimen/_11ssp" />
 
-        <CheckBox
-            android:id="@+id/signUpActivity_checkBox_termsAndServices"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:buttonTint="@color/primary"
-            android:text="@string/i_have_read_and_acknowledged_the_terms_services"
-            android:textSize="@dimen/_11ssp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/signUpActivity_checkBox_termsAndServices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_gravity="start"
+                android:buttonTint="@color/primary" />
+
+            <TextView
+                android:id="@+id/signUpActivity_nothing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/lato"
+                android:text="I agree to the "
+                android:textSize="@dimen/_12ssp" />
+
+            <TextView
+                android:id="@+id/signUpActivity_button_seeTOS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:fontFamily="@font/lato"
+                android:text="Terms and Services"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp" />
+
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"

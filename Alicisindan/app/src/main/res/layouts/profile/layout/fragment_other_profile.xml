@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
+    android:fitsSystemWindows="true"
     tools:context=".activities.ui.main.profile.OtherProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -207,11 +208,17 @@
                         android:layout_margin="@dimen/_12sdp"
                         android:drawablePadding="@dimen/_8sdp"
                         android:fontFamily="@font/lato_bold"
+                        android:layout_gravity="center_vertical"
                         android:text="Rating"
                         android:textColor="@color/primary_text"
                         android:textSize="@dimen/_13ssp"
 
                         app:drawableTint="@color/primary" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/numOfReviews"
@@ -220,6 +227,7 @@
                         android:layout_margin="@dimen/_12sdp"
                         android:drawablePadding="@dimen/_8sdp"
                         android:fontFamily="@font/lato"
+                        android:layout_gravity="center_vertical"
                         android:text="Number"
                         android:textColor="@color/primary_text"
                         android:textSize="@dimen/_13ssp"
@@ -260,21 +268,22 @@
 
 
     </ScrollView>
+
     <TextView
         android:id="@+id/reviewsTitle"
-        android:text="Reviews Made for This User"
-        android:fontFamily="@font/lato_bold"
-        android:textColor="@color/primary_text"
-        android:textSize="@dimen/_16ssp"
-        android:layout_marginLeft="@dimen/_12sdp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_30sdp"
-        app:layout_constraintTop_toBottomOf="@id/profileFragment_scrollView_main"/>
+        android:layout_marginLeft="@dimen/_12sdp"
+        android:fontFamily="@font/lato_bold"
+        android:text="Reviews Made for This User"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintTop_toBottomOf="@id/profileFragment_scrollView_main" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/reviews"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_170sdp"
-        android:id="@+id/reviews"
         app:layout_constraintTop_toBottomOf="@id/reviewsTitle">
 
     </androidx.recyclerview.widget.RecyclerView>
