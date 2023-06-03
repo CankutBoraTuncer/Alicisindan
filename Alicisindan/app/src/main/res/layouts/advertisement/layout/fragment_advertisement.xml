@@ -13,9 +13,9 @@
         android:background="@color/main_background"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:visibility="visible"
         android:paddingBottom="@dimen/_20sdp"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -47,7 +47,6 @@
                     android:id="@+id/itemAdvertisement_layout_favorite"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginEnd="8dp"
                     app:layout_constraintDimensionRatio="H,1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/advertisementFragment_imageSlider"
@@ -104,8 +103,8 @@
                     android:layout_marginTop="@dimen/_8sdp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lato"
-                    android:maxLines="3"
                     android:gravity="center"
+                    android:maxLines="3"
                     android:paddingHorizontal="@dimen/_4sdp"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/_14ssp"
@@ -115,17 +114,18 @@
 
                 <TextView
                     android:id="@+id/advertisementFragment_intent"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lato"
-                    android:gravity="center"
-                    android:maxLines="3"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
                     android:paddingHorizontal="@dimen/_4sdp"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/_14ssp"
                     app:layout_constraintBottom_toBottomOf="@+id/username"
+                    app:layout_constraintEnd_toStartOf="@+id/productPrice"
                     app:layout_constraintStart_toEndOf="@+id/username"
                     app:layout_constraintTop_toBottomOf="@id/productTitle" />
 
@@ -386,9 +386,9 @@
         android:id="@+id/advertisementFragment_progressBar"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
+        android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:visibility="invisible"
-        android:layout_centerInParent="true"/>
+        android:visibility="invisible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonMessage"

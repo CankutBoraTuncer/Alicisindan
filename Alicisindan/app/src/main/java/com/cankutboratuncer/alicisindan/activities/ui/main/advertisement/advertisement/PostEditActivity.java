@@ -232,7 +232,7 @@ public class PostEditActivity extends AppCompatActivity {
             images[i] = encodedImages.get(i);
         }
         listing.setListingImages(userID, password, images);
-        showToast("Add successfully posted.");
+        showToast("Ad successfully posted.");
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         MainActivity.type = type;
         MainActivity.category = category;
