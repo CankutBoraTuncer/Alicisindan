@@ -15,8 +15,6 @@ import com.cankutboratuncer.alicisindan.R;
 import com.cankutboratuncer.alicisindan.activities.utilities.Constants;
 import com.cankutboratuncer.alicisindan.activities.utilities.LocalSave;
 
-import Alicisindan.AlicisindanException;
-import Alicisindan.Listing;
 import Alicisindan.User;
 
 public class ChangeUsernameFragment extends Fragment {
@@ -34,48 +32,16 @@ public class ChangeUsernameFragment extends Fragment {
         button.setOnClickListener(v12 -> {
             EditText newUsername = view.findViewById(R.id.newUsername);
             String username = newUsername.getText().toString();
-            boolean usernameExists = true;
-            try {
-                if(User.usernameExists(username))
-                {
-                    usernameExists = true;
-                }
-                else
-                {
-                    usernameExists = false;
-                }
-            } catch (AlicisindanException e) {
-                e.printStackTrace();
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (username.equals(""))
-            {
+            if (username.equals("")) {
                 showToast("Enter your new username.");
-            }
-            else
-            {
-                if(!usernameExists)
-                {
-                    localSave.putString(Constants.KEY_USER_USERNAME, null);
-                    localSave.putString(Constants.KEY_USER_USERNAME, username);
-
-                    try {
-                        User user = User.getUser(localSave.getString(Constants.KEY_USER_ID));
-                        user.setUsername(localSave.getString(Constants.KEY_PASSWORD), username);
-                        showToast("Your username has changed." );
-                    } catch (AlicisindanException e) {
-                        e.printStackTrace();
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-                else
-                {
-                    showToast("This username is already in use." );
+            } else {
+                localSave.putString(Constants.KEY_USER_USERNAME, username);
+                try {
+                    User user = User.getUser(localSave.getString(Constants.KEY_USER_ID));
+                    user.setUsername(localSave.getString(Constants.KEY_PASSWORD), username);
+                    showToast("Your username has changed.");
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });

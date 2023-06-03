@@ -51,6 +51,7 @@ import java.util.ArrayList;
 
 import Alicisindan.Listing;
 
+
 public class HomeFragment extends Fragment implements AdvertisementInterface, CategoryInterface {
     // Give TAGS to the variables used for filtering
     private static final String ARG_FILTER_CATEGORY = "filter_category";

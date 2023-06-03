@@ -41,8 +41,6 @@ public class ChangeNameFragment extends Fragment {
             }
             else
             {
-                localSave.putString(Constants.KEY_USER_NAME, null);
-                localSave.putString(Constants.KEY_USER_SURNAME, null);
                 localSave.putString(Constants.KEY_USER_NAME, name);
                 localSave.putString(Constants.KEY_USER_SURNAME, surname);
                 try {
